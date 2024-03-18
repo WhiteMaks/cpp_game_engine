@@ -7,7 +7,8 @@ namespace GameEngine
 	{
 		PRESS, //if key is pressed
 		RELEASE, //if key is released
-		INVALID //if key is invalid
+
+		INVALID //if event is invalid
 	};
 
 }

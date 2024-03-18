@@ -4,17 +4,17 @@ set(GAME_ENGINE_PROJECT_NAME GameEngine)
 
 set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/GameEngine.h
-	includes/Engine/Engine.h
 
-	includes/Engine/Support/Core.h
-	includes/Engine/Support/Log.h
+	includes/Core/Core.h
 	
-	includes/Engine/EventsSystem/Keyboard.h
-	includes/Engine/EventsSystem/KeyboardEvent.h
-	includes/Engine/EventsSystem/KeyboardEventType.h
-	includes/Engine/EventsSystem/Mouse.h
-	includes/Engine/EventsSystem/MouseEvent.h
-	includes/Engine/EventsSystem/MouseEventType.h
+	includes/Core/EventsSystem/Keyboard.h
+	includes/Core/EventsSystem/KeyboardEvent.h
+	includes/Core/EventsSystem/KeyboardEventType.h
+	includes/Core/EventsSystem/Mouse.h
+	includes/Core/EventsSystem/MouseEvent.h
+	includes/Core/EventsSystem/MouseEventType.h
+
+	includes/Tools/Log.h
 )
 
 set(GAME_ENGINE_PRIVATE_INCLUDES
@@ -22,14 +22,14 @@ set(GAME_ENGINE_PRIVATE_INCLUDES
 )
 
 set(GAME_ENGINE_PRIVATE_SOURCES
-	src/Engine/Engine.cpp
+	src/GameEngine.cpp
 	
-	src/Engine/Support/Log.cpp
-	
-	src/Engine/EventsSystem/Keyboard.cpp
-	src/Engine/EventsSystem/KeyboardEvent.cpp
-	src/Engine/EventsSystem/Mouse.cpp
-	src/Engine/EventsSystem/MouseEvent.cpp
+	src/Core/EventsSystem/Keyboard.cpp
+	src/Core/EventsSystem/KeyboardEvent.cpp
+	src/Core/EventsSystem/Mouse.cpp
+	src/Core/EventsSystem/MouseEvent.cpp
+
+	src/Tools/Log.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

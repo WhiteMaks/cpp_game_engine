@@ -1,4 +1,4 @@
-#include "Engine/Support/Log.h"
+#include "Tools/Log.h"
 
 namespace GameEngine
 {
@@ -7,7 +7,7 @@ namespace GameEngine
 
 	void Log::Init()
 	{
-		spdlog::set_pattern("%^[%T] %n: %v%$");
+		spdlog::set_pattern("[%T:%f] [%^%l%$] [%t] [%n] - %v");
 
 		engineLogger = spdlog::stdout_color_mt("Engine");
 		engineLogger->set_level(spdlog::level::trace);

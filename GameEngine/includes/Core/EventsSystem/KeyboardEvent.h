@@ -7,13 +7,14 @@ namespace GameEngine
 
 	class KeyboardEvent
 	{
+
 	private:
 		unsigned char code;
 
 		KeyboardEventType type;
 
 	public:
-		KeyboardEvent(const KeyboardEventType type, const unsigned char code);
+		KeyboardEvent(const KeyboardEventType type, const unsigned char code) noexcept;
 
 	public:
 		bool IsPressed() const noexcept;

@@ -1,9 +1,25 @@
 #pragma once
 
-#include "Engine/Support/Core.h"
+#include "Core/Core.h"
 
-#include "Engine/EventsSystem/KeyboardEventType.h"
-#include "Engine/EventsSystem/KeyboardEvent.h"
-#include "Engine/EventsSystem/Keyboard.h"
+//#include "Core/EventsSystem/KeyboardEventType.h"
+//#include "Core/EventsSystem/KeyboardEvent.h"
+//#include "Core/EventsSystem/Keyboard.h"
 
-#include "Engine/Engine.h"
+#include "Tools/Log.h"
+
+namespace GameEngine
+{
+
+	class GAME_ENGINE_API Engine
+	{
+	public:
+		Engine();
+		virtual ~Engine();
+
+	public:
+		void Start();
+
+	};
+
+}

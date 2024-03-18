@@ -22,7 +22,7 @@ namespace GameEngine
 		std::bitset<nKeys> keyStates;
 
 	public:
-		Keyboard() = default;
+		Keyboard() noexcept = default;
 
 		Keyboard(const Keyboard&) = delete;
 		Keyboard& operator=(const Keyboard&) = delete;

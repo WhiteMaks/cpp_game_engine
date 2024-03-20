@@ -14,11 +14,17 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/EventsSystem/MouseEvent.h
 	includes/Core/EventsSystem/MouseEventType.h
 
+	includes/Core/GraphicsEngine/Window.h
+	includes/Core/GraphicsEngine/WindowFactory.h
+
 	includes/Tools/Log.h
 )
 
 set(GAME_ENGINE_PRIVATE_INCLUDES
-	
+	src/Core/Platform/WindowsWindow.h
+	src/Core/Platform/BrowserWindow.h
+	src/Core/Platform/LinuxWindow.h
+	src/Core/Platform/MacOSWindow.h
 )
 
 set(GAME_ENGINE_PRIVATE_SOURCES
@@ -28,6 +34,14 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/EventsSystem/KeyboardEvent.cpp
 	src/Core/EventsSystem/Mouse.cpp
 	src/Core/EventsSystem/MouseEvent.cpp
+
+	src/Core/GraphicsEngine/Window.cpp
+	src/Core/GraphicsEngine/WindowFactory.cpp
+
+	src/Core/Platform/WindowsWindow.cpp
+	src/Core/Platform/BrowserWindow.cpp
+	src/Core/Platform/LinuxWindow.cpp
+	src/Core/Platform/MacOSWindow.cpp
 
 	src/Tools/Log.cpp
 )
@@ -53,6 +67,9 @@ target_compile_features(${GAME_ENGINE_PROJECT_NAME} PUBLIC cxx_std_20)
 
 add_subdirectory(./vendor/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC spdlog)
+
+add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 

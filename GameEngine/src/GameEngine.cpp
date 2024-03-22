@@ -3,14 +3,17 @@
 namespace GameEngine
 {
 
-	Engine::Engine()
+	Engine::Engine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
-		window = std::unique_ptr<Window>(WindowFactory::Create(WindowData("Window name", 1280, 720)));
+		window = std::unique_ptr<Window>(
+			WindowFactory::Create(
+				WindowData(applicationTitle, applicationWidth, applicationHeight)
+			)
+		);
 	}
 
 	Engine::~Engine()
 	{
-
 	}
 
 	void Engine::Start()

@@ -32,8 +32,8 @@ namespace GameEngine
 		virtual void Update();
 		virtual void Destroy();
 		
-		unsigned int GetWidth();
-		unsigned int GetHeight();
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
 	};
 
 }

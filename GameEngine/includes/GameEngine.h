@@ -20,7 +20,7 @@ namespace GameEngine
 		std::unique_ptr<Window> window;
 
 	public:
-		Engine();
+		Engine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);
 		
 		virtual ~Engine();
 

@@ -29,12 +29,12 @@ namespace GameEngine
 	{
 	}
 
-	unsigned int Window::GetWidth()
+	unsigned int Window::GetWidth() const
 	{
 		return windowData.Width;
 	}
 
-	unsigned int Window::GetHeight()
+	unsigned int Window::GetHeight() const
 	{
 		return windowData.Height;
 	}

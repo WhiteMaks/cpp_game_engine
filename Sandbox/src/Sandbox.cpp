@@ -5,6 +5,7 @@ class Sandbox : public GameEngine::Engine
 public:
 
 	Sandbox()
+		: GameEngine::Engine("Sandbox")
 	{
 
 	}

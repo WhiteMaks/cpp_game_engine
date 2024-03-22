@@ -17,7 +17,7 @@ namespace GameEngine
 			return nullptr;
 		#endif
 
-		return nullptr;
+		throw;
 	}
 
 }

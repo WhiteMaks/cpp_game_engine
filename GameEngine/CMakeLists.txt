@@ -68,8 +68,10 @@ target_compile_features(${GAME_ENGINE_PROJECT_NAME} PUBLIC cxx_std_20)
 add_subdirectory(./vendor/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC spdlog)
 
-add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
-target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
+    add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
+endif()
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 

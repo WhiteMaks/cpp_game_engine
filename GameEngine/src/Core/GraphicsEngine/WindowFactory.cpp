@@ -15,9 +15,9 @@ namespace GameEngine
 		return new WindowsWindow(windowData);
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return nullptr;
+#else
+	#error Window only supports Windows and Browser!
 #endif
-
-		throw;
 	}
 
 }

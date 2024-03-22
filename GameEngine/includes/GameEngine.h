@@ -27,6 +27,15 @@ namespace GameEngine
 	public:
 		void Start();
 
+	private:
+		void Init();
+		void StartLoop();
+		void Loop();
+		void Input();
+		void Update();
+		void Render();
+		void Destroy();
+
 	};
 
 }

@@ -8,35 +8,40 @@ namespace GameEngine
 	{
 	}
 
-	Window::Window(const WindowData& windowData)
+	Window::Window(const WindowData& windowData) noexcept
 		: windowData(windowData)
 	{
 	}
 
-	Window::~Window()
+	Window::~Window() noexcept
 	{
 	}
 
-	void Window::Init()
+	void Window::Init() noexcept
 	{
 	}
 
-	void Window::Update()
+	void Window::Update() noexcept
 	{
 	}
 
-	void Window::Destroy()
+	void Window::Destroy() noexcept
 	{
 	}
 
-	unsigned int Window::GetWidth() const
+	unsigned int Window::GetWidth() const noexcept
 	{
 		return windowData.Width;
 	}
 
-	unsigned int Window::GetHeight() const
+	unsigned int Window::GetHeight() const noexcept
 	{
 		return windowData.Height;
+	}
+
+	bool Window::ShouldClose() const noexcept
+	{
+		return shouldClose;
 	}
 
 }

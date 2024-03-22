@@ -36,7 +36,7 @@ namespace GameEngine
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
 		emscripten_set_main_loop(Loop, 0, false);
 #else
-		while (true)
+		while (!window->ShouldClose())
 		{
 			Loop();
 		}

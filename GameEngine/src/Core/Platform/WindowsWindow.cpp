@@ -2,16 +2,16 @@
 
 namespace GameEngine
 {
-	WindowsWindow::WindowsWindow(const WindowData& windowData)
+	WindowsWindow::WindowsWindow(const WindowData& windowData) noexcept
 		: Window(windowData), window(nullptr)
 	{
 	}
 
-	WindowsWindow::~WindowsWindow()
+	WindowsWindow::~WindowsWindow() noexcept
 	{
 	}
 
-	void WindowsWindow::Init()
+	void WindowsWindow::Init() noexcept
 	{
 		WINDOW_DEBUG("Initialization windows window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);
 		
@@ -19,7 +19,7 @@ namespace GameEngine
 		if (!glfwInit())
 		{
 			WINDOW_CRITICAL("GLFW not initialized!");
-			throw;
+			return;
 		}
 		WINDOW_TRACE("Initialization GLFW completed");
 
@@ -29,22 +29,40 @@ namespace GameEngine
 		{
 			WINDOW_CRITICAL("GLFW window not initialized!");
 			glfwTerminate();
-			throw;
+			return;
 		}
+		glfwSetWindowUserPointer(window, this);
 		glfwMaximizeWindow(window);
 		glfwMakeContextCurrent(window);
 		WINDOW_TRACE("Initialization GLFW window completed");
 
+		shouldClose = false;
+
+		WINDOW_TRACE("Initialization GLFW events has started");
+		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
+			{
+				WINDOW_TRACE("Mouse [{0},{1}]", (float) xPos, (float) yPos);
+			}
+		);
+
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+			{
+				WindowsWindow* windowsWindow = (WindowsWindow*) glfwGetWindowUserPointer(window);
+				windowsWindow->shouldClose = true;
+			}
+		);
+		WINDOW_TRACE("Initialization GLFW events completed");
+
 		WINDOW_DEBUG("Initialization windows window completed");
 	}
 
-	void WindowsWindow::Update()
+	void WindowsWindow::Update() noexcept
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
 
-	void WindowsWindow::Destroy()
+	void WindowsWindow::Destroy() noexcept
 	{
 		WINDOW_DEBUG("Destruction windows window has started");
 		glfwDestroyWindow(window);

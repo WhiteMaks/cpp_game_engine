@@ -4,7 +4,7 @@
 
 #include "MouseEventType.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	class MouseEvent

@@ -6,18 +6,18 @@
 	#include "Core/Platform/BrowserWindow.h"
 #endif
 
-namespace GameEngine
+namespace GraphicsEngine
 {
 
 	Window* WindowFactory::Create(const WindowData& windowData)
 	{
-		#ifdef GAME_ENGINE_PLATFORM_WINDOWS
-			return new WindowsWindow(windowData);
-		#elif GAME_ENGINE_PLATFORM_BROWSER
-			return nullptr;
-		#endif
-
-		throw;
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		return new Platform::WindowsWindow(windowData);
+#elif GAME_ENGINE_PLATFORM_BROWSER
+		return nullptr;
+#else
+	#error Window only supports Windows and Browser!
+#endif
 	}
 
 }

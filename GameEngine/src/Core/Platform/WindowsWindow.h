@@ -5,23 +5,23 @@
 #include "Tools/Log.h"
 #include "Core/GraphicsEngine/Window.h"
 
-namespace GameEngine
+namespace Platform
 {
 
-	class WindowsWindow : public Window
+	class WindowsWindow : public GraphicsEngine::Window
 	{
 	private:
 		GLFWwindow* window;
 
 	public:
-		WindowsWindow(const WindowData& windowData);
+		WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept;
 
-		virtual ~WindowsWindow();
+		virtual ~WindowsWindow() noexcept;
 
 	public:
-		void Init() override;
-		void Update() override;
-		void Destroy() override;
+		void Init() noexcept override;
+		void Update() noexcept override;
+		void Destroy() noexcept override;
 
 	};
 

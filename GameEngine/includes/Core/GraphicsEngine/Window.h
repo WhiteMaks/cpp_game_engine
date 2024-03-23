@@ -3,8 +3,9 @@
 #include <string>
 
 #include "Core/Core.h"
+#include "Core/EventsSystem/EventManager.h"
 
-namespace GameEngine
+namespace GraphicsEngine
 {
 
 	struct WindowData
@@ -22,18 +23,23 @@ namespace GameEngine
 	protected:
 		WindowData windowData;
 
-	public:
-		Window(const WindowData& windowData);
-
-		virtual ~Window();
+		bool shouldClose = true;
 
 	public:
-		virtual void Init();
-		virtual void Update();
-		virtual void Destroy();
+		Window(const WindowData& windowData) noexcept;
+
+		virtual ~Window() noexcept;
+
+	public:
+		virtual void Init() noexcept;
+		virtual void Update() noexcept;
+		virtual void Destroy() noexcept;
 		
-		unsigned int GetWidth() const;
-		unsigned int GetHeight() const;
+		unsigned int GetWidth() const noexcept;
+		unsigned int GetHeight() const noexcept;
+
+		bool ShouldClose() const noexcept;
+		void ShouldClose(bool shouldClose) noexcept;
 	};
 
 }

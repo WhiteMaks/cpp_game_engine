@@ -1,6 +1,6 @@
 #include "Core/EventsSystem/KeyboardEvent.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	KeyboardEvent::KeyboardEvent(const KeyboardEventType type, const unsigned char code) noexcept

@@ -1,6 +1,6 @@
 #include "Core/EventsSystem/Keyboard.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	bool Keyboard::KeyBufferIsEmpty() const noexcept

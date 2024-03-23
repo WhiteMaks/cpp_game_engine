@@ -1,12 +1,11 @@
 #pragma once
 
 #include <queue>
-#include <bitset>
 #include <optional>
 
 #include "MouseEvent.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	class Mouse

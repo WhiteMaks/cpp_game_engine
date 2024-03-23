@@ -13,6 +13,10 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/EventsSystem/Mouse.h
 	includes/Core/EventsSystem/MouseEvent.h
 	includes/Core/EventsSystem/MouseEventType.h
+	includes/Core/EventsSystem/Window.h
+	includes/Core/EventsSystem/WindowEvent.h
+	includes/Core/EventsSystem/WindowEventType.h
+	includes/Core/EventsSystem/EventManager.h
 
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
@@ -34,6 +38,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/EventsSystem/KeyboardEvent.cpp
 	src/Core/EventsSystem/Mouse.cpp
 	src/Core/EventsSystem/MouseEvent.cpp
+	src/Core/EventsSystem/Window.cpp
+	src/Core/EventsSystem/WindowEvent.cpp
+	src/Core/EventsSystem/EventManager.cpp
 
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
@@ -75,4 +82,4 @@ endif()
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 
-add_definitions(-DGAME_ENGINE_BUILD_DLL)
+add_definitions(-DGAME_ENGINE_BUILD_DLL -D_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)

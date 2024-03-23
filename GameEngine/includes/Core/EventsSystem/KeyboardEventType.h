@@ -1,9 +1,9 @@
 #pragma once
 
-namespace GameEngine
+namespace EventsSystem
 {
 
-	enum KeyboardEventType
+	enum class KeyboardEventType
 	{
 		PRESS, //if key is pressed
 		RELEASE, //if key is released

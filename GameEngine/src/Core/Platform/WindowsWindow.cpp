@@ -1,55 +1,101 @@
 #include "WindowsWindow.h"
 
-namespace GameEngine
+namespace Platform
 {
-	WindowsWindow::WindowsWindow(const WindowData& windowData)
+	WindowsWindow::WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept
 		: Window(windowData), window(nullptr)
 	{
 	}
 
-	WindowsWindow::~WindowsWindow()
+	WindowsWindow::~WindowsWindow() noexcept
 	{
 	}
 
-	void WindowsWindow::Init()
+	void WindowsWindow::Init() noexcept
 	{
-		GAME_ENGINE_DEBUG("Initialization windows window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);
+		WINDOW_INFO("Initialization windows window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);
 		
-		GAME_ENGINE_TRACE("Initialization GLFW has started");
+		WINDOW_DEBUG("Initialization GLFW has started");
 		if (!glfwInit())
 		{
-			GAME_ENGINE_CRITICAL("GLFW not initialized!");
-			throw;
+			WINDOW_CRITICAL("GLFW not initialized!");
+			return;
 		}
-		GAME_ENGINE_TRACE("Initialization GLFW completed");
+		WINDOW_DEBUG("Initialization GLFW completed");
 
-		GAME_ENGINE_TRACE("Initialization GLFW window has started");
+		WINDOW_DEBUG("Initialization GLFW window has started");
 		window = glfwCreateWindow(windowData.Width, windowData.Height, windowData.Title.c_str(), nullptr, nullptr);
 		if (!window)
 		{
-			GAME_ENGINE_CRITICAL("GLFW window not initialized!");
+			WINDOW_CRITICAL("GLFW window not initialized!");
 			glfwTerminate();
-			throw;
+			return;
 		}
+		glfwSetWindowUserPointer(window, this);
 		glfwMaximizeWindow(window);
 		glfwMakeContextCurrent(window);
-		GAME_ENGINE_TRACE("Initialization GLFW window completed");
+		WINDOW_DEBUG("Initialization GLFW window completed");
 
-		GAME_ENGINE_DEBUG("Initialization windows window completed");
+		shouldClose = false;
+
+		WINDOW_DEBUG("Initialization GLFW events has started");
+		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
+			{
+				EventsSystem::EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
+			}
+		);
+		WINDOW_TRACE("GLFW mouse events started to be bugged");
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+			{
+				switch (action)
+				{
+				case GLFW_PRESS:
+				{
+					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(key);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(key);
+					break;
+				}
+				}
+			}
+		);
+		WINDOW_TRACE("GLFW keyboard key events started to be bugged");
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+			{
+				EventsSystem::EventManager::GetInstance()->GetWindow()->OnClose();
+			}
+		);
+		WINDOW_TRACE("GLFW window close events started to be bugged");
+		glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+			{
+				EventsSystem::EventManager::GetInstance()->GetWindow()->OnResize(width, height);
+			}
+		);
+		WINDOW_TRACE("GLFW window resize events started to be bugged");
+		WINDOW_DEBUG("Initialization GLFW events completed");
+
+		WINDOW_INFO("Initialization windows window completed");
 	}
 
-	void WindowsWindow::Update()
+	void WindowsWindow::Update() noexcept
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
 
-	void WindowsWindow::Destroy()
+	void WindowsWindow::Destroy() noexcept
 	{
-		GAME_ENGINE_DEBUG("Destruction windows window has started");
+		WINDOW_INFO("Destruction windows window has started");
+
 		glfwDestroyWindow(window);
+		WINDOW_TRACE("GLFW window destroyed");
 		glfwTerminate();
-		GAME_ENGINE_DEBUG("Destruction windows window completed");
+		WINDOW_TRACE("GLFW terminated");
+
+		WINDOW_INFO("Destruction windows window completed");
 	}
 
 }

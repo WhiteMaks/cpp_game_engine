@@ -84,8 +84,12 @@ namespace Platform
 	void WindowsWindow::Destroy() noexcept
 	{
 		WINDOW_INFO("Destruction windows window has started");
+
 		glfwDestroyWindow(window);
+		WINDOW_TRACE("GLFW window destroyed");
 		glfwTerminate();
+		WINDOW_TRACE("GLFW terminated");
+
 		WINDOW_INFO("Destruction windows window completed");
 	}
 

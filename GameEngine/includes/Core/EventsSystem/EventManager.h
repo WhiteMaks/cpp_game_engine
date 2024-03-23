@@ -31,6 +31,7 @@ namespace EventsSystem
 		static EventManager* GetInstance() noexcept;
 
 		void Init() noexcept;
+		void Destroy() noexcept;
 
 		Mouse* GetMouse() const noexcept;
 		Keyboard* GetKetboard() const noexcept;

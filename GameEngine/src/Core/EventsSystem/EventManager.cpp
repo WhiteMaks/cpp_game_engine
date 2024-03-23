@@ -36,6 +36,20 @@ namespace EventsSystem
 		EVENT_MANAGER_INFO("Initialization completed");
 	}
 
+	void EventManager::Destroy() noexcept
+	{
+		EVENT_MANAGER_INFO("Destruction has started");
+
+		delete mouse;
+		EVENT_MANAGER_TRACE("Mouse removed from memory");
+		delete keyboard;
+		EVENT_MANAGER_TRACE("Keyboard removed from memory");
+		instance = nullptr;
+		EVENT_MANAGER_TRACE("Instance is now null");
+
+		EVENT_MANAGER_INFO("Destruction completed");
+	}
+
 	Mouse* EventManager::GetMouse() const noexcept
 	{
 		return mouse;

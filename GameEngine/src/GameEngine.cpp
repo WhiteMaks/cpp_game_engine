@@ -87,6 +87,7 @@ namespace GameEngine
 #else
 		GAME_ENGINE_INFO("Destruction has started");
 		window->Destroy();
+		eventManager->Destroy();
 		GAME_ENGINE_INFO("Destruction completed");
 #endif
 	}

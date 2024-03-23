@@ -18,7 +18,7 @@ namespace GameEngine
 		ENTER,
 		LEAVE,
 
-		INVALID //if event is invalid
+		NONE //if event is invalid
 	};
 
 }

@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Core/Core.h"
+#include "Core/EventsSystem/EventManager.h"
 
 namespace GameEngine
 {

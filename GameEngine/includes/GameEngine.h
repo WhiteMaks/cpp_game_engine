@@ -1,10 +1,10 @@
 #pragma once
 
+#include <memory>
+
 #include "Core/Core.h"
 
-//#include "Core/EventsSystem/KeyboardEventType.h"
-//#include "Core/EventsSystem/KeyboardEvent.h"
-//#include "Core/EventsSystem/Keyboard.h"
+#include "Core/EventsSystem/EventManager.h"
 
 #include "Core/GraphicsEngine/Window.h"
 #include "Core/GraphicsEngine/WindowFactory.h"
@@ -18,6 +18,8 @@ namespace GameEngine
 	{
 	private:
 		std::unique_ptr<Window> window;
+		
+		EventManager* eventManager;
 
 	public:
 		Engine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);

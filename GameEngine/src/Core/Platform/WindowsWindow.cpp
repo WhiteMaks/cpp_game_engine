@@ -41,7 +41,24 @@ namespace GameEngine
 		WINDOW_TRACE("Initialization GLFW events has started");
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
 			{
-				WINDOW_TRACE("Mouse [{0},{1}]", (float) xPos, (float) yPos);
+				EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
+			}
+		);
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+			{
+				switch (action)
+				{
+				case GLFW_PRESS:
+				{
+					EventManager::GetInstance()->GetKetboard()->OnKeyPressed(key);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					EventManager::GetInstance()->GetKetboard()->OnKeyReleased(key);
+					break;
+				}
+				}
 			}
 		);
 

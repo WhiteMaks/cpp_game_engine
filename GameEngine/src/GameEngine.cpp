@@ -10,6 +10,8 @@ namespace GameEngine
 				WindowData(applicationTitle, applicationWidth, applicationHeight)
 			)
 		);
+
+		eventManager = EventManager::GetInstance();
 	}
 
 	Engine::~Engine()
@@ -26,6 +28,7 @@ namespace GameEngine
 	void Engine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization has started");
+		eventManager->Init();
 		window->Init();
 		GAME_ENGINE_INFO("Initialization completed");
 	}
@@ -53,6 +56,19 @@ namespace GameEngine
 
 	void Engine::Input()
 	{
+		Mouse* mouse = eventManager->GetMouse();
+		if (!mouse->BufferIsEmpty())
+		{
+			const auto mouseEvent = mouse->Read();
+			//GAME_ENGINE_TRACE("Mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
+		}
+
+		Keyboard* keyboard = eventManager->GetKetboard();
+		if (!keyboard->KeyBufferIsEmpty())
+		{
+			const auto keyboardEvent = keyboard->ReadKey();
+			GAME_ENGINE_INFO("Keyboard [{0}]", (char)keyboardEvent->GetCode());
+		}
 	}
 
 	void Engine::Update()

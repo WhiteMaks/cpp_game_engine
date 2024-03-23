@@ -25,7 +25,7 @@ namespace GameEngine
 
 	bool MouseEvent::IsValid() const noexcept
 	{
-		return type != MouseEventType::NONE;
+		return type != MouseEventType::INVALID;
 	}
 
 	float MouseEvent::GetPositionX() const noexcept
@@ -40,7 +40,7 @@ namespace GameEngine
 
 	void MouseEvent::Invalidate() noexcept
 	{
-		type = MouseEventType::NONE;
+		type = MouseEventType::INVALID;
 	}
 
 	std::pair<float, float> MouseEvent::GetPositions() const noexcept

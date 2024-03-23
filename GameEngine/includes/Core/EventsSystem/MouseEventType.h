@@ -3,7 +3,7 @@
 namespace GameEngine
 {
 
-	enum MouseEventType
+	enum class MouseEventType
 	{
 		L_PRESS, //if left key is pressed
 		L_RELEASE, //if left key is released
@@ -18,7 +18,7 @@ namespace GameEngine
 		ENTER,
 		LEAVE,
 
-		NONE //if event is invalid
+		INVALID //if event is invalid
 	};
 
 }

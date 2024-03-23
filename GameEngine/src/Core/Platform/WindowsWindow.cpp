@@ -13,17 +13,17 @@ namespace GameEngine
 
 	void WindowsWindow::Init() noexcept
 	{
-		WINDOW_DEBUG("Initialization windows window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);
+		WINDOW_INFO("Initialization windows window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);
 		
-		WINDOW_TRACE("Initialization GLFW has started");
+		WINDOW_DEBUG("Initialization GLFW has started");
 		if (!glfwInit())
 		{
 			WINDOW_CRITICAL("GLFW not initialized!");
 			return;
 		}
-		WINDOW_TRACE("Initialization GLFW completed");
+		WINDOW_DEBUG("Initialization GLFW completed");
 
-		WINDOW_TRACE("Initialization GLFW window has started");
+		WINDOW_DEBUG("Initialization GLFW window has started");
 		window = glfwCreateWindow(windowData.Width, windowData.Height, windowData.Title.c_str(), nullptr, nullptr);
 		if (!window)
 		{
@@ -34,16 +34,17 @@ namespace GameEngine
 		glfwSetWindowUserPointer(window, this);
 		glfwMaximizeWindow(window);
 		glfwMakeContextCurrent(window);
-		WINDOW_TRACE("Initialization GLFW window completed");
+		WINDOW_DEBUG("Initialization GLFW window completed");
 
 		shouldClose = false;
 
-		WINDOW_TRACE("Initialization GLFW events has started");
+		WINDOW_DEBUG("Initialization GLFW events has started");
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
 			{
 				EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
 			}
 		);
+		WINDOW_TRACE("GLFW mouse events started to be bugged");
 		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
 				switch (action)
@@ -61,16 +62,17 @@ namespace GameEngine
 				}
 			}
 		);
-
+		WINDOW_TRACE("GLFW keyboard key events started to be bugged");
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
 			{
 				WindowsWindow* windowsWindow = (WindowsWindow*) glfwGetWindowUserPointer(window);
 				windowsWindow->shouldClose = true;
 			}
 		);
-		WINDOW_TRACE("Initialization GLFW events completed");
+		WINDOW_TRACE("GLFW window close events started to be bugged");
+		WINDOW_DEBUG("Initialization GLFW events completed");
 
-		WINDOW_DEBUG("Initialization windows window completed");
+		WINDOW_INFO("Initialization windows window completed");
 	}
 
 	void WindowsWindow::Update() noexcept

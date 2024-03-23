@@ -23,10 +23,17 @@ namespace GameEngine
 
 	void EventManager::Init() noexcept
 	{
-		EVENT_MANAGER_DEBUG("Initialization has started");
+		EVENT_MANAGER_INFO("Initialization has started");
+		
+		EVENT_MANAGER_DEBUG("Initialization mouse has started");
 		mouse->Flush();
+		EVENT_MANAGER_DEBUG("Initialization mouse completed");
+
+		EVENT_MANAGER_DEBUG("Initialization keyboard has started");
 		keyboard->Flush();
-		EVENT_MANAGER_DEBUG("Initialization completed");
+		EVENT_MANAGER_DEBUG("Initialization keyboard completed");
+
+		EVENT_MANAGER_INFO("Initialization completed");
 	}
 
 	Mouse* EventManager::GetMouse() const noexcept

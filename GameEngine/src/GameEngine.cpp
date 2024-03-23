@@ -5,13 +5,13 @@ namespace GameEngine
 
 	Engine::Engine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
-		window = std::unique_ptr<Window>(
-			WindowFactory::Create(
-				WindowData(applicationTitle, applicationWidth, applicationHeight)
+		window = std::unique_ptr<GraphicsEngine::Window>(
+			GraphicsEngine::WindowFactory::Create(
+				GraphicsEngine::WindowData(applicationTitle, applicationWidth, applicationHeight)
 			)
 		);
 
-		eventManager = EventManager::GetInstance();
+		eventManager = EventsSystem::EventManager::GetInstance();
 	}
 
 	Engine::~Engine()
@@ -56,14 +56,14 @@ namespace GameEngine
 
 	void Engine::Input()
 	{
-		Mouse* mouse = eventManager->GetMouse();
+		EventsSystem::Mouse* mouse = eventManager->GetMouse();
 		if (!mouse->BufferIsEmpty())
 		{
 			const auto mouseEvent = mouse->Read();
 			//GAME_ENGINE_TRACE("Mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
 		}
 
-		Keyboard* keyboard = eventManager->GetKetboard();
+		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			const auto keyboardEvent = keyboard->ReadKey();

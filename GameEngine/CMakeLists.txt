@@ -13,6 +13,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/EventsSystem/Mouse.h
 	includes/Core/EventsSystem/MouseEvent.h
 	includes/Core/EventsSystem/MouseEventType.h
+	includes/Core/EventsSystem/WindowEventType.h
 	includes/Core/EventsSystem/EventManager.h
 
 	includes/Core/GraphicsEngine/Window.h

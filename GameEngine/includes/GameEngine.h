@@ -17,9 +17,9 @@ namespace GameEngine
 	class GAME_ENGINE_API Engine
 	{
 	private:
-		std::unique_ptr<Window> window;
+		std::unique_ptr<GraphicsEngine::Window> window;
 		
-		EventManager* eventManager;
+		EventsSystem::EventManager* eventManager;
 
 	public:
 		Engine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);

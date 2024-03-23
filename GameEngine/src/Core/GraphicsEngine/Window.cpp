@@ -1,6 +1,6 @@
 #include "Core/GraphicsEngine/Window.h"
 
-namespace GameEngine
+namespace GraphicsEngine
 {
 
 	WindowData::WindowData(const std::string& title, unsigned int width, unsigned int height) noexcept

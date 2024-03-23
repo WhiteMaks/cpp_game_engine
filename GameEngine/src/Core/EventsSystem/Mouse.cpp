@@ -1,6 +1,6 @@
 #include "Core/EventsSystem/Mouse.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 	bool Mouse::LeftKeyIsPressed() const noexcept
 	{

@@ -5,16 +5,16 @@
 #include "Tools/Log.h"
 #include "Core/GraphicsEngine/Window.h"
 
-namespace GameEngine
+namespace Platform
 {
 
-	class WindowsWindow : public Window
+	class WindowsWindow : public GraphicsEngine::Window
 	{
 	private:
 		GLFWwindow* window;
 
 	public:
-		WindowsWindow(const WindowData& windowData) noexcept;
+		WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept;
 
 		virtual ~WindowsWindow() noexcept;
 

@@ -1,6 +1,6 @@
 #include "Core/EventsSystem/MouseEvent.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	MouseEvent::MouseEvent(

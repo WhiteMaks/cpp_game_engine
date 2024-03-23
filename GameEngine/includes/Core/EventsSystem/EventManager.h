@@ -6,7 +6,7 @@
 #include "Mouse.h"
 #include "Tools/Log.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	class EventManager

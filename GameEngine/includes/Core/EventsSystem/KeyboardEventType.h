@@ -1,6 +1,6 @@
 #pragma once
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	enum class KeyboardEventType

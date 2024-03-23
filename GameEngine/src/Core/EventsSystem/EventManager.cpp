@@ -1,6 +1,6 @@
 #include "Core/EventsSystem/EventManager.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	EventManager* EventManager::instance = nullptr;

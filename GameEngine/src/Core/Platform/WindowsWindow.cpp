@@ -1,8 +1,8 @@
 #include "WindowsWindow.h"
 
-namespace GameEngine
+namespace Platform
 {
-	WindowsWindow::WindowsWindow(const WindowData& windowData) noexcept
+	WindowsWindow::WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept
 		: Window(windowData), window(nullptr)
 	{
 	}
@@ -41,7 +41,7 @@ namespace GameEngine
 		WINDOW_DEBUG("Initialization GLFW events has started");
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
 			{
-				EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
+				EventsSystem::EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
 			}
 		);
 		WINDOW_TRACE("GLFW mouse events started to be bugged");
@@ -51,12 +51,12 @@ namespace GameEngine
 				{
 				case GLFW_PRESS:
 				{
-					EventManager::GetInstance()->GetKetboard()->OnKeyPressed(key);
+					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(key);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					EventManager::GetInstance()->GetKetboard()->OnKeyReleased(key);
+					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(key);
 					break;
 				}
 				}
@@ -83,10 +83,10 @@ namespace GameEngine
 
 	void WindowsWindow::Destroy() noexcept
 	{
-		WINDOW_DEBUG("Destruction windows window has started");
+		WINDOW_INFO("Destruction windows window has started");
 		glfwDestroyWindow(window);
 		glfwTerminate();
-		WINDOW_DEBUG("Destruction windows window completed");
+		WINDOW_INFO("Destruction windows window completed");
 	}
 
 }

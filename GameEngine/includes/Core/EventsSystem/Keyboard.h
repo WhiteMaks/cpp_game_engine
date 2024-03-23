@@ -6,7 +6,7 @@
 
 #include "KeyboardEvent.h"
 
-namespace GameEngine
+namespace EventsSystem
 {
 
 	class Keyboard

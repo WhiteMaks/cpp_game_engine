@@ -2,7 +2,7 @@
 
 #include "Core/GraphicsEngine/Window.h"
 
-namespace GameEngine
+namespace GraphicsEngine
 {
 
 	class WindowFactory

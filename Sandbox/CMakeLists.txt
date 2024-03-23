@@ -24,3 +24,5 @@ endif()
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
     target_compile_definitions(GameEngine PUBLIC GAME_ENGINE_PLATFORM_BROWSER)
 endif()
+
+add_definitions(-D_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)

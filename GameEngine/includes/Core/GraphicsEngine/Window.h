@@ -39,6 +39,7 @@ namespace GraphicsEngine
 		unsigned int GetHeight() const noexcept;
 
 		bool ShouldClose() const noexcept;
+		void ShouldClose(bool shouldClose) noexcept;
 	};
 
 }

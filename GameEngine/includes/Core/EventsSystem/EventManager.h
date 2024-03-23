@@ -4,6 +4,7 @@
 
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Window.h"
 #include "Tools/Log.h"
 
 namespace EventsSystem
@@ -16,6 +17,7 @@ namespace EventsSystem
 
 		Mouse* mouse;
 		Keyboard* keyboard;
+		Window* window;
 
 	public:
 		~EventManager() = delete;
@@ -35,6 +37,7 @@ namespace EventsSystem
 
 		Mouse* GetMouse() const noexcept;
 		Keyboard* GetKetboard() const noexcept;
+		Window* GetWindow() const noexcept;
 
 	};
 

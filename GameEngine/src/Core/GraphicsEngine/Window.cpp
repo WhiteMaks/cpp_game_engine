@@ -44,4 +44,9 @@ namespace GraphicsEngine
 		return shouldClose;
 	}
 
+	void Window::ShouldClose(bool shouldClose) noexcept
+	{
+		this->shouldClose = shouldClose;
+	}
+
 }

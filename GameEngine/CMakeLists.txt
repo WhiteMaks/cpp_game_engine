@@ -13,6 +13,8 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/EventsSystem/Mouse.h
 	includes/Core/EventsSystem/MouseEvent.h
 	includes/Core/EventsSystem/MouseEventType.h
+	includes/Core/EventsSystem/Window.h
+	includes/Core/EventsSystem/WindowEvent.h
 	includes/Core/EventsSystem/WindowEventType.h
 	includes/Core/EventsSystem/EventManager.h
 
@@ -36,6 +38,8 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/EventsSystem/KeyboardEvent.cpp
 	src/Core/EventsSystem/Mouse.cpp
 	src/Core/EventsSystem/MouseEvent.cpp
+	src/Core/EventsSystem/Window.cpp
+	src/Core/EventsSystem/WindowEvent.cpp
 	src/Core/EventsSystem/EventManager.cpp
 
 	src/Core/GraphicsEngine/Window.cpp

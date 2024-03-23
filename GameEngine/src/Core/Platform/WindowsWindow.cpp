@@ -65,8 +65,7 @@ namespace Platform
 		WINDOW_TRACE("GLFW keyboard key events started to be bugged");
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
 			{
-				WindowsWindow* windowsWindow = (WindowsWindow*) glfwGetWindowUserPointer(window);
-				windowsWindow->shouldClose = true;
+				EventsSystem::EventManager::GetInstance()->GetWindow()->OnClose();
 			}
 		);
 		WINDOW_TRACE("GLFW window close events started to be bugged");

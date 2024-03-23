@@ -67,7 +67,17 @@ namespace GameEngine
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			const auto keyboardEvent = keyboard->ReadKey();
-			GAME_ENGINE_INFO("Keyboard [{0}]", (char)keyboardEvent->GetCode());
+			//GAME_ENGINE_INFO("Keyboard [{0}]", (char)keyboardEvent->GetCode());
+		}
+
+		EventsSystem::Window* window = eventManager->GetWindow();
+		if (!window->BufferIsEmpty())
+		{
+			const auto windowEvent = window->Read();
+			if (windowEvent->GetType() == EventsSystem::WindowEventType::CLOSE)
+			{
+				this->window->ShouldClose(true);
+			}
 		}
 	}
 

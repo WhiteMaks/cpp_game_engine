@@ -9,6 +9,7 @@ namespace EventsSystem
 	{
 		mouse = new Mouse();
 		keyboard = new Keyboard();
+		window = new Window();
 	}
 
 	EventManager* EventManager::GetInstance() noexcept
@@ -33,6 +34,10 @@ namespace EventsSystem
 		keyboard->Flush();
 		EVENT_MANAGER_DEBUG("Initialization keyboard completed");
 
+		EVENT_MANAGER_DEBUG("Initialization window has started");
+		window->Flush();
+		EVENT_MANAGER_DEBUG("Initialization window completed");
+
 		EVENT_MANAGER_INFO("Initialization completed");
 	}
 
@@ -44,6 +49,8 @@ namespace EventsSystem
 		EVENT_MANAGER_TRACE("Mouse removed from memory");
 		delete keyboard;
 		EVENT_MANAGER_TRACE("Keyboard removed from memory");
+		delete window;
+		EVENT_MANAGER_TRACE("Window removed from memory");
 		instance = nullptr;
 		EVENT_MANAGER_TRACE("Instance is now null");
 
@@ -58,6 +65,11 @@ namespace EventsSystem
 	Keyboard* EventManager::GetKetboard() const noexcept
 	{
 		return keyboard;
+	}
+
+	Window* EventManager::GetWindow() const noexcept
+	{
+		return window;
 	}
 
 }

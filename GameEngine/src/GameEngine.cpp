@@ -60,23 +60,28 @@ namespace GameEngine
 		if (!mouse->BufferIsEmpty())
 		{
 			const auto mouseEvent = mouse->Read();
-			//GAME_ENGINE_TRACE("Mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
 		}
 
 		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			const auto keyboardEvent = keyboard->ReadKey();
-			//GAME_ENGINE_INFO("Keyboard [{0}]", (char)keyboardEvent->GetCode());
 		}
 
 		EventsSystem::Window* window = eventManager->GetWindow();
 		if (!window->BufferIsEmpty())
 		{
 			const auto windowEvent = window->Read();
-			if (windowEvent->GetType() == EventsSystem::WindowEventType::CLOSE)
+
+			EventsSystem::WindowEventType eventType = windowEvent->GetType();
+			
+			switch (eventType)
 			{
+			case EventsSystem::WindowEventType::CLOSE:
 				this->window->ShouldClose(true);
+				break;
+			case EventsSystem::WindowEventType::RESIZE:
+				break;
 			}
 		}
 	}

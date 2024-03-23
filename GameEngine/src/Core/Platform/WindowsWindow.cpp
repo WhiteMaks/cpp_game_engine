@@ -69,6 +69,12 @@ namespace Platform
 			}
 		);
 		WINDOW_TRACE("GLFW window close events started to be bugged");
+		glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+			{
+				EventsSystem::EventManager::GetInstance()->GetWindow()->OnResize(width, height);
+			}
+		);
+		WINDOW_TRACE("GLFW window resize events started to be bugged");
 		WINDOW_DEBUG("Initialization GLFW events completed");
 
 		WINDOW_INFO("Initialization windows window completed");

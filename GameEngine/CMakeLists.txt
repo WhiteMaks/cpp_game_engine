@@ -24,12 +24,39 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Tools/Log.h
 )
 
+set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
+
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
+	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
+		src/Core/Platform/WindowsWindow.h
+		#src/Core/Platform/BrowserWindow.h
+	)
+endif()
+
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
+	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
+		src/Core/Platform/BrowserWindow.h
+	)
+endif()
+
 set(GAME_ENGINE_PRIVATE_INCLUDES
-	src/Core/Platform/WindowsWindow.h
-	src/Core/Platform/BrowserWindow.h
-	src/Core/Platform/LinuxWindow.h
-	src/Core/Platform/MacOSWindow.h
+	${GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES}
 )
+
+set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES "")
+
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
+	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
+		src/Core/Platform/WindowsWindow.cpp
+		#src/Core/Platform/BrowserWindow.cpp
+	)
+endif()
+
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
+	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
+		src/Core/Platform/BrowserWindow.cpp
+	)
+endif()
 
 set(GAME_ENGINE_PRIVATE_SOURCES
 	src/GameEngine.cpp
@@ -45,10 +72,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 
-	src/Core/Platform/WindowsWindow.cpp
-	src/Core/Platform/BrowserWindow.cpp
-	src/Core/Platform/LinuxWindow.cpp
-	src/Core/Platform/MacOSWindow.cpp
+	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 
 	src/Tools/Log.cpp
 )
@@ -76,8 +100,12 @@ add_subdirectory(./vendor/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC spdlog)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
-    add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
+elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
+	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
+	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
 endif()
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)

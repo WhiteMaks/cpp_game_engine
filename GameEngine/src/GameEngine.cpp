@@ -1,3 +1,7 @@
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "GameEngine.h"
 
 namespace GameEngine
@@ -33,18 +37,25 @@ namespace GameEngine
 		GAME_ENGINE_INFO("Initialization completed");
 	}
 
+#ifdef GAME_ENGINE_PLATFORM_BROWSER
+	void RenderLoopCallback(void* arg)
+	{
+		static_cast<Engine*>(arg)->Loop();
+	}
+#endif
+
 	void Engine::StartLoop()
 	{
-		GAME_ENGINE_INFO("Loop has started");
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
-		emscripten_set_main_loop(Loop, 0, false);
+		emscripten_set_main_loop_arg(&RenderLoopCallback, this, 0, false);
 #else
+		GAME_ENGINE_INFO("Loop has started");
 		while (!window->ShouldClose())
 		{
 			Loop();
 		}
-#endif
 		GAME_ENGINE_INFO("Loop completed");
+#endif
 	}
 
 	void Engine::Loop()
@@ -60,12 +71,14 @@ namespace GameEngine
 		if (!mouse->BufferIsEmpty())
 		{
 			const auto mouseEvent = mouse->Read();
+			GAME_ENGINE_TRACE("mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
 		}
 
 		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			const auto keyboardEvent = keyboard->ReadKey();
+			GAME_ENGINE_TRACE("keyboard [{0}]", keyboardEvent->GetCode());
 		}
 
 		EventsSystem::Window* window = eventManager->GetWindow();
@@ -81,6 +94,7 @@ namespace GameEngine
 				this->window->ShouldClose(true);
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
+				GAME_ENGINE_TRACE("window [{0}, {1}]", windowEvent->GetWidth(), windowEvent->GetHeight());
 				break;
 			}
 		}

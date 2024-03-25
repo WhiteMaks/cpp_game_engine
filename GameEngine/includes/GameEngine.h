@@ -27,12 +27,12 @@ namespace GameEngine
 		virtual ~Engine();
 
 	public:
+		void Loop();
 		void Start();
 
 	private:
 		void Init();
 		void StartLoop();
-		void Loop();
 		void Input();
 		void Update();
 		void Render();

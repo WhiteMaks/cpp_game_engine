@@ -24,14 +24,18 @@ namespace Platform
 		WINDOW_DEBUG("Initialization GLFW completed");
 
 		WINDOW_DEBUG("Initialization GLFW window has started");
-		window = glfwCreateWindow(windowData.Width, windowData.Height, windowData.Title.c_str(), nullptr, nullptr);
+		window = glfwCreateWindow(
+			windowData.Width, windowData.Height, 
+			windowData.Title.c_str(), 
+			nullptr, nullptr
+		);
+
 		if (!window)
 		{
 			WINDOW_CRITICAL("GLFW window not initialized!");
 			glfwTerminate();
 			return;
 		}
-		glfwSetWindowUserPointer(window, this);
 		glfwMaximizeWindow(window);
 		glfwMakeContextCurrent(window);
 		WINDOW_DEBUG("Initialization GLFW window completed");

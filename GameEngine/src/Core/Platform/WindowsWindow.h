@@ -2,8 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Tools/Log.h"
 #include "Core/GraphicsEngine/Window.h"
+#include "Tools/Log.h"
 
 namespace Platform
 {

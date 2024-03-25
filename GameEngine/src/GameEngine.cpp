@@ -1,3 +1,7 @@
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "GameEngine.h"
 
 namespace GameEngine
@@ -33,22 +37,30 @@ namespace GameEngine
 		GAME_ENGINE_INFO("Initialization completed");
 	}
 
+#ifdef GAME_ENGINE_PLATFORM_BROWSER
+	void RenderLoopCallback(void* arg)
+	{
+		static_cast<Engine*>(arg)->Loop();
+	}
+#endif
+
 	void Engine::StartLoop()
 	{
-		GAME_ENGINE_INFO("Loop has started");
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
-		emscripten_set_main_loop(Loop, 0, false);
+		emscripten_set_main_loop_arg(&RenderLoopCallback, this, 0, false);
 #else
+		GAME_ENGINE_INFO("Loop has started");
 		while (!window->ShouldClose())
 		{
 			Loop();
 		}
-#endif
 		GAME_ENGINE_INFO("Loop completed");
+#endif
 	}
 
 	void Engine::Loop()
 	{
+		GAME_ENGINE_TRACE("Looping");
 		Input();
 		Update();
 		Render();

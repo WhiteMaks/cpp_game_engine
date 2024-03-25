@@ -56,6 +56,34 @@ namespace Platform
 		SDL_Event event;
 		SDL_PollEvent(&event);
 
+		switch (event.type)
+		{
+
+		case SDL_QUIT:
+			EventsSystem::EventManager::GetInstance()->GetWindow()->OnClose();
+			break;
+
+		case SDL_MOUSEMOTION:
+			EventsSystem::EventManager::GetInstance()->GetMouse()->OnMouseMove((float) event.motion.x, (float) event.motion.y);
+			break;
+
+		case SDL_KEYDOWN:
+			EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(event.key.keysym.sym);
+			break;
+
+		case SDL_KEYUP:
+			EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(event.key.keysym.sym);
+			break;
+
+		case SDL_WINDOWEVENT:
+			SDL_WindowEvent windowEvent = event.window;
+			if (windowEvent.event == SDL_WINDOWEVENT_RESIZED || windowEvent.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				EventsSystem::EventManager::GetInstance()->GetWindow()->OnResize(windowEvent.data1, windowEvent.data2);
+			}
+			break;
+		}
+
 		SDL_GL_SwapWindow(window);
 	}
 

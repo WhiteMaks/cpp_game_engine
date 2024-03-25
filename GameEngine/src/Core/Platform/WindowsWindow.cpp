@@ -45,7 +45,7 @@ namespace Platform
 		WINDOW_DEBUG("Initialization GLFW events has started");
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
 			{
-				EventsSystem::EventManager::GetInstance()->GetMouse()->OnMouseMove((float)xPos, (float)yPos);
+				EventsSystem::EventManager::GetInstance()->GetMouse()->OnMouseMove((float) xPos, (float) yPos);
 			}
 		);
 		WINDOW_TRACE("GLFW mouse events started to be bugged");

@@ -60,7 +60,6 @@ namespace GameEngine
 
 	void Engine::Loop()
 	{
-		GAME_ENGINE_TRACE("Looping");
 		Input();
 		Update();
 		Render();
@@ -72,12 +71,14 @@ namespace GameEngine
 		if (!mouse->BufferIsEmpty())
 		{
 			const auto mouseEvent = mouse->Read();
+			GAME_ENGINE_TRACE("mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
 		}
 
 		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			const auto keyboardEvent = keyboard->ReadKey();
+			GAME_ENGINE_TRACE("keyboard [{0}]", keyboardEvent->GetCode());
 		}
 
 		EventsSystem::Window* window = eventManager->GetWindow();
@@ -93,6 +94,7 @@ namespace GameEngine
 				this->window->ShouldClose(true);
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
+				GAME_ENGINE_TRACE("window [{0}, {1}]", windowEvent->GetWidth(), windowEvent->GetHeight());
 				break;
 			}
 		}

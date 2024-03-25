@@ -36,18 +36,24 @@ namespace EventsSystem
 
 	void Keyboard::OnKeyPressed(unsigned char keyCode) noexcept
 	{
-		keyStates[keyCode] = true;
-		keyBuffer.push(KeyboardEvent(KeyboardEventType::PRESS, keyCode));
+		if (!keyStates[keyCode])
+		{
+			keyStates[keyCode] = true;
+			keyBuffer.push(KeyboardEvent(KeyboardEventType::PRESS, keyCode));
 
-		TrimBuffer(keyBuffer);
+			TrimBuffer(keyBuffer);
+		}
 	}
 
 	void Keyboard::OnKeyReleased(unsigned char keyCode) noexcept
 	{
-		keyStates[keyCode] = false;
-		keyBuffer.push(KeyboardEvent(KeyboardEventType::RELEASE, keyCode));
-		
-		TrimBuffer(keyBuffer);
+		if (keyStates[keyCode])
+		{
+			keyStates[keyCode] = false;
+			keyBuffer.push(KeyboardEvent(KeyboardEventType::RELEASE, keyCode));
+
+			TrimBuffer(keyBuffer);
+		}
 	}
 
 	void Keyboard::OnChar(unsigned char character) noexcept

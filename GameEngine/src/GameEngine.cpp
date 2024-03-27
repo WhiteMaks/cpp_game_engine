@@ -29,9 +29,24 @@ namespace GameEngine
 		Destroy();
 	}
 
+	void Engine::PushLayer(Layer* layer)
+	{
+		GAME_ENGINE_INFO("Saving of the new layer [{0}] has started", layer->GetName());
+		layerStack.Push(layer);
+		GAME_ENGINE_INFO("Saving of the new layer [{0}] completed", layer->GetName());
+	}
+
+	void Engine::PushOverlayLayer(Layer* layer)
+	{
+		GAME_ENGINE_INFO("Saving of the new layer [{0}] has started", layer->GetName());
+		layerStack.PushOverlay(layer);
+		GAME_ENGINE_INFO("Saving of the new layer [{0}] completed", layer->GetName());
+	}
+
 	void Engine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization has started");
+		layerStack.Init();
 		eventManager->Init();
 		window->Init();
 		GAME_ENGINE_INFO("Initialization completed");
@@ -67,18 +82,41 @@ namespace GameEngine
 
 	void Engine::Input()
 	{
+		/*
+		* If there is data in the event buffer, then read the event from the buffer and throw it into layers. 
+		* If the event becomes invalid (due to processing of this event in a layer), then exit the loop (there is no point in throwing invalid event into layers).
+		*/
+
 		EventsSystem::Mouse* mouse = eventManager->GetMouse();
 		if (!mouse->BufferIsEmpty())
 		{
-			const auto mouseEvent = mouse->Read();
-			GAME_ENGINE_TRACE("mouse [{0},{1}]", mouseEvent->GetPositionX(), mouseEvent->GetPositionY());
+			EventsSystem::MouseEvent mouseEvent = mouse->Read().value();
+
+			for (auto currentLayer = layerStack.End(); currentLayer != layerStack.Begin(); )
+			{
+				(*--currentLayer)->MouseEvent(mouseEvent);
+				
+				if (!mouseEvent.IsValid())
+				{
+					break;
+				}
+			}
 		}
 
 		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
-			const auto keyboardEvent = keyboard->ReadKey();
-			GAME_ENGINE_TRACE("keyboard [{0}]", keyboardEvent->GetCode());
+			EventsSystem::KeyboardEvent keyboardEvent = keyboard->ReadKey().value();
+
+			for (auto currentLayer = layerStack.End(); currentLayer != layerStack.Begin(); )
+			{
+				(*--currentLayer)->KeyboardEvent(keyboardEvent);
+
+				if (!keyboardEvent.IsValid())
+				{
+					break;
+				}
+			}
 		}
 
 		EventsSystem::Window* window = eventManager->GetWindow();
@@ -94,7 +132,6 @@ namespace GameEngine
 				this->window->ShouldClose(true);
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
-				GAME_ENGINE_TRACE("window [{0}, {1}]", windowEvent->GetWidth(), windowEvent->GetHeight());
 				break;
 			}
 		}

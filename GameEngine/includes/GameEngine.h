@@ -10,6 +10,8 @@
 #include "Core/GraphicsEngine/WindowFactory.h"
 
 #include "Tools/Log.h"
+#include "Tools/Layer.h"
+#include "Tools/LayerStack.h"
 
 namespace GameEngine
 {
@@ -20,6 +22,7 @@ namespace GameEngine
 		std::unique_ptr<GraphicsEngine::Window> window;
 		
 		EventsSystem::EventManager* eventManager;
+		LayerStack layerStack;
 
 	public:
 		Engine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);
@@ -29,6 +32,9 @@ namespace GameEngine
 	public:
 		void Loop();
 		void Start();
+		
+		void PushLayer(Layer* layer);
+		void PushOverlayLayer(Layer* layer);
 
 	private:
 		void Init();

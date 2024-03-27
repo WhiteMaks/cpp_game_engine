@@ -5,7 +5,7 @@ namespace GameEngine
 
 	LayerStack::LayerStack() noexcept
 	{
-		
+		layerInsert = begin();
 	}
 
 	LayerStack::~LayerStack() noexcept
@@ -27,8 +27,8 @@ namespace GameEngine
 
 	void LayerStack::Pop(Layer* layer) noexcept
 	{
-		auto findedLayer = std::find(Begin(), End(), layer);
-		if (findedLayer != End())
+		auto findedLayer = std::find(begin(), end(), layer);
+		if (findedLayer != end())
 		{
 			layers.erase(findedLayer);
 			layerInsert--;
@@ -37,8 +37,8 @@ namespace GameEngine
 
 	void LayerStack::PopOverlay(Layer* layer) noexcept
 	{
-		auto findedLayer = std::find(Begin(), End(), layer);
-		if (findedLayer != End())
+		auto findedLayer = std::find(begin(), end(), layer);
+		if (findedLayer != end())
 		{
 			layers.erase(findedLayer);
 		}
@@ -47,7 +47,6 @@ namespace GameEngine
 	void LayerStack::Init() noexcept
 	{
 		LAYER_INFO("Initialization has started");
-		layerInsert = Begin();
 		LAYER_INFO("Initialization completed");
 	}
 
@@ -61,12 +60,12 @@ namespace GameEngine
 		LAYER_INFO("Destruction completed");
 	}
 
-	std::vector<Layer*>::iterator LayerStack::Begin() noexcept
+	std::vector<Layer*>::iterator LayerStack::begin() noexcept
 	{
 		return layers.begin();
 	}
 
-	std::vector<Layer*>::iterator LayerStack::End() noexcept
+	std::vector<Layer*>::iterator LayerStack::end() noexcept
 	{
 		return layers.end();
 	}

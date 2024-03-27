@@ -32,7 +32,8 @@ namespace GameEngine
 	public:
 		void Loop();
 		void Start();
-		
+
+	protected:
 		void PushLayer(Layer* layer);
 		void PushOverlayLayer(Layer* layer);
 

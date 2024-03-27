@@ -29,8 +29,8 @@ namespace GameEngine
 		void Init() noexcept;
 		void Destroy() noexcept;
 
-		std::vector<Layer*>::iterator Begin() noexcept;
-		std::vector<Layer*>::iterator End() noexcept;
+		std::vector<Layer*>::iterator begin() noexcept;
+		std::vector<Layer*>::iterator end() noexcept;
 
 	};
 

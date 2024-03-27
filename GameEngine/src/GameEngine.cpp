@@ -92,7 +92,7 @@ namespace GameEngine
 		{
 			EventsSystem::MouseEvent mouseEvent = mouse->Read().value();
 
-			for (auto currentLayer = layerStack.End(); currentLayer != layerStack.Begin(); )
+			for (auto currentLayer = layerStack.end(); currentLayer != layerStack.begin(); )
 			{
 				(*--currentLayer)->MouseEvent(mouseEvent);
 				
@@ -108,7 +108,7 @@ namespace GameEngine
 		{
 			EventsSystem::KeyboardEvent keyboardEvent = keyboard->ReadKey().value();
 
-			for (auto currentLayer = layerStack.End(); currentLayer != layerStack.Begin(); )
+			for (auto currentLayer = layerStack.end(); currentLayer != layerStack.begin(); )
 			{
 				(*--currentLayer)->KeyboardEvent(keyboardEvent);
 
@@ -139,11 +139,19 @@ namespace GameEngine
 
 	void Engine::Update()
 	{
+		for (Layer* layer : layerStack)
+		{
+			layer->Update();
+		}
 		window->Update();
 	}
 
 	void Engine::Render()
 	{
+		for (Layer* layer : layerStack)
+		{
+			layer->Render();
+		}
 	}
 
 	void Engine::Destroy()
@@ -154,6 +162,7 @@ namespace GameEngine
 		GAME_ENGINE_INFO("Destruction has started");
 		window->Destroy();
 		eventManager->Destroy();
+		layerStack.Destroy();
 		GAME_ENGINE_INFO("Destruction completed");
 #endif
 	}

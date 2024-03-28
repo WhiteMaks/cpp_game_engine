@@ -22,6 +22,8 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/WindowFactory.h
 
 	includes/Tools/Log.h
+	includes/Tools/Layer.h
+	includes/Tools/LayerStack.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -40,6 +42,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 endif()
 
 set(GAME_ENGINE_PRIVATE_INCLUDES
+	src/ExitCodes.h
+
 	${GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES}
 )
 
@@ -75,6 +79,8 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 
 	src/Tools/Log.cpp
+	src/Tools/Layer.cpp
+	src/Tools/LayerStack.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

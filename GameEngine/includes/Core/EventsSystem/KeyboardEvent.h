@@ -1,11 +1,12 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "KeyboardEventType.h"
 
 namespace EventsSystem
 {
 
-	class KeyboardEvent
+	class GAME_ENGINE_API KeyboardEvent
 	{
 
 	private:

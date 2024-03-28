@@ -1,4 +1,5 @@
 #include "BrowserWindow.h" 
+#include "ExitCodes.h"
 
 namespace Platform
 {
@@ -20,7 +21,7 @@ namespace Platform
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
 			WINDOW_CRITICAL("SDL not initialized! Error: {0}", SDL_GetError());
-			return;
+			exit(GameEngine::WINDOW_INITIALIZAATION_FAILED);
 		}
 		WINDOW_DEBUG("Initialization SDL completed");
 
@@ -36,7 +37,7 @@ namespace Platform
 		{
 			WINDOW_CRITICAL("SDL window not initialized!");
 			SDL_Quit();
-			return;
+			exit(GameEngine::WINDOW_INITIALIZAATION_FAILED);
 		}
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);

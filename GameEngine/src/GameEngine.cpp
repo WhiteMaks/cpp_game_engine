@@ -9,6 +9,8 @@ namespace GameEngine
 
 	Engine::Engine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
+		Log::Init();
+
 		window = std::unique_ptr<GraphicsEngine::Window>(
 			GraphicsEngine::WindowFactory::Create(
 				GraphicsEngine::WindowData(applicationTitle, applicationWidth, applicationHeight)

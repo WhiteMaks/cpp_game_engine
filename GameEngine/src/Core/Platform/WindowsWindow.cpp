@@ -1,4 +1,5 @@
 #include "WindowsWindow.h"
+#include "ExitCodes.h"
 
 namespace Platform
 {
@@ -19,7 +20,7 @@ namespace Platform
 		if (!glfwInit())
 		{
 			WINDOW_CRITICAL("GLFW not initialized!");
-			return;
+			exit(GameEngine::WINDOW_INITIALIZAATION_FAILED);
 		}
 		WINDOW_DEBUG("Initialization GLFW completed");
 
@@ -34,7 +35,7 @@ namespace Platform
 		{
 			WINDOW_CRITICAL("GLFW window not initialized!");
 			glfwTerminate();
-			return;
+			exit(GameEngine::WINDOW_INITIALIZAATION_FAILED);
 		}
 		glfwMaximizeWindow(window);
 		glfwMakeContextCurrent(window);

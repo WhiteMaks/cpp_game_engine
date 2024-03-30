@@ -24,37 +24,37 @@ namespace EventsSystem
 
 	void EventManager::Init() noexcept
 	{
-		EVENT_MANAGER_INFO("Initialization has started");
+		EVENTS_SYSTEM_INFO("Initialization event manager has started");
 		
-		EVENT_MANAGER_DEBUG("Initialization mouse has started");
+		EVENTS_SYSTEM_DEBUG("Initialization mouse has started");
 		mouse->Flush();
-		EVENT_MANAGER_DEBUG("Initialization mouse completed");
+		EVENTS_SYSTEM_DEBUG("Initialization mouse completed");
 
-		EVENT_MANAGER_DEBUG("Initialization keyboard has started");
+		EVENTS_SYSTEM_DEBUG("Initialization keyboard has started");
 		keyboard->Flush();
-		EVENT_MANAGER_DEBUG("Initialization keyboard completed");
+		EVENTS_SYSTEM_DEBUG("Initialization keyboard completed");
 
-		EVENT_MANAGER_DEBUG("Initialization window has started");
+		EVENTS_SYSTEM_DEBUG("Initialization window has started");
 		window->Flush();
-		EVENT_MANAGER_DEBUG("Initialization window completed");
+		EVENTS_SYSTEM_DEBUG("Initialization window completed");
 
-		EVENT_MANAGER_INFO("Initialization completed");
+		EVENTS_SYSTEM_INFO("Initialization event manager completed");
 	}
 
 	void EventManager::Destroy() noexcept
 	{
-		EVENT_MANAGER_INFO("Destruction has started");
+		EVENTS_SYSTEM_INFO("Destruction event manager has started");
 
 		delete mouse;
-		EVENT_MANAGER_TRACE("Mouse removed from memory");
+		EVENTS_SYSTEM_TRACE("Mouse removed from memory");
 		delete keyboard;
-		EVENT_MANAGER_TRACE("Keyboard removed from memory");
+		EVENTS_SYSTEM_TRACE("Keyboard removed from memory");
 		delete window;
-		EVENT_MANAGER_TRACE("Window removed from memory");
+		EVENTS_SYSTEM_TRACE("Window removed from memory");
 		instance = nullptr;
-		EVENT_MANAGER_TRACE("Instance is now null");
+		EVENTS_SYSTEM_TRACE("Instance is now null");
 
-		EVENT_MANAGER_INFO("Destruction completed");
+		EVENTS_SYSTEM_INFO("Destruction event manager completed");
 	}
 
 	Mouse* EventManager::GetMouse() const noexcept

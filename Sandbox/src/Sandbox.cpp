@@ -23,12 +23,12 @@ public:
 	}
 };
 
-class Sandbox : public GameEngine::Engine
+class Sandbox : public GameEngine::GameEngine
 {
 public:
 
 	Sandbox()
-		: GameEngine::Engine("Sandbox")
+		: GameEngine::GameEngine("Sandbox")
 	{
 		PushLayer(new TestLayer());
 	}

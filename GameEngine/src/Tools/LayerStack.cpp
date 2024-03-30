@@ -46,18 +46,18 @@ namespace GameEngine
 
 	void LayerStack::Init() noexcept
 	{
-		LAYER_INFO("Initialization has started");
-		LAYER_INFO("Initialization completed");
+		LAYER_INFO("Initialization layer stack has started");
+		LAYER_INFO("Initialization layer stack completed");
 	}
 
 	void LayerStack::Destroy() noexcept
 	{
-		LAYER_INFO("Destruction has started");
+		LAYER_INFO("Destruction layer stack has started");
 		for (Layer* layer : layers)
 		{
 			delete layer;
 		}
-		LAYER_INFO("Destruction completed");
+		LAYER_INFO("Destruction layer stack completed");
 	}
 
 	std::vector<Layer*>::iterator LayerStack::begin() noexcept

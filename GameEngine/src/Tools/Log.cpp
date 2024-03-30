@@ -3,8 +3,8 @@
 namespace GameEngine
 {
 	std::shared_ptr<spdlog::logger> Log::gameEngineLogger;
-	std::shared_ptr<spdlog::logger> Log::windowLogger;
-	std::shared_ptr<spdlog::logger> Log::eventManagerLogger;
+	std::shared_ptr<spdlog::logger> Log::graphicsEngineLogger;
+	std::shared_ptr<spdlog::logger> Log::eventsSystemLogger;
 	std::shared_ptr<spdlog::logger> Log::layerLogger;
 	std::shared_ptr<spdlog::logger> Log::applicationLogger;
 
@@ -15,11 +15,11 @@ namespace GameEngine
 		gameEngineLogger = spdlog::stdout_color_mt("Game engine");
 		gameEngineLogger->set_level(spdlog::level::trace);
 
-		windowLogger = spdlog::stdout_color_mt("Window");
-		windowLogger->set_level(spdlog::level::trace);
+		graphicsEngineLogger = spdlog::stdout_color_mt("Graphics Engine");
+		graphicsEngineLogger->set_level(spdlog::level::trace);
 
-		eventManagerLogger = spdlog::stdout_color_mt("Event manager");
-		eventManagerLogger->set_level(spdlog::level::trace);
+		eventsSystemLogger = spdlog::stdout_color_mt("Events system");
+		eventsSystemLogger->set_level(spdlog::level::trace);
 
 		layerLogger = spdlog::stdout_color_mt("Layer");
 		layerLogger->set_level(spdlog::level::trace);

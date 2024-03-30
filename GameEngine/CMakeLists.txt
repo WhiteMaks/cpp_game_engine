@@ -20,6 +20,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
+	includes/Core/GraphicsEngine/GraphicsEngine.h
+	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
+	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -30,14 +33,16 @@ set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
-		src/Core/Platform/WindowsWindow.h
-		#src/Core/Platform/BrowserWindow.h
+		src/Core/Platform/Windows/WindowsWindow.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
+
+		#src/Core/Platform/Browser/BrowserWindow.h
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
-		src/Core/Platform/BrowserWindow.h
+		src/Core/Platform/Browser/BrowserWindow.h
 	)
 endif()
 
@@ -51,14 +56,16 @@ set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
-		src/Core/Platform/WindowsWindow.cpp
-		#src/Core/Platform/BrowserWindow.cpp
+		src/Core/Platform/Windows/WindowsWindow.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
+
+		#src/Core/Platform/Browser/BrowserWindow.cpp
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
-		src/Core/Platform/BrowserWindow.cpp
+		src/Core/Platform/Browser/BrowserWindow.cpp
 	)
 endif()
 
@@ -75,6 +82,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
+	src/Core/GraphicsEngine/GraphicsEngine.cpp
+	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
+	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

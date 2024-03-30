@@ -15,8 +15,8 @@ namespace GameEngine
 
 	private:
 		static std::shared_ptr<spdlog::logger> gameEngineLogger;
-		static std::shared_ptr<spdlog::logger> windowLogger;
-		static std::shared_ptr<spdlog::logger> eventManagerLogger;
+		static std::shared_ptr<spdlog::logger> graphicsEngineLogger;
+		static std::shared_ptr<spdlog::logger> eventsSystemLogger;
 		static std::shared_ptr<spdlog::logger> layerLogger;
 		static std::shared_ptr<spdlog::logger> applicationLogger;
 
@@ -26,14 +26,14 @@ namespace GameEngine
 			return gameEngineLogger;
 		}
 
-		inline static std::shared_ptr<spdlog::logger>& GetWindowLogger()
+		inline static std::shared_ptr<spdlog::logger>& GetGraphicsEngineLogger()
 		{
-			return windowLogger;
+			return graphicsEngineLogger;
 		}
 
-		inline static std::shared_ptr<spdlog::logger>& GetEventManagerLogger()
+		inline static std::shared_ptr<spdlog::logger>& GetEventsSystemLogger()
 		{
-			return eventManagerLogger;
+			return eventsSystemLogger;
 		}
 
 		inline static std::shared_ptr<spdlog::logger>& GetLayerLogger()
@@ -58,19 +58,19 @@ namespace GameEngine
 #define GAME_ENGINE_DEBUG(...)		::GameEngine::Log::GetGameEngineLogger()->debug(__VA_ARGS__)
 #define GAME_ENGINE_TRACE(...)		::GameEngine::Log::GetGameEngineLogger()->trace(__VA_ARGS__)
 
-#define WINDOW_CRITICAL(...)		::GameEngine::Log::GetWindowLogger()->critical(__VA_ARGS__)
-#define WINDOW_ERROR(...)			::GameEngine::Log::GetWindowLogger()->error(__VA_ARGS__)
-#define WINDOW_WARNING(...)			::GameEngine::Log::GetWindowLogger()->warn(__VA_ARGS__)
-#define WINDOW_INFO(...)			::GameEngine::Log::GetWindowLogger()->info(__VA_ARGS__)
-#define WINDOW_DEBUG(...)			::GameEngine::Log::GetWindowLogger()->debug(__VA_ARGS__)
-#define WINDOW_TRACE(...)			::GameEngine::Log::GetWindowLogger()->trace(__VA_ARGS__)
+#define GRAPHICS_ENGINE_CRITICAL(...)		::GameEngine::Log::GetGraphicsEngineLogger()->critical(__VA_ARGS__)
+#define GRAPHICS_ENGINE_ERROR(...)			::GameEngine::Log::GetGraphicsEngineLogger()->error(__VA_ARGS__)
+#define GRAPHICS_ENGINE_WARNING(...)		::GameEngine::Log::GetGraphicsEngineLogger()->warn(__VA_ARGS__)
+#define GRAPHICS_ENGINE_INFO(...)			::GameEngine::Log::GetGraphicsEngineLogger()->info(__VA_ARGS__)
+#define GRAPHICS_ENGINE_DEBUG(...)			::GameEngine::Log::GetGraphicsEngineLogger()->debug(__VA_ARGS__)
+#define GRAPHICS_ENGINE_TRACE(...)			::GameEngine::Log::GetGraphicsEngineLogger()->trace(__VA_ARGS__)
 
-#define EVENT_MANAGER_CRITICAL(...)	::GameEngine::Log::GetEventManagerLogger()->critical(__VA_ARGS__)
-#define EVENT_MANAGER_ERROR(...)	::GameEngine::Log::GetEventManagerLogger()->error(__VA_ARGS__)
-#define EVENT_MANAGER_WARNING(...)	::GameEngine::Log::GetEventManagerLogger()->warn(__VA_ARGS__)
-#define EVENT_MANAGER_INFO(...)		::GameEngine::Log::GetEventManagerLogger()->info(__VA_ARGS__)
-#define EVENT_MANAGER_DEBUG(...)	::GameEngine::Log::GetEventManagerLogger()->debug(__VA_ARGS__)
-#define EVENT_MANAGER_TRACE(...)	::GameEngine::Log::GetEventManagerLogger()->trace(__VA_ARGS__)
+#define EVENTS_SYSTEM_CRITICAL(...)			::GameEngine::Log::GetEventsSystemLogger()->critical(__VA_ARGS__)
+#define EVENTS_SYSTEM_ERROR(...)			::GameEngine::Log::GetEventsSystemLogger()->error(__VA_ARGS__)
+#define EVENTS_SYSTEM_WARNING(...)			::GameEngine::Log::GetEventsSystemLogger()->warn(__VA_ARGS__)
+#define EVENTS_SYSTEM_INFO(...)				::GameEngine::Log::GetEventsSystemLogger()->info(__VA_ARGS__)
+#define EVENTS_SYSTEM_DEBUG(...)			::GameEngine::Log::GetEventsSystemLogger()->debug(__VA_ARGS__)
+#define EVENTS_SYSTEM_TRACE(...)			::GameEngine::Log::GetEventsSystemLogger()->trace(__VA_ARGS__)
 
 #define LAYER_CRITICAL(...)			::GameEngine::Log::GetLayerLogger()->critical(__VA_ARGS__)
 #define LAYER_ERROR(...)			::GameEngine::Log::GetLayerLogger()->error(__VA_ARGS__)

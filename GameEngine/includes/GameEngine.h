@@ -6,8 +6,7 @@
 
 #include "Core/EventsSystem/EventManager.h"
 
-#include "Core/GraphicsEngine/Window.h"
-#include "Core/GraphicsEngine/WindowFactory.h"
+#include "Core/GraphicsEngine/GraphicsEngine.h"
 
 #include "Tools/Log.h"
 #include "Tools/Layer.h"
@@ -16,18 +15,17 @@
 namespace GameEngine
 {
 
-	class GAME_ENGINE_API Engine
+	class GAME_ENGINE_API GameEngine
 	{
 	private:
-		std::unique_ptr<GraphicsEngine::Window> window;
-		
+		GraphicsEngine::GraphicsEngine* graphicsEngine;
 		EventsSystem::EventManager* eventManager;
-		LayerStack layerStack;
+		LayerStack* layerStack;
 
 	public:
-		Engine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);
+		GameEngine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);
 		
-		virtual ~Engine();
+		virtual ~GameEngine();
 
 	public:
 		void Loop();

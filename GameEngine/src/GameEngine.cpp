@@ -7,49 +7,47 @@
 namespace GameEngine
 {
 
-	Engine::Engine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
+	GameEngine::GameEngine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
-		window = std::unique_ptr<GraphicsEngine::Window>(
-			GraphicsEngine::WindowFactory::Create(
-				GraphicsEngine::WindowData(applicationTitle, applicationWidth, applicationHeight)
-			)
-		);
+		Log::Init();
 
+		layerStack = new LayerStack();
+		graphicsEngine = new GraphicsEngine::GraphicsEngine(applicationTitle, applicationWidth, applicationHeight);
 		eventManager = EventsSystem::EventManager::GetInstance();
 	}
 
-	Engine::~Engine()
+	GameEngine::~GameEngine()
 	{
 	}
 
-	void Engine::Start()
+	void GameEngine::Start()
 	{
 		Init();
 		StartLoop();
 		Destroy();
 	}
 
-	void Engine::PushLayer(Layer* layer)
+	void GameEngine::PushLayer(Layer* layer)
 	{
 		GAME_ENGINE_INFO("Saving of the new layer [{0}] has started", layer->GetName());
-		layerStack.Push(layer);
+		layerStack->Push(layer);
 		GAME_ENGINE_INFO("Saving of the new layer [{0}] completed", layer->GetName());
 	}
 
-	void Engine::PushOverlayLayer(Layer* layer)
+	void GameEngine::PushOverlayLayer(Layer* layer)
 	{
 		GAME_ENGINE_INFO("Saving of the new layer [{0}] has started", layer->GetName());
-		layerStack.PushOverlay(layer);
+		layerStack->PushOverlay(layer);
 		GAME_ENGINE_INFO("Saving of the new layer [{0}] completed", layer->GetName());
 	}
 
-	void Engine::Init()
+	void GameEngine::Init()
 	{
-		GAME_ENGINE_INFO("Initialization has started");
-		layerStack.Init();
+		GAME_ENGINE_INFO("Initialization game engine has started");
+		layerStack->Init();
 		eventManager->Init();
-		window->Init();
-		GAME_ENGINE_INFO("Initialization completed");
+		graphicsEngine->Init();
+		GAME_ENGINE_INFO("Initialization game engine completed");
 	}
 
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
@@ -59,13 +57,13 @@ namespace GameEngine
 	}
 #endif
 
-	void Engine::StartLoop()
+	void GameEngine::StartLoop()
 	{
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
 		emscripten_set_main_loop_arg(&RenderLoopCallback, this, 0, false);
 #else
 		GAME_ENGINE_INFO("Loop has started");
-		while (!window->ShouldClose())
+		while (!graphicsEngine->ShouldStop())
 		{
 			Loop();
 		}
@@ -73,14 +71,14 @@ namespace GameEngine
 #endif
 	}
 
-	void Engine::Loop()
+	void GameEngine::Loop()
 	{
 		Input();
 		Update();
 		Render();
 	}
 
-	void Engine::Input()
+	void GameEngine::Input()
 	{
 		/*
 		* If there is data in the event buffer, then read the event from the buffer and throw it into layers. 
@@ -92,7 +90,7 @@ namespace GameEngine
 		{
 			EventsSystem::MouseEvent mouseEvent = mouse->Read().value();
 
-			for (auto currentLayer = layerStack.end(); currentLayer != layerStack.begin(); )
+			for (auto currentLayer = layerStack->end(); currentLayer != layerStack->begin(); )
 			{
 				(*--currentLayer)->MouseEvent(mouseEvent);
 				
@@ -108,7 +106,7 @@ namespace GameEngine
 		{
 			EventsSystem::KeyboardEvent keyboardEvent = keyboard->ReadKey().value();
 
-			for (auto currentLayer = layerStack.end(); currentLayer != layerStack.begin(); )
+			for (auto currentLayer = layerStack->end(); currentLayer != layerStack->begin(); )
 			{
 				(*--currentLayer)->KeyboardEvent(keyboardEvent);
 
@@ -129,7 +127,7 @@ namespace GameEngine
 			switch (eventType)
 			{
 			case EventsSystem::WindowEventType::CLOSE:
-				this->window->ShouldClose(true);
+				graphicsEngine->Stop();
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
 				break;
@@ -137,33 +135,34 @@ namespace GameEngine
 		}
 	}
 
-	void Engine::Update()
+	void GameEngine::Update()
 	{
-		for (Layer* layer : layerStack)
+		for (Layer* layer : *layerStack)
 		{
 			layer->Update();
 		}
-		window->Update();
+		graphicsEngine->Update();
 	}
 
-	void Engine::Render()
+	void GameEngine::Render()
 	{
-		for (Layer* layer : layerStack)
+		for (Layer* layer : *layerStack)
 		{
 			layer->Render();
 		}
+		graphicsEngine->Render();
 	}
 
-	void Engine::Destroy()
+	void GameEngine::Destroy()
 	{
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
 		
 #else
-		GAME_ENGINE_INFO("Destruction has started");
-		window->Destroy();
+		GAME_ENGINE_INFO("Destruction game engine has started");
+		graphicsEngine->Destroy();
 		eventManager->Destroy();
-		layerStack.Destroy();
-		GAME_ENGINE_INFO("Destruction completed");
+		layerStack->Destroy();
+		GAME_ENGINE_INFO("Destruction game engine completed");
 #endif
 	}
 

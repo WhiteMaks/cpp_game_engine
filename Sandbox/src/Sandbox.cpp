@@ -23,12 +23,12 @@ public:
 	}
 };
 
-class Sandbox : public GameEngine::Engine
+class Sandbox : public GameEngine::GameEngine
 {
 public:
 
 	Sandbox()
-		: GameEngine::Engine("Sandbox")
+		: GameEngine::GameEngine("Sandbox")
 	{
 		PushLayer(new TestLayer());
 	}
@@ -41,9 +41,6 @@ public:
 
 int main()
 {
-	GameEngine::Log::Init();
-
-	//docker run --rm -v ${PWD}:/src emscripten/emsdk emcc Sandbox/src/Sandbox.cpp -o helloworld.js -I GameEngine/src -D GAME_ENGINE_PLATFORM_BROWSER
 	Sandbox* sandbox = new Sandbox();
 	
 	sandbox->Start();

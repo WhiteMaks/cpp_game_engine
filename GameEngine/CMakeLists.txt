@@ -20,6 +20,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
+	includes/Core/GraphicsEngine/GraphicsEngine.h
+	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
+	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -30,14 +33,19 @@ set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
-		src/Core/Platform/WindowsWindow.h
-		#src/Core/Platform/BrowserWindow.h
+		src/Core/Platform/Windows/WindowsWindow.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
+
+		#debug only
+		#src/Core/Platform/Browser/BrowserWindow.h
+		#src/Core/GraphicsEngine/WebGL/WebGLContext.h
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
-		src/Core/Platform/BrowserWindow.h
+		src/Core/Platform/Browser/BrowserWindow.h
+		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 	)
 endif()
 
@@ -51,14 +59,19 @@ set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
-		src/Core/Platform/WindowsWindow.cpp
-		#src/Core/Platform/BrowserWindow.cpp
+		src/Core/Platform/Windows/WindowsWindow.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
+
+		#debug only
+		#src/Core/Platform/Browser/BrowserWindow.cpp
+		#src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
-		src/Core/Platform/BrowserWindow.cpp
+		src/Core/Platform/Browser/BrowserWindow.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 	)
 endif()
 
@@ -75,6 +88,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
+	src/Core/GraphicsEngine/GraphicsEngine.cpp
+	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
+	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 
@@ -105,9 +121,15 @@ target_compile_features(${GAME_ENGINE_PROJECT_NAME} PUBLIC cxx_std_20)
 add_subdirectory(./vendor/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC spdlog)
 
+add_subdirectory(./vendor/glm ${CMAKE_CURRENT_BINARY_DIR}/glm)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
+
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
+
+	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
 	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)

@@ -4,14 +4,15 @@
 
 #include "Core/GraphicsEngine/Window.h"
 #include "Tools/Log.h"
+#include "ExitCodes.h"
 
 namespace Platform
 {
 
 	class WindowsWindow : public GraphicsEngine::Window
 	{
-	private:
-		GLFWwindow* window;
+	public:
+		static GLFWwindow* window;
 
 	public:
 		WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept;

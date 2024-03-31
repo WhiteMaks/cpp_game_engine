@@ -53,7 +53,7 @@ namespace GameEngine
 #ifdef GAME_ENGINE_PLATFORM_BROWSER
 	void RenderLoopCallback(void* arg)
 	{
-		static_cast<Engine*>(arg)->Loop();
+		static_cast<GameEngine*>(arg)->Loop();
 	}
 #endif
 

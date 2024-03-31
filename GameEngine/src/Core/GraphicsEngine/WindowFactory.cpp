@@ -2,7 +2,6 @@
 
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 	#include "Core/Platform/Windows/WindowsWindow.h"
-	//#include "Core/Platform/BrowserWindow.h"
 #elif GAME_ENGINE_PLATFORM_BROWSER
 	#include "Core/Platform/Browser/BrowserWindow.h"
 #endif

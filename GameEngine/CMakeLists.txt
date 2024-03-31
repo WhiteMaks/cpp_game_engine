@@ -125,11 +125,13 @@ add_subdirectory(./vendor/glm ${CMAKE_CURRENT_BINARY_DIR}/glm)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
-	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
-	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
+	#add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+	#target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
 
 	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
+	
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE OpenGL32.lib)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
 	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)

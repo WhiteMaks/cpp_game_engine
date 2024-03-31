@@ -10,8 +10,8 @@ namespace Platform
 
 	class BrowserWindow : public GraphicsEngine::Window
 	{
-	private:
-		SDL_Window* window;
+	public:
+		static SDL_Window* window;
 
 	public:
 		BrowserWindow(const GraphicsEngine::WindowData& windowData) noexcept;

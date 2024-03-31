@@ -36,13 +36,16 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 
+		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.h
+		#src/Core/GraphicsEngine/WebGL/WebGLContext.h
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
 		src/Core/Platform/Browser/BrowserWindow.h
+		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 	)
 endif()
 
@@ -59,13 +62,16 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 
+		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.cpp
+		#src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 	)
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 	)
 endif()
 

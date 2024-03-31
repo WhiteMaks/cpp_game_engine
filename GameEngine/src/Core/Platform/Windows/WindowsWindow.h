@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
+#include <Windows.h>
 
 #include "Core/GraphicsEngine/Window.h"
 #include "Tools/Log.h"
@@ -11,8 +11,11 @@ namespace Platform
 
 	class WindowsWindow : public GraphicsEngine::Window
 	{
+	private:
+		HINSTANCE hInstance;
+
 	public:
-		static GLFWwindow* window;
+		static HWND window;
 
 	public:
 		WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept;

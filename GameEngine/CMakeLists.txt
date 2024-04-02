@@ -35,6 +35,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
 		src/Core/Platform/Windows/WindowsWindow.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
+		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 
 		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.h
@@ -61,6 +62,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
 		src/Core/Platform/Windows/WindowsWindow.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
+		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 
 		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.cpp

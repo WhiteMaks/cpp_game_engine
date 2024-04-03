@@ -36,6 +36,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
+		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
 
 		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.h
@@ -63,6 +64,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
+		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp
 
 		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.cpp

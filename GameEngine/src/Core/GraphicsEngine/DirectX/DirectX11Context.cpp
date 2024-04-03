@@ -64,16 +64,30 @@ namespace GraphicsEngine
 
 		GRAPHICS_ENGINE_DEBUG("Initialization d3d11 render target view has started");
 		ID3D11Resource* pBackBuffer = nullptr;
-		pSwapChain->GetBuffer(
+		result = pSwapChain->GetBuffer(
 			0,
 			__uuidof(ID3D11Resource),
 			reinterpret_cast<void**>(&pBackBuffer)
 		);
-		pDevice->CreateRenderTargetView(
+
+		if (!SUCCEEDED(result))
+		{
+			GRAPHICS_ENGINE_CRITICAL("Back buffer not initialized!");
+			exit(GameEngine::GRAPHICS_CONTEXT_INITIALIZAATION_FAILED);
+		}
+
+		result = pDevice->CreateRenderTargetView(
 			pBackBuffer,
 			nullptr,
 			&pRenderTargetView
 		);
+
+		if (!SUCCEEDED(result))
+		{
+			GRAPHICS_ENGINE_CRITICAL("Render target view not initialized!");
+			exit(GameEngine::GRAPHICS_CONTEXT_INITIALIZAATION_FAILED);
+		}
+
 		pBackBuffer->Release();
 		GRAPHICS_ENGINE_DEBUG("Initialization d3d11 render target view completed");
 

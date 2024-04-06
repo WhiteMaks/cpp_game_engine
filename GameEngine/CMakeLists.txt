@@ -129,9 +129,6 @@ add_subdirectory(./vendor/glm ${CMAKE_CURRENT_BINARY_DIR}/glm)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
-	#add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
-	#target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
-
 	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 	

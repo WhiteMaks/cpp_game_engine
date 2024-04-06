@@ -9,7 +9,6 @@
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
-#include "d3dx12.h"
 
 namespace GraphicsEngine
 {

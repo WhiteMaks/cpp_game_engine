@@ -38,8 +38,6 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
 
-		src/Core/GraphicsEngine/DirectX/d3dx12.h
-
 		#debug only
 		#src/Core/Platform/Browser/BrowserWindow.h
 		#src/Core/GraphicsEngine/WebGL/WebGLContext.h

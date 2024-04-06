@@ -1,4 +1,5 @@
 #include "OpenGLContext.h"
+#include <iostream>
 
 namespace GraphicsEngine
 {
@@ -43,6 +44,8 @@ namespace GraphicsEngine
 			exit(GameEngine::GRAPHICS_CONTEXT_INITIALIZAATION_FAILED);
 		}
 		GRAPHICS_ENGINE_DEBUG("Initialization GLAD completed");
+
+		GRAPHICS_ENGINE_TRACE("OpenGL version [{0}]", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 
 		GRAPHICS_ENGINE_INFO("Initialization openGL context completed");
 	}

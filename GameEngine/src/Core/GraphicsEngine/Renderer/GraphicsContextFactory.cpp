@@ -16,9 +16,9 @@ namespace GraphicsEngine
 	GraphicsContext* GraphicsContextFactory::Create()
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
-		//return new OpenGLContext(Platform::WindowsWindow::window);
+		return new OpenGLContext(Platform::WindowsWindow::window);
 		//return new DirectX11Context(Platform::WindowsWindow::window);
-		return new DirectX12Context(Platform::WindowsWindow::window);
+		//return new DirectX12Context(Platform::WindowsWindow::window);
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new WebGLContext(Platform::BrowserWindow::window);
 #else

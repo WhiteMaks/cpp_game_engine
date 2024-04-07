@@ -75,6 +75,36 @@ namespace GraphicsEngine
 		
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+		std::string vertex = R"(
+			#version 460 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main() {
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string fragment = R"(
+			#version 460 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main() {
+				color = vec4(v_Position, 1.0);
+			}
+		)";
+
+		shaderProgram = std::unique_ptr<ShaderProgram>(
+			new OpenGLShaderProgram(vertex, fragment)
+		);
+
+		shaderProgram->Init();
 	}
 
 	void OpenGLContext::SwapBuffers() noexcept
@@ -82,8 +112,12 @@ namespace GraphicsEngine
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0, 0, 1, 1);
 
+		shaderProgram->Bind();
+
 		glBindVertexArray(vertexArray);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+
+		shaderProgram->Unbind();
 
 		::SwapBuffers(hdc);
 	}

@@ -8,6 +8,8 @@
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
+#include "OpenGLShaderProgram.h"
+
 namespace GraphicsEngine
 {
 
@@ -19,6 +21,7 @@ namespace GraphicsEngine
 		HGLRC hglrc;
 
 		unsigned int vertexArray, vertexBuffer, indexBuffer;
+		std::unique_ptr<ShaderProgram> shaderProgram;
 
 	public:
 		OpenGLContext(HWND window) noexcept;

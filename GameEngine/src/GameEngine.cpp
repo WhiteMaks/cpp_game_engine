@@ -59,7 +59,7 @@ namespace GameEngine
 
 	void GameEngine::StartLoop()
 	{
-#ifdef GAME_ENGINE_PLATFORM_BROWSER
+#ifdef __EMSCRIPTEN__
 		emscripten_set_main_loop_arg(&RenderLoopCallback, this, 0, false);
 #else
 		GAME_ENGINE_INFO("Loop has started");

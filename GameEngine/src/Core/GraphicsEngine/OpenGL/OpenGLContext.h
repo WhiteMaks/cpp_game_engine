@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 #include <Windows.h>
+#include <iostream>
 
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Tools/Log.h"
@@ -16,6 +17,8 @@ namespace GraphicsEngine
 		HWND window;
 		HDC hdc;
 		HGLRC hglrc;
+
+		unsigned int vertexArray, vertexBuffer, indexBuffer;
 
 	public:
 		OpenGLContext(HWND window) noexcept;

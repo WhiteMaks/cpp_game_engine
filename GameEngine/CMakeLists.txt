@@ -33,14 +33,13 @@ set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
+		src/Core/Platform/Browser/BrowserWindow.h
 		src/Core/Platform/Windows/WindowsWindow.h
+
+		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
-		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
-
-		#debug only
-		#src/Core/Platform/Browser/BrowserWindow.h
-		#src/Core/GraphicsEngine/WebGL/WebGLContext.h
+		src/Core/GraphicsEngine/DirectX/DirectX12Context.h	
 	)
 endif()
 
@@ -61,14 +60,13 @@ set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
+		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/Platform/Windows/WindowsWindow.cpp
+
+		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
-		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp
-
-		#debug only
-		#src/Core/Platform/Browser/BrowserWindow.cpp
-		#src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
+		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
 	)
 endif()
 
@@ -133,7 +131,20 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 	
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE OpenGL32.lib)
+
+	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
+	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
+
+	add_custom_command(TARGET ${GAME_ENGINE_PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+		$<TARGET_FILE_DIR:SDL2::SDL2>/SDL2d.dll
+		$<TARGET_FILE_DIR:${GAME_ENGINE_PROJECT_NAME}>
+	)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
+	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
+
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
 	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)

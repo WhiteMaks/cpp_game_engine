@@ -4,8 +4,8 @@ namespace GameEngine
 {
 
 	LayerStack::LayerStack() noexcept
+		: layerInsertIndex(0)
 	{
-		layerInsert = begin();
 	}
 
 	LayerStack::~LayerStack() noexcept
@@ -15,7 +15,8 @@ namespace GameEngine
 
 	void LayerStack::Push(Layer* layer) noexcept
 	{
-		layerInsert = layers.emplace(layerInsert, layer);
+		layers.emplace(begin() + layerInsertIndex, layer);
+		layerInsertIndex++;
 		LAYER_INFO("New layer [{0}] saved", layer->GetName());
 	}
 
@@ -31,7 +32,7 @@ namespace GameEngine
 		if (findedLayer != end())
 		{
 			layers.erase(findedLayer);
-			layerInsert--;
+			layerInsertIndex--;
 		}
 	}
 

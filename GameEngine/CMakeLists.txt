@@ -24,6 +24,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
+	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -101,6 +102,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
+	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

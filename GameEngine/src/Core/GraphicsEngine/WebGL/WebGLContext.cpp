@@ -65,7 +65,7 @@ namespace GraphicsEngine
 		glClearColor(0, 0, 1, 1);
 
 		glBindVertexArray(vertexArray);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 		SDL_GL_SwapWindow(window);
 	}

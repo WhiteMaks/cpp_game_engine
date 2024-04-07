@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SDL.h>
-//#include <SDL_opengles2.h>
 #include <glad/glad.h>
 
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"

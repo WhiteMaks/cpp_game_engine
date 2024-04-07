@@ -23,6 +23,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
+	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -37,7 +38,10 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.h
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
+		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
+		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.h	
 	)
@@ -64,7 +68,10 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.cpp
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
+
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
+		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
 	)
@@ -93,6 +100,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
+	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

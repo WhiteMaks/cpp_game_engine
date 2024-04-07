@@ -3,5 +3,5 @@ mkdir build
 cd build
 emsdk activate
 emcmake cmake ..
-cmake --build . --config Release
+cmake --build . --config Release -- -j8
 pause

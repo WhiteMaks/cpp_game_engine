@@ -125,6 +125,7 @@ namespace GraphicsEngine
 	void OpenGLContext::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction openGL context has started");
+		shaderProgram->Destroy();
 		wglMakeCurrent(NULL, NULL);
 		wglDeleteContext(hglrc);
 		ReleaseDC(window, hdc);

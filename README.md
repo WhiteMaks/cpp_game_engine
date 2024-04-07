@@ -16,6 +16,7 @@ Platforms:
 - [x]  Browser
 - [ ]  Linux
 - [ ]  MacOS
+
 Graphics API:
 - [x]  OpenGL
 - [x]  WebGL

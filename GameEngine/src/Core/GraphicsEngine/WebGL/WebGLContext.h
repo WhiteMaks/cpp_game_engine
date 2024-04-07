@@ -7,6 +7,8 @@
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
+#include "WebGLShaderProgram.h"
+
 namespace GraphicsEngine
 {
 
@@ -16,6 +18,7 @@ namespace GraphicsEngine
 		SDL_Window* window;
 
 		unsigned int vertexArray, vertexBuffer, indexBuffer;
+		std::unique_ptr<ShaderProgram> shaderProgram;
 
 	public:
 		WebGLContext(SDL_Window* window) noexcept;

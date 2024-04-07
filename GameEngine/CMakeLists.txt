@@ -24,6 +24,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
+	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -38,6 +39,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.h
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
+		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
 		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
@@ -51,6 +53,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
 		src/Core/Platform/Browser/BrowserWindow.h
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
+		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
 	)
 endif()
 
@@ -68,6 +71,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.cpp
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
+
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
@@ -81,6 +86,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
 	)
 endif()
 
@@ -101,6 +107,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
+	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

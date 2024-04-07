@@ -14,7 +14,8 @@ namespace GameEngine
 
 	private:
 		std::vector<Layer*> layers;
-		std::vector<Layer*>::iterator layerInsert;
+
+		unsigned int layerInsertIndex;
 
 	public:
 		LayerStack() noexcept;

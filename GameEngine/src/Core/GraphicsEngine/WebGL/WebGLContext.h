@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include <SDL_opengles2.h>
+#include <glad/glad.h>
 
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Tools/Log.h"
@@ -14,6 +14,8 @@ namespace GraphicsEngine
 	{
 	private:
 		SDL_Window* window;
+
+		unsigned int vertexArray, vertexBuffer, indexBuffer;
 
 	public:
 		WebGLContext(SDL_Window* window) noexcept;

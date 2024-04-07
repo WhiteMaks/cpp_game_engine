@@ -1,6 +1,8 @@
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
 
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
+#include "Core/Platform/Browser/BrowserWindow.h"
+#include "Core/GraphicsEngine/WebGL/WebGLContext.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLContext.h"
 #include "Core/GraphicsEngine/DirectX/DirectX11Context.h"
 #include "Core/GraphicsEngine/DirectX/DirectX12Context.h"
@@ -16,6 +18,7 @@ namespace GraphicsEngine
 	GraphicsContext* GraphicsContextFactory::Create()
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		//return new WebGLContext(Platform::BrowserWindow::window);
 		return new OpenGLContext(Platform::WindowsWindow::window);
 		//return new DirectX11Context(Platform::WindowsWindow::window);
 		//return new DirectX12Context(Platform::WindowsWindow::window);

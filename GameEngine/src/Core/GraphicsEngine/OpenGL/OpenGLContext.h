@@ -2,10 +2,13 @@
 
 #include <glad/glad.h>
 #include <Windows.h>
+#include <iostream>
 
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
+
+#include "OpenGLShaderProgram.h"
 
 namespace GraphicsEngine
 {
@@ -16,6 +19,9 @@ namespace GraphicsEngine
 		HWND window;
 		HDC hdc;
 		HGLRC hglrc;
+
+		unsigned int vertexArray, vertexBuffer, indexBuffer;
+		std::unique_ptr<ShaderProgram> shaderProgram;
 
 	public:
 		OpenGLContext(HWND window) noexcept;

@@ -10,10 +10,10 @@ namespace GraphicsEngine
 
 	void WebGLShaderProgram::Init() noexcept
 	{
-		GRAPHICS_ENGINE_INFO("Initialization openGL shader program has started");
+		GRAPHICS_ENGINE_INFO("Initialization webGL shader program has started");
 		InitShaders();
 		InitShaderProgram();
-		GRAPHICS_ENGINE_INFO("Initialization openGL shader program completed");
+		GRAPHICS_ENGINE_INFO("Initialization webGL shader program completed");
 	}
 
 	void WebGLShaderProgram::Bind() noexcept
@@ -28,7 +28,7 @@ namespace GraphicsEngine
 
 	void WebGLShaderProgram::Destroy() noexcept
 	{
-		GRAPHICS_ENGINE_INFO("Destruction openGL shader program has started");
+		GRAPHICS_ENGINE_INFO("Destruction webGL shader program has started");
 
 		glDeleteShader(vertexShader);
 		GRAPHICS_ENGINE_TRACE("Vertex shader removed from memory");
@@ -39,7 +39,7 @@ namespace GraphicsEngine
 		glDeleteProgram(shaderProgram);
 		GRAPHICS_ENGINE_TRACE("Program removed from memory");
 
-		GRAPHICS_ENGINE_INFO("Destruction openGL shader program completed");
+		GRAPHICS_ENGINE_INFO("Destruction webGL shader program completed");
 	}
 
 	void WebGLShaderProgram::InitShaderProgram() noexcept

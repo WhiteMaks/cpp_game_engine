@@ -25,6 +25,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
+	includes/Core/GraphicsEngine/Renderer/VertexBuffer.h
+	includes/Core/GraphicsEngine/Renderer/IndexBuffer.h
+	includes/Core/GraphicsEngine/Renderer/BufferFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -73,7 +76,6 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
 
-
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
 		
@@ -108,6 +110,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
+	src/Core/GraphicsEngine/Renderer/VertexBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/IndexBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/BufferFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

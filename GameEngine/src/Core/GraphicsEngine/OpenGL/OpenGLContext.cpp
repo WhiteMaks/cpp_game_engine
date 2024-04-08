@@ -50,6 +50,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization openGL context completed");
 
 
+
 		glGenVertexArrays(1, &vertexArray);
 		glBindVertexArray(vertexArray);
 

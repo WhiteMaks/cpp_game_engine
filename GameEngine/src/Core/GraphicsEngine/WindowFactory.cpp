@@ -13,8 +13,8 @@ namespace GraphicsEngine
 	Window* WindowFactory::Create(const WindowData& windowData)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
-		return new Platform::BrowserWindow(windowData);
-		//return new Platform::WindowsWindow(windowData);
+		//return new Platform::BrowserWindow(windowData);
+		return new Platform::WindowsWindow(windowData);
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new Platform::BrowserWindow(windowData);
 #else

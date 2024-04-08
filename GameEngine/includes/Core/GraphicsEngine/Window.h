@@ -25,7 +25,7 @@ namespace GraphicsEngine
 
 		bool shouldClose = true;
 
-	public:
+	protected:
 		Window(const WindowData& windowData) noexcept;
 
 		virtual ~Window() noexcept;

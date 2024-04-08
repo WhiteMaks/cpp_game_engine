@@ -7,5 +7,13 @@
 namespace GraphicsEngine
 {
 
+	VertexBuffer* BufferFactory::CreateVertexBuffer(float* vertices, unsigned int size)
+	{
+		return nullptr;
+	}
 
+	IndexBuffer* BufferFactory::CreateIndexBuffer(unsigned int* indeces, unsigned int size)
+	{
+		return nullptr;
+	}
 }

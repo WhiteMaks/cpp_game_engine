@@ -9,8 +9,8 @@ namespace GraphicsEngine
 	class BufferFactory
 	{
 	public:
-		static VertexBuffer* CreateVertexBuffer();
-		static IndexBuffer* CreateIndexBuffer();
+		static VertexBuffer* CreateVertexBuffer(float* vertices, unsigned int size);
+		static IndexBuffer* CreateIndexBuffer(unsigned int* indeces, unsigned int size);
 
 	};
 

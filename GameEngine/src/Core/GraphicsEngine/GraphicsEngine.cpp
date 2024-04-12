@@ -3,8 +3,12 @@
 namespace GraphicsEngine
 {
 
-	GraphicsEngine::GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight)
+	GraphicsAPI GraphicsEngine::api = GraphicsAPI::OpenGL;
+
+	GraphicsEngine::GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api)
 	{
+		GraphicsEngine::api = api;
+
 		window = std::unique_ptr<Window>(
 			WindowFactory::Create(
 				WindowData(windowTitle, windowWidth, windowHeight)
@@ -22,6 +26,11 @@ namespace GraphicsEngine
 		);
 		context->Init();
 		GRAPHICS_ENGINE_INFO("Initialization graphics engine completed");
+	}
+
+	GraphicsAPI GraphicsEngine::GetAPI() noexcept
+	{
+		return api;
 	}
 
 	void GraphicsEngine::Update() noexcept

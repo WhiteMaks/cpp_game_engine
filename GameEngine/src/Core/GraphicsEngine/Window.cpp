@@ -13,10 +13,6 @@ namespace GraphicsEngine
 	{
 	}
 
-	Window::~Window() noexcept
-	{
-	}
-
 	void Window::Init() noexcept
 	{
 	}

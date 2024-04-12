@@ -28,8 +28,6 @@ namespace GraphicsEngine
 	protected:
 		Window(const WindowData& windowData) noexcept;
 
-		virtual ~Window() noexcept;
-
 	public:
 		virtual void Init() noexcept;
 		virtual void Update() noexcept;

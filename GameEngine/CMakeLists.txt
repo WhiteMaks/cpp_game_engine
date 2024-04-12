@@ -21,6 +21,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
 	includes/Core/GraphicsEngine/GraphicsEngine.h
+	includes/Core/GraphicsEngine/GraphicsAPI.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
@@ -46,6 +47,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLIndexBuffer.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLVertexBuffer.h
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.h	
@@ -78,6 +81,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLIndexBuffer.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLVertexBuffer.cpp
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	

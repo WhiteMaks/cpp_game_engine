@@ -20,8 +20,6 @@ namespace Platform
 	public:
 		WindowsWindow(const GraphicsEngine::WindowData& windowData) noexcept;
 
-		virtual ~WindowsWindow() noexcept;
-
 	public:
 		void Init() noexcept override;
 		void Update() noexcept override;

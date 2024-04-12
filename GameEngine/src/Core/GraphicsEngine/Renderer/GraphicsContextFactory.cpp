@@ -6,6 +6,7 @@
 #include "Core/GraphicsEngine/OpenGL/OpenGLContext.h"
 #include "Core/GraphicsEngine/DirectX/DirectX11Context.h"
 #include "Core/GraphicsEngine/DirectX/DirectX12Context.h"
+#include "Core/GraphicsEngine/GraphicsEngine.h"
 #include "Core/Platform/Windows/WindowsWindow.h"
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #include "Core/Platform/Browser/BrowserWindow.h"
@@ -18,10 +19,14 @@ namespace GraphicsEngine
 	GraphicsContext* GraphicsContextFactory::Create()
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
-		//return new WebGLContext(Platform::BrowserWindow::window);
-		return new OpenGLContext(Platform::WindowsWindow::window);
-		//return new DirectX11Context(Platform::WindowsWindow::window);
-		//return new DirectX12Context(Platform::WindowsWindow::window);
+		switch (GraphicsEngine::GetAPI())
+		{
+		case GraphicsAPI::WebGL: return new WebGLContext(Platform::BrowserWindow::window);
+		case GraphicsAPI::OpenGL: return new OpenGLContext(Platform::WindowsWindow::window);
+		case GraphicsAPI::DirectX_11: return new DirectX11Context(Platform::WindowsWindow::window);
+		case GraphicsAPI::DirectX_12: return new DirectX12Context(Platform::WindowsWindow::window);
+		default: throw;
+		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new WebGLContext(Platform::BrowserWindow::window);
 #else

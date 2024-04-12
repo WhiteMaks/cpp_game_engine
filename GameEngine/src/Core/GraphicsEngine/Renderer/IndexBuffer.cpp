@@ -2,8 +2,8 @@
 
 namespace GraphicsEngine
 {
-	IndexBuffer::IndexBuffer(unsigned int* indeces, unsigned int size) noexcept
-		: indeces(indeces), size(size)
+	IndexBuffer::IndexBuffer(unsigned int* indeces, unsigned int count) noexcept
+		: indeces(indeces), count(count)
 	{
 	}
 
@@ -21,6 +21,11 @@ namespace GraphicsEngine
 
 	void IndexBuffer::Destroy() noexcept
 	{
+	}
+
+	unsigned int IndexBuffer::GetCount() noexcept
+	{
+		return count;
 	}
 
 }

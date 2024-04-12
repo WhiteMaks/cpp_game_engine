@@ -7,10 +7,10 @@ namespace GraphicsEngine
 	{
 	protected:
 		unsigned int* indeces;
-		unsigned int size;
+		unsigned int count;
 
 	protected:
-		IndexBuffer(unsigned int* indeces, unsigned int size) noexcept;
+		IndexBuffer(unsigned int* indeces, unsigned int count) noexcept;
 
 	public:
 		virtual void Init() noexcept;
@@ -18,6 +18,7 @@ namespace GraphicsEngine
 		virtual void Unbind() noexcept;
 		virtual void Destroy() noexcept;
 
+		virtual unsigned int GetCount() noexcept;
 	};
 
 }

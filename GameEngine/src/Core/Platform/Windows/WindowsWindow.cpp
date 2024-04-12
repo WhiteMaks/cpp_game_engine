@@ -11,10 +11,6 @@ namespace Platform
 	{
 	}
 
-	WindowsWindow::~WindowsWindow() noexcept
-	{
-	}
-
 	void WindowsWindow::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization windows window [{0}] has started", windowData.Title);

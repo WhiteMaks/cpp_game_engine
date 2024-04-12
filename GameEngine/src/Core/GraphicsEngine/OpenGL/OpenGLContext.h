@@ -9,6 +9,8 @@
 #include "ExitCodes.h"
 
 #include "OpenGLShaderProgram.h"
+#include "OpenGLVertexBuffer.h"
+#include "OpenGLIndexBuffer.h"
 
 namespace GraphicsEngine
 {
@@ -20,8 +22,10 @@ namespace GraphicsEngine
 		HDC hdc;
 		HGLRC hglrc;
 
-		unsigned int vertexArray, vertexBuffer, indexBuffer;
+		unsigned int vertexArray;
 		std::unique_ptr<ShaderProgram> shaderProgram;
+		std::unique_ptr<VertexBuffer> vertexBuffer;
+		std::unique_ptr<IndexBuffer> indexBuffer;
 
 	public:
 		OpenGLContext(HWND window) noexcept;

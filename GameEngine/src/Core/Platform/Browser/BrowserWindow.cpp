@@ -11,10 +11,6 @@ namespace Platform
 	{
 	}
 
-	BrowserWindow::~BrowserWindow() noexcept
-	{
-	}
-
 	void BrowserWindow::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization browser window [{0} ({1}, {2})] has started", windowData.Title, windowData.Width, windowData.Height);

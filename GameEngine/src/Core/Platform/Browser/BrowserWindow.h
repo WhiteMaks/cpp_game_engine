@@ -16,8 +16,6 @@ namespace Platform
 	public:
 		BrowserWindow(const GraphicsEngine::WindowData& windowData) noexcept;
 
-		virtual ~BrowserWindow() noexcept;
-
 	public:
 		void Init() noexcept override;
 		void Update() noexcept override;

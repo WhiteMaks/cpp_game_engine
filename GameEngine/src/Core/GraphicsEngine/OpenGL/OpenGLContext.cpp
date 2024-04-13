@@ -62,8 +62,8 @@ namespace GraphicsEngine
 			0.0f, 0.5f, 0.0f,
 		};
 
-		vertexBuffer = std::unique_ptr<VertexBuffer>(
-			new OpenGLVertexBuffer(vertices, sizeof(vertices))
+		vertexBuffer = std::unique_ptr<VertexStaticBuffer>(
+			new OpenGLVertexStaticBuffer(vertices, sizeof(vertices))
 		);
 		vertexBuffer->Init();
 
@@ -85,8 +85,8 @@ namespace GraphicsEngine
 			0, 1, 2
 		};
 
-		indexBuffer = std::unique_ptr<IndexBuffer>(
-			new OpenGLIndexBuffer(indices, sizeof(indices) / sizeof(unsigned int))
+		indexBuffer = std::unique_ptr<IndexStaticBuffer>(
+			new OpenGLIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
 		);
 		indexBuffer->Init();
 		

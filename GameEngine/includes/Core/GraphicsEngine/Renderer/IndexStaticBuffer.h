@@ -3,14 +3,14 @@
 namespace GraphicsEngine
 {
 
-	class IndexBuffer
+	class IndexStaticBuffer
 	{
 	protected:
 		unsigned int* indeces;
 		unsigned int count;
 
 	protected:
-		IndexBuffer(unsigned int* indeces, unsigned int count) noexcept;
+		IndexStaticBuffer(unsigned int* indeces, unsigned int count) noexcept;
 
 	public:
 		virtual void Init() noexcept;

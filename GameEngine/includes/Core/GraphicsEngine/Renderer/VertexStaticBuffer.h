@@ -3,14 +3,14 @@
 namespace GraphicsEngine
 {
 
-	class VertexBuffer
+	class VertexStaticBuffer
 	{
 	protected:
 		float* vertices;
 		unsigned int size;
 
 	protected:
-		VertexBuffer(float* vertices, unsigned int size) noexcept;
+		VertexStaticBuffer(float* vertices, unsigned int size) noexcept;
 
 	public:
 		virtual void Init() noexcept;

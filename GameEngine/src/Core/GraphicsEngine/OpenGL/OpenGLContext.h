@@ -9,8 +9,8 @@
 #include "ExitCodes.h"
 
 #include "OpenGLShaderProgram.h"
-#include "OpenGLVertexBuffer.h"
-#include "OpenGLIndexBuffer.h"
+#include "OpenGLVertexStaticBuffer.h"
+#include "OpenGLIndexStaticBuffer.h"
 
 namespace GraphicsEngine
 {
@@ -24,15 +24,16 @@ namespace GraphicsEngine
 
 		unsigned int vertexArray;
 		std::unique_ptr<ShaderProgram> shaderProgram;
-		std::unique_ptr<VertexBuffer> vertexBuffer;
-		std::unique_ptr<IndexBuffer> indexBuffer;
+		std::unique_ptr<VertexStaticBuffer> vertexBuffer;
+		std::unique_ptr<IndexStaticBuffer> indexBuffer;
 
 	public:
 		OpenGLContext(HWND window) noexcept;
 
 	public:
 		void Init() noexcept override;
-		void SwapBuffers() noexcept override;
+		void StartFrame() noexcept override;
+		void EndFrame() noexcept override;
 		void Destroy() noexcept override;
 	};
 

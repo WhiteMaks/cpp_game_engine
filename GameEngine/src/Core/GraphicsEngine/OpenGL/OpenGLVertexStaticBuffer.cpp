@@ -1,14 +1,14 @@
-#include "OpenGLVertexBuffer.h"
+#include "OpenGLVertexStaticBuffer.h"
 
 namespace GraphicsEngine
 {
 	
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, unsigned int size) noexcept
-		: VertexBuffer(vertices, size), buffer(0)
+	OpenGLVertexStaticBuffer::OpenGLVertexStaticBuffer(float* vertices, unsigned int size) noexcept
+		: VertexStaticBuffer(vertices, size), buffer(0)
 	{
 	}
 
-	void OpenGLVertexBuffer::Init() noexcept
+	void OpenGLVertexStaticBuffer::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization openGL vertex buffer has started");
 		glCreateBuffers(1, &buffer);
@@ -17,17 +17,17 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization openGL vertex buffer completed");
 	}
 
-	void OpenGLVertexBuffer::Bind() noexcept
+	void OpenGLVertexStaticBuffer::Bind() noexcept
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	}
 
-	void OpenGLVertexBuffer::Unbind() noexcept
+	void OpenGLVertexStaticBuffer::Unbind() noexcept
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::Destroy() noexcept
+	void OpenGLVertexStaticBuffer::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction openGL vertex buffer has started");
 		glDeleteBuffers(1, &buffer);

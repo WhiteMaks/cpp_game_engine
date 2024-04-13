@@ -94,7 +94,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization directX 11 completed");
 	}
 
-	void DirectX11Context::SwapBuffers() noexcept
+	void DirectX11Context::StartFrame() noexcept
+	{
+	}
+
+	void DirectX11Context::EndFrame() noexcept
 	{
 		const float color[] = {0, 0, 1, 1};
 		pContext->ClearRenderTargetView(

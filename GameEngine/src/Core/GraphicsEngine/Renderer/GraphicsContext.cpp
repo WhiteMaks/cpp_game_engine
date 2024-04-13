@@ -7,7 +7,11 @@ namespace GraphicsEngine
 	{
 	}
 
-	void GraphicsContext::SwapBuffers() noexcept
+	void GraphicsContext::StartFrame() noexcept
+	{
+	}
+
+	void GraphicsContext::EndFrame() noexcept
 	{
 	}
 

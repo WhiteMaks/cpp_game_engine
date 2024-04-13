@@ -124,7 +124,11 @@ namespace GraphicsEngine
 		shaderProgram->Init();
 	}
 
-	void OpenGLContext::SwapBuffers() noexcept
+	void OpenGLContext::StartFrame() noexcept
+	{
+	}
+
+	void OpenGLContext::EndFrame() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0, 0, 1, 1);

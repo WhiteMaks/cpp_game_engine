@@ -88,7 +88,7 @@ namespace GraphicsEngine
 		shaderProgram->Init();
 	}
 
-	void WebGLContext::SwapBuffers() noexcept
+	void WebGLContext::StartFrame() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0, 0, 1, 1);
@@ -97,7 +97,10 @@ namespace GraphicsEngine
 		glBindVertexArray(vertexArray);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		shaderProgram->Unbind();
+	}
 
+	void WebGLContext::EndFrame() noexcept
+	{
 		SDL_GL_SwapWindow(window);
 	}
 

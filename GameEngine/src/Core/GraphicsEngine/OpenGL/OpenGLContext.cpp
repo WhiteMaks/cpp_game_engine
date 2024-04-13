@@ -126,10 +126,6 @@ namespace GraphicsEngine
 
 	void OpenGLContext::StartFrame() noexcept
 	{
-	}
-
-	void OpenGLContext::EndFrame() noexcept
-	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0, 0, 1, 1);
 
@@ -139,7 +135,10 @@ namespace GraphicsEngine
 		glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 		shaderProgram->Unbind();
+	}
 
+	void OpenGLContext::EndFrame() noexcept
+	{
 		::SwapBuffers(hdc);
 	}
 

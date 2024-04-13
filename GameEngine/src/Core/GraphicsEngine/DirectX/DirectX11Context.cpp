@@ -96,16 +96,15 @@ namespace GraphicsEngine
 
 	void DirectX11Context::StartFrame() noexcept
 	{
-	}
-
-	void DirectX11Context::EndFrame() noexcept
-	{
-		const float color[] = {0, 0, 1, 1};
+		const float color[] = { 0, 0, 1, 1 };
 		pContext->ClearRenderTargetView(
 			pRenderTargetView,
 			color
 		);
+	}
 
+	void DirectX11Context::EndFrame() noexcept
+	{
 		pSwapChain->Present(
 			0u, //if equal 0, then no synchronization 
 			0u

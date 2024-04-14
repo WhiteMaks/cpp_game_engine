@@ -28,8 +28,6 @@ namespace GraphicsEngine
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new WebGLContext(Platform::BrowserWindow::window);
-#else
-#error Graphics context only supports Windows and Browser!
 #endif
 		return new GraphicsContext();
 	}

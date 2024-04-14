@@ -21,8 +21,6 @@ namespace GraphicsEngine
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new WebGLShaderProgram(vertexShaderCode, fragmentShaderCode);
-#else
-#error Graphics context only supports Windows and Browser!
 #endif
 		return new ShaderProgram(vertexShaderCode, fragmentShaderCode);
 	}

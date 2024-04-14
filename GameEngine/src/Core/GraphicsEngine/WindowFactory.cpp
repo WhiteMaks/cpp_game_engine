@@ -23,8 +23,6 @@ namespace GraphicsEngine
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new Platform::BrowserWindow(windowData);
-#else
-	#error Window only supports Windows and Browser!
 #endif
 		return new Window(windowData);
 	}

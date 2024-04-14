@@ -9,7 +9,7 @@ namespace GraphicsEngine
 		unsigned int* indeces;
 		unsigned int count;
 
-	protected:
+	public:
 		IndexStaticBuffer(unsigned int* indeces, unsigned int count) noexcept;
 
 	public:

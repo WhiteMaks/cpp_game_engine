@@ -11,7 +11,7 @@ namespace GraphicsEngine
 		const std::string& vertexShaderCode;
 		const std::string& fragmentShaderCode;
 
-	protected:
+	public:
 		ShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept;
 
 	public:

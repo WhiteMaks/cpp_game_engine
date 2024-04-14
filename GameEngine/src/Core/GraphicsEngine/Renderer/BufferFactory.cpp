@@ -16,10 +16,10 @@ namespace GraphicsEngine
 		switch (GraphicsEngine::GetAPI())
 		{
 		case GraphicsAPI::OpenGL: return new OpenGLVertexStaticBuffer(vertices, size);
-		default: throw;
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #endif
+		return new VertexStaticBuffer(vertices, size);
 	}
 
 	IndexStaticBuffer* BufferFactory::CreateIndexStaticBuffer(unsigned int* indeces, unsigned int size)
@@ -28,9 +28,9 @@ namespace GraphicsEngine
 		switch (GraphicsEngine::GetAPI())
 		{
 		case GraphicsAPI::OpenGL: return new OpenGLIndexStaticBuffer(indeces, size);
-		default: throw;
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #endif
+		return new IndexStaticBuffer(indeces, size);
 	}
 }

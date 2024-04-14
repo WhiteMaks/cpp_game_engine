@@ -25,13 +25,13 @@ namespace GraphicsEngine
 		case GraphicsAPI::OpenGL: return new OpenGLContext(Platform::WindowsWindow::window);
 		case GraphicsAPI::DirectX_11: return new DirectX11Context(Platform::WindowsWindow::window);
 		case GraphicsAPI::DirectX_12: return new DirectX12Context(Platform::WindowsWindow::window);
-		default: throw;
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		return new WebGLContext(Platform::BrowserWindow::window);
 #else
 #error Graphics context only supports Windows and Browser!
 #endif
+		return new GraphicsContext();
 	}
 
 }

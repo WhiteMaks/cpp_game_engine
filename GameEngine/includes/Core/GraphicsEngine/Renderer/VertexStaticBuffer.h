@@ -9,7 +9,7 @@ namespace GraphicsEngine
 		float* vertices;
 		unsigned int size;
 
-	protected:
+	public:
 		VertexStaticBuffer(float* vertices, unsigned int size) noexcept;
 
 	public:

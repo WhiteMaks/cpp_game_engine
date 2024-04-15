@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "Core/GraphicsEngine/Renderer/VertexBuffer.h"
+#include "Core/GraphicsEngine/Renderer/VertexStaticBuffer.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
@@ -11,13 +11,13 @@
 namespace GraphicsEngine
 {
 
-	class OpenGLVertexBuffer : public VertexBuffer
+	class OpenGLVertexStaticBuffer : public VertexStaticBuffer
 	{
 	private:
 		unsigned int buffer;
 
 	public:
-		OpenGLVertexBuffer(float* vertices, unsigned int size) noexcept;
+		OpenGLVertexStaticBuffer(float* vertices, unsigned int size) noexcept;
 
 	public:
 		void Init() noexcept override;

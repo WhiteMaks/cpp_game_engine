@@ -25,7 +25,8 @@ namespace GraphicsEngine
 
 	public:
 		void Init() noexcept override;
-		void SwapBuffers() noexcept override;
+		void StartFrame() noexcept override;
+		void EndFrame() noexcept override;
 		void Destroy() noexcept override;
 	};
 

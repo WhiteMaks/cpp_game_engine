@@ -40,7 +40,9 @@ namespace GraphicsEngine
 
 	void GraphicsEngine::Render() noexcept
 	{
-		context->SwapBuffers();
+		context->StartFrame();
+		//rendering scene
+		context->EndFrame();
 	}
 
 	void GraphicsEngine::Destroy() noexcept

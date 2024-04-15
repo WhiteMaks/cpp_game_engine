@@ -52,55 +52,16 @@ namespace GraphicsEngine
 
 
 
-
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
-
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f,
-		};
-
-		vertexBuffer = std::unique_ptr<VertexBuffer>(
-			new OpenGLVertexBuffer(vertices, sizeof(vertices))
-		);
-		vertexBuffer->Init();
-
-		
-
-		//glGenBuffers(1, &vertexBuffer);
-		//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-		
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		//glGenBuffers(1, &indexBuffer);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-		unsigned int indices[3] = {
-			0, 1, 2
-		};
-
-		indexBuffer = std::unique_ptr<IndexBuffer>(
-			new OpenGLIndexBuffer(indices, sizeof(indices) / sizeof(unsigned int))
-		);
-		indexBuffer->Init();
-		
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
 		std::string vertex = R"(
 			#version 460 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
-			out vec3 v_Position;
+			out vec4 v_Color;
 
 			void main() {
-				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
@@ -110,10 +71,10 @@ namespace GraphicsEngine
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
+			in vec4 v_Color;
 
 			void main() {
-				color = vec4(v_Position, 1.0);
+				color = v_Color;
 			}
 		)";
 
@@ -122,12 +83,59 @@ namespace GraphicsEngine
 		);
 
 		shaderProgram->Init();
+
+
+		glGenVertexArrays(1, &vertexArray);
+		glBindVertexArray(vertexArray);
+
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		};
+
+		vertexBuffer = std::unique_ptr<VertexStaticBuffer>(
+			new OpenGLVertexStaticBuffer(vertices, sizeof(vertices))
+		);
+
+		std::vector<BufferElement> bufferElements = {
+			{"a_Position", BufferElementType::FLOAT_3},
+			{"a_Color", BufferElementType::FLOAT_4},
+		};
+
+		{
+			BufferLayout bufferLayout(bufferElements);
+			bufferLayout.Init();
+
+			vertexBuffer->SetLayout(bufferLayout);
+		}
+		
+		vertexBuffer->Init();
+
+		{
+			unsigned int index = 0;
+			for (auto& element : vertexBuffer->GetLayout().GetElements())
+			{
+				glEnableVertexAttribArray(index);
+				glVertexAttribPointer(index, element.GetCount(), GL_FLOAT, element.Normalized ? GL_TRUE : GL_FALSE, vertexBuffer->GetLayout().GetStride(), (const void*) element.Offset);
+				index++;
+			}
+		}
+
+		unsigned int indices[3] = {
+			0, 1, 2
+		};
+
+		indexBuffer = std::unique_ptr<IndexStaticBuffer>(
+			new OpenGLIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
+		);
+		indexBuffer->Init();
 	}
 
-	void OpenGLContext::SwapBuffers() noexcept
+	void OpenGLContext::StartFrame() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0, 0, 1, 1);
+		glClearColor(0.2f, 0.2f, 0.2f, 1);
 
 		shaderProgram->Bind();
 
@@ -135,7 +143,10 @@ namespace GraphicsEngine
 		glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 		shaderProgram->Unbind();
+	}
 
+	void OpenGLContext::EndFrame() noexcept
+	{
 		::SwapBuffers(hdc);
 	}
 

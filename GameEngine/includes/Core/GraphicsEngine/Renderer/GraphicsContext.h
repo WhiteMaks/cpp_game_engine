@@ -7,7 +7,8 @@ namespace GraphicsEngine
 	{
 	public:
 		virtual void Init() noexcept;
-		virtual void SwapBuffers() noexcept;
+		virtual void StartFrame() noexcept;
+		virtual void EndFrame() noexcept;
 		virtual void Destroy() noexcept;
 	};
 

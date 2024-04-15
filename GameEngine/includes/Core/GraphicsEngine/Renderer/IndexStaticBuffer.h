@@ -3,14 +3,14 @@
 namespace GraphicsEngine
 {
 
-	class VertexBuffer
+	class IndexStaticBuffer
 	{
 	protected:
-		float* vertices;
-		unsigned int size;
+		unsigned int* indeces;
+		unsigned int count;
 
-	protected:
-		VertexBuffer(float* vertices, unsigned int size) noexcept;
+	public:
+		IndexStaticBuffer(unsigned int* indeces, unsigned int count) noexcept;
 
 	public:
 		virtual void Init() noexcept;
@@ -18,6 +18,7 @@ namespace GraphicsEngine
 		virtual void Unbind() noexcept;
 		virtual void Destroy() noexcept;
 
+		virtual unsigned int GetCount() noexcept;
 	};
 
 }

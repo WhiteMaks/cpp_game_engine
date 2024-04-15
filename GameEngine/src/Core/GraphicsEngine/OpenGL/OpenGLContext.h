@@ -11,6 +11,7 @@
 #include "OpenGLShaderProgram.h"
 #include "OpenGLVertexStaticBuffer.h"
 #include "OpenGLIndexStaticBuffer.h"
+#include "Core/GraphicsEngine/Renderer/BufferLayout.h"
 
 namespace GraphicsEngine
 {

@@ -29,6 +29,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/IndexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/BufferFactory.h
+	includes/Core/GraphicsEngine/Renderer/BufferLayout.h
+	includes/Core/GraphicsEngine/Renderer/BufferElement.h
+	includes/Core/GraphicsEngine/Renderer/BufferElementType.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -118,6 +121,8 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/IndexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/BufferFactory.cpp
+	src/Core/GraphicsEngine/Renderer/BufferLayout.cpp
+	src/Core/GraphicsEngine/Renderer/BufferElement.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

@@ -23,4 +23,14 @@ namespace GraphicsEngine
 	{
 	}
 
+	void VertexStaticBuffer::SetLayout(const BufferLayout& layout) noexcept
+	{
+		this->layout = layout;
+	}
+
+	BufferLayout& VertexStaticBuffer::GetLayout() noexcept
+	{
+		return layout;
+	}
+
 }

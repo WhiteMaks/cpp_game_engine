@@ -29,6 +29,14 @@ namespace GraphicsEngine
 	void OpenGLVertexArrayBuffer::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction openGL vertex array buffer has started");
+		glDeleteVertexArrays(1, &buffer);
+
+		for (std::shared_ptr<VertexStaticBuffer> vertexStaticBuffer : vertexStaticBuffers)
+		{
+			vertexStaticBuffer->Destroy();
+		}
+
+		indexStaticBuffer->Destroy();
 		GRAPHICS_ENGINE_INFO("Destruction openGL vertex array buffer completed");
 	}
 

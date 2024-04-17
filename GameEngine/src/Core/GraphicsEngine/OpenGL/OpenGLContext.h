@@ -25,8 +25,6 @@ namespace GraphicsEngine
 		HGLRC hglrc;
 
 		std::shared_ptr<ShaderProgram> shaderProgram;
-		std::shared_ptr<VertexStaticBuffer> vertexBuffer;
-		std::shared_ptr<IndexStaticBuffer> indexBuffer;
 		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
 	public:

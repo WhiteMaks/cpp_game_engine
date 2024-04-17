@@ -4,6 +4,7 @@
 #include "Core/GraphicsEngine/GraphicsEngine.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h"
+#include "Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h"
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #endif
 
@@ -32,5 +33,17 @@ namespace GraphicsEngine
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #endif
 		return new IndexStaticBuffer(indeces, size);
+	}
+
+	VertexArrayBuffer* BufferFactory::CreateVertexArrayBuffer()
+	{
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		switch (GraphicsEngine::GetAPI())
+		{
+		case GraphicsAPI::OpenGL: return new OpenGLVertexArrayBuffer();
+		}
+#elif GAME_ENGINE_PLATFORM_BROWSER
+#endif
+		return new VertexArrayBuffer();
 	}
 }

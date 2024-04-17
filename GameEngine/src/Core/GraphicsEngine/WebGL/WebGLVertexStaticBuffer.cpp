@@ -11,7 +11,7 @@ namespace GraphicsEngine
 	void WebGLVertexStaticBuffer::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization webGL vertex buffer has started");
-		glCreateBuffers(1, &buffer);
+		glGenBuffers(1, &buffer);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 		GRAPHICS_ENGINE_INFO("Initialization webGL vertex buffer completed");

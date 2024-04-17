@@ -78,15 +78,17 @@ namespace GraphicsEngine
 			}
 		)";
 
-		shaderProgram = std::unique_ptr<ShaderProgram>(
+		shaderProgram = std::shared_ptr<ShaderProgram>(
 			new OpenGLShaderProgram(vertex, fragment)
 		);
 
 		shaderProgram->Init();
 
 
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
+		vertexArrayBuffer = std::shared_ptr<VertexArrayBuffer>(
+			new OpenGLVertexArrayBuffer()
+		);
+		vertexArrayBuffer->Init();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
@@ -94,16 +96,16 @@ namespace GraphicsEngine
 			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
 
-		vertexBuffer = std::unique_ptr<VertexStaticBuffer>(
+		vertexBuffer = std::shared_ptr<VertexStaticBuffer>(
 			new OpenGLVertexStaticBuffer(vertices, sizeof(vertices))
 		);
 
-		std::vector<BufferElement> bufferElements = {
-			{"a_Position", BufferElementType::FLOAT_3},
-			{"a_Color", BufferElementType::FLOAT_4},
-		};
-
 		{
+			std::vector<BufferElement> bufferElements = {
+				{"a_Position", BufferElementType::FLOAT_3},
+				{"a_Color", BufferElementType::FLOAT_4},
+			};
+
 			BufferLayout bufferLayout(bufferElements);
 			bufferLayout.Init();
 
@@ -112,15 +114,7 @@ namespace GraphicsEngine
 		
 		vertexBuffer->Init();
 
-		{
-			unsigned int index = 0;
-			for (auto& element : vertexBuffer->GetLayout().GetElements())
-			{
-				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index, element.GetCount(), GL_FLOAT, element.Normalized ? GL_TRUE : GL_FALSE, vertexBuffer->GetLayout().GetStride(), (const void*) element.Offset);
-				index++;
-			}
-		}
+		vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = {
 			0, 1, 2
@@ -130,6 +124,8 @@ namespace GraphicsEngine
 			new OpenGLIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
 		);
 		indexBuffer->Init();
+
+		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 	}
 
 	void OpenGLContext::StartFrame() noexcept
@@ -139,8 +135,9 @@ namespace GraphicsEngine
 
 		shaderProgram->Bind();
 
-		glBindVertexArray(vertexArray);
+		vertexArrayBuffer->Bind();
 		glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+		vertexArrayBuffer->Unbind();
 
 		shaderProgram->Unbind();
 	}
@@ -153,6 +150,7 @@ namespace GraphicsEngine
 	void OpenGLContext::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction openGL context has started");
+		vertexArrayBuffer->Destroy();
 		indexBuffer->Destroy();
 		vertexBuffer->Destroy();
 		shaderProgram->Destroy();

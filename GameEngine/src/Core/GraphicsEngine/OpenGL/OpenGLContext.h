@@ -11,6 +11,7 @@
 #include "OpenGLShaderProgram.h"
 #include "OpenGLVertexStaticBuffer.h"
 #include "OpenGLIndexStaticBuffer.h"
+#include "OpenGLVertexArrayBuffer.h"
 #include "Core/GraphicsEngine/Renderer/BufferLayout.h"
 
 namespace GraphicsEngine
@@ -23,10 +24,10 @@ namespace GraphicsEngine
 		HDC hdc;
 		HGLRC hglrc;
 
-		unsigned int vertexArray;
-		std::unique_ptr<ShaderProgram> shaderProgram;
-		std::unique_ptr<VertexStaticBuffer> vertexBuffer;
-		std::unique_ptr<IndexStaticBuffer> indexBuffer;
+		std::shared_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<VertexStaticBuffer> vertexBuffer;
+		std::shared_ptr<IndexStaticBuffer> indexBuffer;
+		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
 	public:
 		OpenGLContext(HWND window) noexcept;

@@ -6,8 +6,6 @@
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
-#include "OpenGLShaderProgram.h"
-
 namespace GraphicsEngine
 {
 

@@ -37,6 +37,7 @@ namespace Platform
 			SDL_Quit();
 			exit(GameEngine::WINDOW_INITIALIZAATION_FAILED);
 		}
+		SDL_MaximizeWindow(window);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 		GRAPHICS_ENGINE_DEBUG("Initialization SDL window completed");

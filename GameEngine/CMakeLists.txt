@@ -48,6 +48,9 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
+		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
@@ -65,6 +68,9 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/Platform/Browser/BrowserWindow.h
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
+		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 	)
 endif()
 
@@ -83,6 +89,9 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
@@ -100,6 +109,9 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 	)
 endif()
 

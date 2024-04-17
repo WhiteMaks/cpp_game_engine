@@ -33,51 +33,31 @@ namespace GraphicsEngine
 
 
 
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
 
-		glGenBuffers(1, &vertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f,
-		};
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		glGenBuffers(1, &indexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-		unsigned int indices[3] = {
-			0, 1, 2
-		};
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		std::string vertex = R"(#version 300 es
-			layout(location = 0) in vec3 a_Position;
 
-			out vec3 v_Position;
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			out vec4 v_Color;
 
 			void main() {
-				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
 
 		std::string fragment = R"(#version 300 es
-			precision lowp float; //модификатор точности для фрагментного шейдера
+			
+			precision lowp float;
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
+			in vec4 v_Color;
 
 			void main() {
-				color = vec4(v_Position, 1.0);
+				color = v_Color;
 			}
 		)";
 
@@ -86,16 +66,56 @@ namespace GraphicsEngine
 		);
 
 		shaderProgram->Init();
+
+		vertexArrayBuffer = std::shared_ptr<VertexArrayBuffer>(
+			new WebGLVertexArrayBuffer()
+		);
+		vertexArrayBuffer->Init();
+
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+		};
+
+		std::shared_ptr<VertexStaticBuffer> vertexBuffer = std::shared_ptr<VertexStaticBuffer>(
+			new WebGLVertexStaticBuffer(vertices, sizeof(vertices))
+		);
+
+		std::vector<BufferElement> bufferElements = {
+				{"a_Position", BufferElementType::FLOAT_3},
+				{"a_Color", BufferElementType::FLOAT_4},
+		};
+
+		BufferLayout bufferLayout(bufferElements);
+		bufferLayout.Init();
+
+		vertexBuffer->SetLayout(bufferLayout);
+		vertexBuffer->Init();
+
+		vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
+
+		unsigned int indices[3] = {
+			0, 1, 2
+		};
+
+		std::shared_ptr<IndexStaticBuffer> indexBuffer = std::shared_ptr<IndexStaticBuffer>(
+			new WebGLIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
+		);
+		indexBuffer->Init();
+
+		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 	}
 
 	void WebGLContext::StartFrame() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0, 0, 1, 1);
+		glClearColor(0.2f, 0.2f, 0.2f, 1);
 
 		shaderProgram->Bind();
-		glBindVertexArray(vertexArray);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		vertexArrayBuffer->Bind();
+		glDrawElements(GL_TRIANGLES, vertexArrayBuffer->GetIndexStaticBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		vertexArrayBuffer->Unbind();
 		shaderProgram->Unbind();
 	}
 
@@ -107,6 +127,7 @@ namespace GraphicsEngine
 	void WebGLContext::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction webGL context has started");
+		vertexArrayBuffer->Destroy();
 		shaderProgram->Destroy();
 		GRAPHICS_ENGINE_INFO("Destruction webGL context completed");
 	}

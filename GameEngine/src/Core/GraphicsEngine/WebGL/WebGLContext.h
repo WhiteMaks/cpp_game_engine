@@ -8,6 +8,9 @@
 #include "ExitCodes.h"
 
 #include "WebGLShaderProgram.h"
+#include "WebGLVertexArrayBuffer.h"
+#include "WebGLVertexStaticBuffer.h"
+#include "WebGLIndexStaticBuffer.h"
 
 namespace GraphicsEngine
 {
@@ -17,8 +20,8 @@ namespace GraphicsEngine
 	private:
 		SDL_Window* window;
 
-		unsigned int vertexArray, vertexBuffer, indexBuffer;
-		std::unique_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
 	public:
 		WebGLContext(SDL_Window* window) noexcept;

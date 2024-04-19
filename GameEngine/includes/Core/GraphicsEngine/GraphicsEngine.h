@@ -20,7 +20,7 @@ namespace GraphicsEngine
 		std::unique_ptr<GraphicsContext> context;
 
 	public:
-		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth = 1280, const unsigned int windowHeight = 720, GraphicsAPI api = GraphicsAPI::OpenGL);
+		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);
 		
 	public:
 		static GraphicsAPI GetAPI() noexcept;

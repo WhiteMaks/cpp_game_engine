@@ -7,7 +7,7 @@ namespace GraphicsEngine
 	{
 	}
 
-	void GraphicsContext::StartFrame() noexcept
+	void GraphicsContext::BeginFrame() noexcept
 	{
 	}
 

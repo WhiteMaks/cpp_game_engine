@@ -40,7 +40,7 @@ namespace GraphicsEngine
 
 	void GraphicsEngine::Render() noexcept
 	{
-		context->StartFrame();
+		context->BeginFrame();
 		//rendering scene
 		context->EndFrame();
 	}

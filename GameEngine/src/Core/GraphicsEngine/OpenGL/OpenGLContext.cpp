@@ -125,7 +125,7 @@ namespace GraphicsEngine
 		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 	}
 
-	void OpenGLContext::StartFrame() noexcept
+	void OpenGLContext::BeginFrame() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.2f, 0.2f, 0.2f, 1);

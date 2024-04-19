@@ -5,8 +5,9 @@
 #include "Core/GraphicsEngine/GraphicsAPI.h"
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
-#include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
+#include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
+#include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 
 namespace GraphicsEngine
 {
@@ -19,6 +20,9 @@ namespace GraphicsEngine
 	private:
 		std::unique_ptr<Window> window;
 		std::unique_ptr<GraphicsContext> context;
+
+		std::shared_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
 	public:
 		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);

@@ -20,8 +20,8 @@ namespace GameEngine
 		virtual ~Layer() noexcept;
 
 	public:
-		virtual void Attach() noexcept;
-		virtual void Detach() noexcept;
+		virtual void Init() noexcept;
+		virtual void Destroy() noexcept;
 		virtual void Update() noexcept;
 		virtual void Render() noexcept;
 		virtual void MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept;

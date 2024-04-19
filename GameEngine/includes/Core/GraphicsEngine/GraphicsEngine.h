@@ -4,8 +4,10 @@
 #include "Core/GraphicsEngine/WindowFactory.h"
 #include "Core/GraphicsEngine/GraphicsAPI.h"
 
-#include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
+#include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
+#include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
+#include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 
 namespace GraphicsEngine
 {
@@ -19,8 +21,11 @@ namespace GraphicsEngine
 		std::unique_ptr<Window> window;
 		std::unique_ptr<GraphicsContext> context;
 
+		std::shared_ptr<ShaderProgram> shaderProgram;
+		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
+
 	public:
-		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth = 1280, const unsigned int windowHeight = 720, GraphicsAPI api = GraphicsAPI::OpenGL);
+		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);
 		
 	public:
 		static GraphicsAPI GetAPI() noexcept;

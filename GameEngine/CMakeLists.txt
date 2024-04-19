@@ -33,6 +33,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/BufferLayout.h
 	includes/Core/GraphicsEngine/Renderer/BufferElement.h
 	includes/Core/GraphicsEngine/Renderer/BufferElementType.h
+	includes/Core/GraphicsEngine/Renderer/Renderer.h
+	includes/Core/GraphicsEngine/Renderer/RendererAPI.h
+	includes/Core/GraphicsEngine/Renderer/RendererAPIFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -57,9 +60,10 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.h
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
-		src/Core/GraphicsEngine/DirectX/DirectX12Context.h	
+		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
 	)
 endif()
 
@@ -98,6 +102,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
@@ -139,6 +144,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/BufferFactory.cpp
 	src/Core/GraphicsEngine/Renderer/BufferLayout.cpp
 	src/Core/GraphicsEngine/Renderer/BufferElement.cpp
+	src/Core/GraphicsEngine/Renderer/Renderer.cpp
+	src/Core/GraphicsEngine/Renderer/RendererAPI.cpp
+	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

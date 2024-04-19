@@ -26,7 +26,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization directX 12 completed");
 	}
 
-	void DirectX12Context::StartFrame() noexcept
+	void DirectX12Context::BeginFrame() noexcept
 	{
 	}
 

@@ -48,6 +48,10 @@ namespace GameEngine
 	void LayerStack::Init() noexcept
 	{
 		LAYER_INFO("Initialization layer stack has started");
+		for (Layer* layer : layers)
+		{
+			layer->Init();
+		}
 		LAYER_INFO("Initialization layer stack completed");
 	}
 
@@ -56,6 +60,7 @@ namespace GameEngine
 		LAYER_INFO("Destruction layer stack has started");
 		for (Layer* layer : layers)
 		{
+			layer->Destroy();
 			delete layer;
 		}
 		LAYER_INFO("Destruction layer stack completed");

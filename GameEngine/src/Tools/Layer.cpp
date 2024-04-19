@@ -12,11 +12,11 @@ namespace GameEngine
 	{
 	}
 
-	void Layer::Attach() noexcept
+	void Layer::Init() noexcept
 	{
 	}
 
-	void Layer::Detach() noexcept
+	void Layer::Destroy() noexcept
 	{
 	}
 

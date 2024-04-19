@@ -146,11 +146,15 @@ namespace GameEngine
 
 	void GameEngine::Render()
 	{
+		//graphicsEngine->BeginRender();
+
 		for (Layer* layer : *layerStack)
 		{
 			layer->Render();
+			//graphicsEngine->Render();
 		}
 		graphicsEngine->Render();
+		//graphicsEngine->EndRender();
 	}
 
 	void GameEngine::Destroy()

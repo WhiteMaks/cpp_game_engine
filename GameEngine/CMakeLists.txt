@@ -26,6 +26,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
+	includes/Core/GraphicsEngine/Renderer/ShaderCodeFactory.h
 	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/IndexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/VertexArrayBuffer.h
@@ -138,6 +139,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
+	src/Core/GraphicsEngine/Renderer/ShaderCodeFactory.cpp
 	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/IndexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/VertexArrayBuffer.cpp

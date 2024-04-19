@@ -7,6 +7,7 @@
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
 #include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
+#include "Core/GraphicsEngine/Renderer/ShaderCodeFactory.h"
 #include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 
 namespace GraphicsEngine

@@ -17,7 +17,7 @@ namespace GraphicsEngine
 		unsigned int Size;
 		bool Normalized;
 
-		BufferElement(const std::string& name, BufferElementType type, bool normalized = false) noexcept;
+		BufferElement(BufferElementType type, const std::string& name, bool normalized = false) noexcept;
 
 		unsigned int GetCount() noexcept;
 	};

@@ -90,8 +90,8 @@ namespace GraphicsEngine
 		);
 
 		std::vector<BufferElement> bufferElements = {
-				{"a_Position", BufferElementType::FLOAT_3},
-				{"a_Color", BufferElementType::FLOAT_4},
+			{BufferElementType::FLOAT_3, "a_Position"},
+			{BufferElementType::FLOAT_4, "a_Color"},
 		};
 
 		BufferLayout bufferLayout(bufferElements);

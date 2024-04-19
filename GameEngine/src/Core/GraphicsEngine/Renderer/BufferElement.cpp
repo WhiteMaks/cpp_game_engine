@@ -3,7 +3,7 @@
 namespace GraphicsEngine
 {
 
-	BufferElement::BufferElement(const std::string& name, BufferElementType type, bool normalized) noexcept
+	BufferElement::BufferElement(BufferElementType type, const std::string& name, bool normalized) noexcept
 		: Name(name), Type(type), Size(GetBufferElementTypeSize(type)), Normalized(normalized), Offset(0)
 	{
 	}

@@ -41,31 +41,8 @@ namespace GraphicsEngine
 
 
 
-		std::string vertex = R"(
-			#version 460 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-
-			out vec4 v_Color;
-
-			void main() {
-				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string fragment = R"(
-			#version 460 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec4 v_Color;
-
-			void main() {
-				color = v_Color;
-			}
-		)";
+		std::string vertex = ShaderCodeFactory::CreateDefaultVertexShader();
+		std::string fragment = ShaderCodeFactory::CreateDefaultFragmentShader();
 
 		shaderProgram = std::shared_ptr<ShaderProgram>(
 			ShaderProgramFactory::Create(vertex, fragment)
@@ -90,8 +67,8 @@ namespace GraphicsEngine
 		);
 
 		std::vector<BufferElement> bufferElements = {
-				{"a_Position", BufferElementType::FLOAT_3},
-				{"a_Color", BufferElementType::FLOAT_4},
+			{BufferElementType::FLOAT_3, "a_Position"},
+			{BufferElementType::FLOAT_4, "a_Color"},
 		};
 
 		BufferLayout bufferLayout(bufferElements);

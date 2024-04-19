@@ -26,6 +26,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
 	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
+	includes/Core/GraphicsEngine/Renderer/ShaderCodeFactory.h
 	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/IndexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/VertexArrayBuffer.h
@@ -54,6 +55,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
 		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
@@ -75,6 +77,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
 	)
 endif()
 
@@ -96,6 +99,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
@@ -117,6 +121,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
 	)
 endif()
 
@@ -138,6 +143,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
 	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
+	src/Core/GraphicsEngine/Renderer/ShaderCodeFactory.cpp
 	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/IndexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/VertexArrayBuffer.cpp

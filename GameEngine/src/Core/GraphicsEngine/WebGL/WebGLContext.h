@@ -7,11 +7,6 @@
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
-#include "WebGLShaderProgram.h"
-#include "WebGLVertexArrayBuffer.h"
-#include "WebGLVertexStaticBuffer.h"
-#include "WebGLIndexStaticBuffer.h"
-
 namespace GraphicsEngine
 {
 
@@ -19,9 +14,6 @@ namespace GraphicsEngine
 	{
 	private:
 		SDL_Window* window;
-
-		std::shared_ptr<ShaderProgram> shaderProgram;
-		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
 	public:
 		WebGLContext(SDL_Window* window) noexcept;

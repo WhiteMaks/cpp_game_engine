@@ -33,6 +33,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/BufferLayout.h
 	includes/Core/GraphicsEngine/Renderer/BufferElement.h
 	includes/Core/GraphicsEngine/Renderer/BufferElementType.h
+	includes/Core/GraphicsEngine/Renderer/Renderer.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -139,6 +140,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/BufferFactory.cpp
 	src/Core/GraphicsEngine/Renderer/BufferLayout.cpp
 	src/Core/GraphicsEngine/Renderer/BufferElement.cpp
+	src/Core/GraphicsEngine/Renderer/Renderer.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

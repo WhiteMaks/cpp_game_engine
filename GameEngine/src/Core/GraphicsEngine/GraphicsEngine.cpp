@@ -25,6 +25,8 @@ namespace GraphicsEngine
 			GraphicsContextFactory::Create()
 		);
 		context->Init();
+
+		Renderer::Init();
 		GRAPHICS_ENGINE_INFO("Initialization graphics engine completed");
 	}
 
@@ -41,13 +43,21 @@ namespace GraphicsEngine
 	void GraphicsEngine::Render() noexcept
 	{
 		context->BeginFrame();
-		//rendering scene
+
+		Renderer::Clear();
+		Renderer::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
+
+		Renderer::BeginScene();
+		Renderer::EndScene();
+
 		context->EndFrame();
 	}
 
 	void GraphicsEngine::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction graphics engine has started");
+		Renderer::Destroy();
+
 		context->Destroy();
 		window->Destroy();
 		GRAPHICS_ENGINE_INFO("Destruction graphics engine completed");

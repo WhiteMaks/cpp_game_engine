@@ -37,6 +37,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/Renderer.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPI.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPIFactory.h
+	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -153,6 +154,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/Renderer.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPI.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
+	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
 

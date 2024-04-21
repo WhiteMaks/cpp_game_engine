@@ -25,6 +25,8 @@ namespace GraphicsEngine
 		void Unbind() noexcept override;
 		void Destroy() noexcept override;
 
+		void SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept override;
+
 	private:
 		void InitShaderProgram() noexcept;
 		void InitShaders() noexcept;

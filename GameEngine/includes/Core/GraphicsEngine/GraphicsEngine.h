@@ -10,6 +10,8 @@
 #include "Core/GraphicsEngine/Renderer/ShaderCodeFactory.h"
 #include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 
+#include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
+
 namespace GraphicsEngine
 {
 
@@ -24,6 +26,8 @@ namespace GraphicsEngine
 
 		std::shared_ptr<ShaderProgram> shaderProgram;
 		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
+
+		OrthographicCamera camera;
 
 	public:
 		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);

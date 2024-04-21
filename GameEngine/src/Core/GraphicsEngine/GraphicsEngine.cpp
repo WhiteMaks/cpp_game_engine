@@ -6,6 +6,7 @@ namespace GraphicsEngine
 	GraphicsAPI GraphicsEngine::api = GraphicsAPI::OpenGL;
 
 	GraphicsEngine::GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api)
+		: camera(-2.0f, 2.0f, -2.0f, 2.0f)
 	{
 		GraphicsEngine::api = api;
 
@@ -47,7 +48,6 @@ namespace GraphicsEngine
 		shaderProgram = std::shared_ptr<ShaderProgram>(
 			ShaderProgramFactory::Create(vertex, fragment)
 		);
-
 		shaderProgram->Init();
 
 
@@ -108,12 +108,11 @@ namespace GraphicsEngine
 		Renderer::Clear();
 		Renderer::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
 
-		Renderer::BeginScene();
+		camera.SetPosition({0.5f, 0.5f, 0.0f});
+		camera.SetRotation(45.0f);
 
-		shaderProgram->Bind();
-		Renderer::Submit(vertexArrayBuffer);
-		shaderProgram->Unbind();
-
+		Renderer::BeginScene(camera);
+		Renderer::Submit(shaderProgram, vertexArrayBuffer);
 		Renderer::EndScene();
 
 		context->EndFrame();

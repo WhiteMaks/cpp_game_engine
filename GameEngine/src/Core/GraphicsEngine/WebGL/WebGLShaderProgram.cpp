@@ -42,6 +42,12 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction webGL shader program completed");
 	}
 
+	void WebGLShaderProgram::SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
 	void WebGLShaderProgram::InitShaderProgram() noexcept
 	{
 		GRAPHICS_ENGINE_DEBUG("Initialization program has started");

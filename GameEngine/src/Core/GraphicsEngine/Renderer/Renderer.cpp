@@ -4,21 +4,28 @@ namespace GraphicsEngine
 {
 	RendererAPI* Renderer::api = nullptr;
 
+	glm::mat4 Renderer::viewProjectionMatrix = glm::mat4(1.0f);
+
 	void Renderer::Init() noexcept
 	{
 		api = RendererAPIFactory::Create();
 		api->Init();
 	}
 
-	void Renderer::BeginScene() noexcept
+	void Renderer::BeginScene(OrthographicCamera& camera) noexcept
 	{
+		viewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
-	void Renderer::Submit(std::shared_ptr<VertexArrayBuffer> buffer) noexcept
+	void Renderer::Submit(std::shared_ptr<ShaderProgram> shaderProgram, std::shared_ptr<VertexArrayBuffer> buffer) noexcept
 	{
+		shaderProgram->Bind();
+		shaderProgram->SetUniformMat4("u_ViewProjectionMatrix", viewProjectionMatrix);
+
 		buffer->Bind();
 		api->DrawTriangles(buffer);
 		buffer->Unbind();
+		shaderProgram->Unbind();
 	}
 
 	void Renderer::EndScene() noexcept

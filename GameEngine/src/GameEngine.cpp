@@ -12,7 +12,11 @@ namespace GameEngine
 		Log::Init();
 
 		layerStack = new LayerStack();
+#ifdef GAME_ENGINE_PLATFORM_BROWSER
 		graphicsEngine = new GraphicsEngine::GraphicsEngine(applicationTitle, applicationWidth, applicationHeight, GraphicsEngine::GraphicsAPI::WebGL);
+#else
+		graphicsEngine = new GraphicsEngine::GraphicsEngine(applicationTitle, applicationWidth, applicationHeight, GraphicsEngine::GraphicsAPI::OpenGL);
+#endif
 		eventManager = EventsSystem::EventManager::GetInstance();
 	}
 

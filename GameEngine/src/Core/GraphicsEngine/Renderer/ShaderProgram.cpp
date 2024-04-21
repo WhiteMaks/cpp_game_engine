@@ -20,6 +20,10 @@ namespace GraphicsEngine
 	{
 	}
 
+	void ShaderProgram::SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept
+	{
+	}
+
 	void ShaderProgram::Destroy() noexcept
 	{
 	}

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace GraphicsEngine
 {
@@ -19,6 +21,8 @@ namespace GraphicsEngine
 
 		virtual void Bind() noexcept;
 		virtual void Unbind() noexcept;
+
+		virtual void SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept;
 
 		virtual void Destroy() noexcept;
 	

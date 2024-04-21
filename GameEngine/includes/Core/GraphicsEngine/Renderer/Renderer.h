@@ -4,6 +4,9 @@
 
 #include "RendererAPIFactory.h"
 #include "VertexArrayBuffer.h"
+#include "ShaderProgram.h"
+
+#include "OrthographicCamera.h"
 
 namespace GraphicsEngine
 {
@@ -12,11 +15,13 @@ namespace GraphicsEngine
 	{
 	private:
 		static RendererAPI* api;
+		
+		static glm::mat4 viewProjectionMatrix;
 
 	public:
 		static void Init() noexcept;
-		static void BeginScene() noexcept;
-		static void Submit(std::shared_ptr<VertexArrayBuffer> buffer) noexcept;
+		static void BeginScene(OrthographicCamera& camera) noexcept;
+		static void Submit(std::shared_ptr<ShaderProgram> shaderProgram, std::shared_ptr<VertexArrayBuffer> buffer) noexcept;
 		static void EndScene() noexcept;
 		static void Destroy() noexcept;
 

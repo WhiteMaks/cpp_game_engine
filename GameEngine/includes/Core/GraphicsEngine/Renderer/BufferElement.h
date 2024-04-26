@@ -2,12 +2,13 @@
 
 #include <string>
 
+#include "Core/Core.h"
 #include "BufferElementType.h"
 
 namespace GraphicsEngine
 {
 
-	struct BufferElement
+	struct GAME_ENGINE_API BufferElement
 	{
 		std::string Name;
 		

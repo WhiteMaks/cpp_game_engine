@@ -6,7 +6,6 @@ namespace GraphicsEngine
 	GraphicsAPI GraphicsEngine::api = GraphicsAPI::OpenGL;
 
 	GraphicsEngine::GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api)
-		: camera(-2.0f, 2.0f, -2.0f, 2.0f)
 	{
 		GraphicsEngine::api = api;
 
@@ -29,66 +28,6 @@ namespace GraphicsEngine
 
 		Renderer::Init();
 		GRAPHICS_ENGINE_INFO("Initialization graphics engine completed");
-
-
-
-
-
-
-
-
-
-
-
-
-
-		std::string vertex = ShaderCodeFactory::CreateDefaultVertexShader();
-		std::string fragment = ShaderCodeFactory::CreateDefaultFragmentShader();
-
-		shaderProgram = std::shared_ptr<ShaderProgram>(
-			ShaderProgramFactory::Create(vertex, fragment)
-		);
-		shaderProgram->Init();
-
-
-		vertexArrayBuffer = std::shared_ptr<VertexArrayBuffer>(
-			BufferFactory::CreateVertexArrayBuffer()
-		);
-		vertexArrayBuffer->Init();
-
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-		};
-
-		std::shared_ptr<VertexStaticBuffer> vertexBuffer = std::shared_ptr<VertexStaticBuffer>(
-			BufferFactory::CreateVertexStaticBuffer(vertices, sizeof(vertices))
-		);
-
-		std::vector<BufferElement> bufferElements = {
-			{BufferElementType::FLOAT_3, "a_Position"},
-			{BufferElementType::FLOAT_4, "a_Color"},
-		};
-
-		BufferLayout bufferLayout(bufferElements);
-		bufferLayout.Init();
-
-		vertexBuffer->SetLayout(bufferLayout);
-		vertexBuffer->Init();
-
-		vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
-
-		unsigned int indices[3] = {
-			0, 1, 2
-		};
-
-		std::shared_ptr<IndexStaticBuffer> indexBuffer = std::shared_ptr<IndexStaticBuffer>(
-			BufferFactory::CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
-		);
-		indexBuffer->Init();
-
-		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 	}
 
 	GraphicsAPI GraphicsEngine::GetAPI() noexcept
@@ -96,34 +35,28 @@ namespace GraphicsEngine
 		return api;
 	}
 
-	void GraphicsEngine::Update() noexcept
+	void GraphicsEngine::BeginUpdate() noexcept
+	{
+	}
+
+	void GraphicsEngine::EndUpdate() noexcept
 	{
 		window->Update();
 	}
 
-	void GraphicsEngine::Render() noexcept
+	void GraphicsEngine::BeginRender() noexcept
 	{
 		context->BeginFrame();
+	}
 
-		Renderer::Clear();
-		Renderer::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
-
-		camera.SetPosition({0.5f, 0.5f, 0.0f});
-		camera.SetRotation(45.0f);
-
-		Renderer::BeginScene(camera);
-		Renderer::Submit(shaderProgram, vertexArrayBuffer);
-		Renderer::EndScene();
-
+	void GraphicsEngine::EndRender() noexcept
+	{
 		context->EndFrame();
 	}
 
 	void GraphicsEngine::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction graphics engine has started");
-		vertexArrayBuffer->Destroy();
-		shaderProgram->Destroy();
-
 		Renderer::Destroy();
 
 		context->Destroy();

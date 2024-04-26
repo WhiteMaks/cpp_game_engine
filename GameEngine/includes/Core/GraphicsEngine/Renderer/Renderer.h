@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include "Core/Core.h"
 #include "RendererAPIFactory.h"
 #include "VertexArrayBuffer.h"
 #include "ShaderProgram.h"
@@ -11,7 +12,7 @@
 namespace GraphicsEngine
 {
 
-	class Renderer
+	class GAME_ENGINE_API Renderer
 	{
 	private:
 		static RendererAPI* api;

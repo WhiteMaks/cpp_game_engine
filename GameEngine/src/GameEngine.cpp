@@ -48,9 +48,9 @@ namespace GameEngine
 	void GameEngine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization game engine has started");
-		layerStack->Init();
-		eventManager->Init();
 		graphicsEngine->Init();
+		eventManager->Init();
+		layerStack->Init();
 		GAME_ENGINE_INFO("Initialization game engine completed");
 	}
 
@@ -141,24 +141,26 @@ namespace GameEngine
 
 	void GameEngine::Update()
 	{
+		graphicsEngine->BeginUpdate();
+
 		for (Layer* layer : *layerStack)
 		{
 			layer->Update();
 		}
-		graphicsEngine->Update();
+
+		graphicsEngine->EndUpdate();
 	}
 
 	void GameEngine::Render()
 	{
-		//graphicsEngine->BeginRender();
+		graphicsEngine->BeginRender();
 
 		for (Layer* layer : *layerStack)
 		{
 			layer->Render();
-			//graphicsEngine->Render();
 		}
-		graphicsEngine->Render();
-		//graphicsEngine->EndRender();
+
+		graphicsEngine->EndRender();
 	}
 
 	void GameEngine::Destroy()
@@ -167,9 +169,9 @@ namespace GameEngine
 		
 #else
 		GAME_ENGINE_INFO("Destruction game engine has started");
-		graphicsEngine->Destroy();
-		eventManager->Destroy();
 		layerStack->Destroy();
+		eventManager->Destroy();
+		graphicsEngine->Destroy();
 		GAME_ENGINE_INFO("Destruction game engine completed");
 #endif
 	}

@@ -6,6 +6,7 @@
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
+
 #include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
 #include "Core/GraphicsEngine/Renderer/ShaderCodeFactory.h"
 #include "Core/GraphicsEngine/Renderer/BufferFactory.h"
@@ -24,11 +25,6 @@ namespace GraphicsEngine
 		std::unique_ptr<Window> window;
 		std::unique_ptr<GraphicsContext> context;
 
-		std::shared_ptr<ShaderProgram> shaderProgram;
-		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
-
-		OrthographicCamera camera;
-
 	public:
 		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);
 		
@@ -37,8 +33,10 @@ namespace GraphicsEngine
 
 	public:
 		void Init() noexcept;
-		void Update() noexcept;
-		void Render() noexcept;
+		void BeginUpdate() noexcept;
+		void EndUpdate() noexcept;
+		void BeginRender() noexcept;
+		void EndRender() noexcept;
 		void Destroy() noexcept;
 		void Stop() noexcept;
 

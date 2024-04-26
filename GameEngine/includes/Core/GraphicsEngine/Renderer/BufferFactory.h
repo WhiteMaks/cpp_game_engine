@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "IndexStaticBuffer.h"
 #include "VertexStaticBuffer.h"
 #include "VertexArrayBuffer.h"
@@ -7,7 +8,7 @@
 namespace GraphicsEngine
 {
 
-	class BufferFactory
+	class GAME_ENGINE_API BufferFactory
 	{
 	public:
 		static VertexStaticBuffer* CreateVertexStaticBuffer(float* vertices, unsigned int size);

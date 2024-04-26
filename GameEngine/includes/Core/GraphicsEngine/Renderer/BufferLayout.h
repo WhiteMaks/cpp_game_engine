@@ -1,11 +1,12 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "BufferElement.h"
 
 namespace GraphicsEngine
 {
 
-	class BufferLayout
+	class GAME_ENGINE_API BufferLayout
 	{
 	private:
 		unsigned int stride;

@@ -2,10 +2,12 @@
 
 #include <glm/glm.hpp>
 
+#include "Core/Core.h"
+
 namespace GraphicsEngine
 {
 
-	class OrthographicCamera
+	class GAME_ENGINE_API OrthographicCamera
 	{
 	private:
 		glm::mat4 projectionMatrix;

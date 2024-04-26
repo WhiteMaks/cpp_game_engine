@@ -88,10 +88,10 @@ set(GAME_ENGINE_PRIVATE_INCLUDES
 	${GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES}
 )
 
-set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES "")
+set(GAME_ENGINE_PRIVATE_PLATFORM_SOURCES "")
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
-	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
+	set(GAME_ENGINE_PRIVATE_PLATFORM_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/Platform/Windows/WindowsWindow.cpp
 
@@ -115,7 +115,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
-	set(GAME_ENGINE_PRIVATE_PLATFOR_SOURCES
+	set(GAME_ENGINE_PRIVATE_PLATFORM_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
@@ -156,7 +156,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
 	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
 
-	${GAME_ENGINE_PRIVATE_PLATFOR_SOURCES}
+	${GAME_ENGINE_PRIVATE_PLATFORM_SOURCES}
 
 	src/Tools/Log.cpp
 	src/Tools/Layer.cpp

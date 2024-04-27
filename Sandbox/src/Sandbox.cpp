@@ -74,7 +74,7 @@ public:
 	void Render() noexcept override
 	{
 		GraphicsEngine::Renderer::Clear();
-		GraphicsEngine::Renderer::SetClearColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
+		GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
 		camera.SetPosition({ 0.5f, 0.5f, 0.0f });
 		camera.SetRotation(45.0f);

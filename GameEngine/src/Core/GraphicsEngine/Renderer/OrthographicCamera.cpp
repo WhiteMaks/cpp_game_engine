@@ -6,12 +6,12 @@ namespace GraphicsEngine
 {
 
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
-		: projectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), viewMatrix(1.0f), position(glm::vec3(0.0f, 0.0f, 0.0f)), rotation(0)
+		: projectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), viewMatrix(1.0f), position(Math::Vector3(0.0f, 0.0f, 0.0f)), rotation(0)
 	{
 		RecalculateViewProjectionMatrix();
 	}
 
-	void OrthographicCamera::SetPosition(const glm::vec3& position) noexcept
+	void OrthographicCamera::SetPosition(const Math::Vector3& position) noexcept
 	{
 		this->position = position;
 		RecalculateMatrix();
@@ -38,7 +38,7 @@ namespace GraphicsEngine
 		return viewProjectionMatrix;
 	}
 
-	glm::vec3& OrthographicCamera::GetPosition() noexcept
+	Math::Vector3& OrthographicCamera::GetPosition() noexcept
 	{
 		return position;
 	}
@@ -57,7 +57,7 @@ namespace GraphicsEngine
 	void OrthographicCamera::RecalculateViewMatrix() noexcept
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0, 0, 1));
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotation), Math::Vector3(0, 0, 1));
 
 		viewMatrix = glm::inverse(transform);
 	}

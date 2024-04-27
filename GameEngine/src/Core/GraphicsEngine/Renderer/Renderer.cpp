@@ -42,7 +42,7 @@ namespace GraphicsEngine
 		api->ClearColorBuffer();
 	}
 
-	void Renderer::SetClearColor(const glm::vec4& color) noexcept
+	void Renderer::SetClearColor(const Math::Vector4& color) noexcept
 	{
 		api->SetClearColor(color);
 	}

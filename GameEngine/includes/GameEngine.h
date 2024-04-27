@@ -12,6 +12,11 @@
 #include "Tools/Layer.h"
 #include "Tools/LayerStack.h"
 
+#include "Tools/Math/Vector.h"
+#include "Tools/Math/Vector2.h"
+#include "Tools/Math/Vector3.h"
+#include "Tools/Math/Vector4.h"
+
 namespace GameEngine
 {
 

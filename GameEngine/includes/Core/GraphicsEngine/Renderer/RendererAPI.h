@@ -1,8 +1,7 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "VertexArrayBuffer.h"
+#include "Tools/Math/Vector4.h"
 
 namespace GraphicsEngine
 {
@@ -14,7 +13,7 @@ namespace GraphicsEngine
 		virtual void Destroy() noexcept;
 
 		virtual void ClearColorBuffer() noexcept;
-		virtual void SetClearColor(const glm::vec4& color) noexcept;
+		virtual void SetClearColor(const Math::Vector4& color) noexcept;
 		virtual void DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept;
 	};
 

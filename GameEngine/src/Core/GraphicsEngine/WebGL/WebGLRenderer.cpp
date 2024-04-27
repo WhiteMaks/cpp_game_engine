@@ -20,7 +20,7 @@ namespace GraphicsEngine
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void WebGLRenderer::SetClearColor(const glm::vec4& color) noexcept
+	void WebGLRenderer::SetClearColor(const Math::Vector4& color) noexcept
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}

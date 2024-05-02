@@ -5,6 +5,22 @@
 namespace Math
 {
 	Vector3::Vector3() noexcept
+		: glm::vec3(0.0f)
+	{
+	}
+
+	Vector3::Vector3(float scalar) noexcept
+		: glm::vec3(scalar, scalar, scalar)
+	{
+	}
+
+	Vector3::Vector3(float x, float y, float z) noexcept
+		: glm::vec3(x, y, z)
+	{
+	}
+
+	/*
+	Vector3::Vector3() noexcept
 		: Vector3(0.0f)
 	{
 	}
@@ -60,5 +76,5 @@ namespace Math
 			z /= length;
 		}
 	}
-
+	*/
 }

@@ -5,6 +5,22 @@
 namespace Math
 {
 	Vector4::Vector4() noexcept
+		: glm::vec4(0)
+	{
+	}
+
+	Vector4::Vector4(float scalar) noexcept
+		: glm::vec4(scalar, scalar, scalar, scalar)
+	{
+	}
+
+	Vector4::Vector4(float x, float y, float z, float w) noexcept
+		: glm::vec4(x, y, z, w)
+	{
+	}
+
+	/*
+	Vector4::Vector4() noexcept
 		: Vector4(0)
 	{
 	}
@@ -61,5 +77,6 @@ namespace Math
 			w /= length;
 		}
 	}
+	*/
 
 }

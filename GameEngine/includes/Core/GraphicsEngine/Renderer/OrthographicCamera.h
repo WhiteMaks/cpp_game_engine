@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "Core/Core.h"
+#include "Tools/Math/Vector3.h"
 
 namespace GraphicsEngine
 {
@@ -14,7 +15,7 @@ namespace GraphicsEngine
 		glm::mat4 viewMatrix;
 		glm::mat4 viewProjectionMatrix;
 
-		glm::vec3 position;
+		Math::Vector3 position;
 
 		float rotation;
 
@@ -22,14 +23,14 @@ namespace GraphicsEngine
 		OrthographicCamera(float left, float right, float bottom, float top);
 	
 	public:
-		void SetPosition(const glm::vec3& position) noexcept;
+		void SetPosition(const Math::Vector3& position) noexcept;
 		void SetRotation(float rotation) noexcept;
 
 		glm::mat4 GetProjectionMatrix() noexcept;
 		glm::mat4 GetViewMatrix() noexcept;
 		glm::mat4 GetViewProjectionMatrix() noexcept;
 
-		glm::vec3& GetPosition() noexcept;
+		Math::Vector3& GetPosition() noexcept;
 
 		float GetRotation() noexcept;
 

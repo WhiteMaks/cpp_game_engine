@@ -42,6 +42,10 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
 	includes/Tools/LayerStack.h
+	includes/Tools/Math/Vector.h
+	includes/Tools/Math/Vector2.h
+	includes/Tools/Math/Vector3.h
+	includes/Tools/Math/Vector4.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -161,6 +165,10 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Tools/Log.cpp
 	src/Tools/Layer.cpp
 	src/Tools/LayerStack.cpp
+	src/Tools/Math/Vector.cpp
+	src/Tools/Math/Vector2.cpp
+	src/Tools/Math/Vector3.cpp
+	src/Tools/Math/Vector4.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

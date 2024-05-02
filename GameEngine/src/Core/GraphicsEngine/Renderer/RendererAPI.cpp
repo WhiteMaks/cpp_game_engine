@@ -15,7 +15,7 @@ namespace GraphicsEngine
 	{
 	}
 
-	void RendererAPI::SetClearColor(const glm::vec4& color) noexcept
+	void RendererAPI::SetClearColor(const Math::Vector4& color) noexcept
 	{
 	}
 

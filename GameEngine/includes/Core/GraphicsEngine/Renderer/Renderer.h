@@ -1,13 +1,12 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "Core/Core.h"
 #include "RendererAPIFactory.h"
 #include "VertexArrayBuffer.h"
 #include "ShaderProgram.h"
 
 #include "OrthographicCamera.h"
+#include "Tools/Math/Vector4.h"
 
 namespace GraphicsEngine
 {
@@ -27,7 +26,7 @@ namespace GraphicsEngine
 		static void Destroy() noexcept;
 
 		static void Clear() noexcept;
-		static void SetClearColor(const glm::vec4& color) noexcept;
+		static void SetClearColor(const Math::Vector4& color) noexcept;
 	};
 
 }

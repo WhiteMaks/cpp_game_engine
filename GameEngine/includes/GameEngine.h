@@ -10,6 +10,7 @@
 
 #include "Tools/Log.h"
 #include "Tools/Layer.h"
+#include "Tools/Time.h"
 #include "Tools/LayerStack.h"
 
 #include "Tools/Math/Vector.h"

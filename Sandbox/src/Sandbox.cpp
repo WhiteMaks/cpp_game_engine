@@ -69,6 +69,7 @@ public:
 
 	void Update() noexcept override
 	{
+		APPLICATION_DEBUG("FPS: [{0}]", 1.0 / GameEngine::Time::GetDeltaTime());
 	}
 
 	void Render() noexcept override

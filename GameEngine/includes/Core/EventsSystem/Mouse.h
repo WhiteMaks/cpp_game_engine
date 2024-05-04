@@ -3,12 +3,13 @@
 #include <queue>
 #include <optional>
 
+#include "Core/Core.h"
 #include "MouseEvent.h"
 
 namespace EventsSystem
 {
 
-	class Mouse
+	class GAME_ENGINE_API Mouse
 	{
 
 	private:

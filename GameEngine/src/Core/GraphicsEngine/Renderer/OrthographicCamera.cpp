@@ -14,12 +14,15 @@ namespace GraphicsEngine
 	void OrthographicCamera::SetPosition(const Math::Vector3& position) noexcept
 	{
 		this->position = position;
-		RecalculateMatrix();
 	}
 
 	void OrthographicCamera::SetRotation(float rotation) noexcept
 	{
 		this->rotation = rotation;
+	}
+
+	void OrthographicCamera::Update() noexcept
+	{
 		RecalculateMatrix();
 	}
 

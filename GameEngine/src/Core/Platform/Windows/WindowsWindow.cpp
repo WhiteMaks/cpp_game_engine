@@ -53,6 +53,33 @@ namespace Platform
 		shouldClose = false;
 		ShowWindow(window, SW_MAXIMIZE);
 
+		EventsSystem::EventManager::keyA = 65;
+		EventsSystem::EventManager::keyB = 66;
+		EventsSystem::EventManager::keyC = 67;
+		EventsSystem::EventManager::keyD = 68;
+		EventsSystem::EventManager::keyE = 69;
+		EventsSystem::EventManager::keyF = 70;
+		EventsSystem::EventManager::keyG = 71;
+		EventsSystem::EventManager::keyH = 72;
+		EventsSystem::EventManager::keyI = 73;
+		EventsSystem::EventManager::keyJ = 74;
+		EventsSystem::EventManager::keyK = 75;
+		EventsSystem::EventManager::keyL = 76;
+		EventsSystem::EventManager::keyM = 77;
+		EventsSystem::EventManager::keyN = 78;
+		EventsSystem::EventManager::keyO = 79;
+		EventsSystem::EventManager::keyP = 80;
+		EventsSystem::EventManager::keyQ = 81;
+		EventsSystem::EventManager::keyR = 82;
+		EventsSystem::EventManager::keyS = 83;
+		EventsSystem::EventManager::keyT = 84;
+		EventsSystem::EventManager::keyU = 85;
+		EventsSystem::EventManager::keyV = 86;
+		EventsSystem::EventManager::keyW = 87;
+		EventsSystem::EventManager::keyX = 88;
+		EventsSystem::EventManager::keyY = 89;
+		EventsSystem::EventManager::keyZ = 90;
+
 		GRAPHICS_ENGINE_INFO("Initialization windows window completed");
 	}
 

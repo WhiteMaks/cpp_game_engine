@@ -44,6 +44,33 @@ namespace Platform
 
 		shouldClose = false;
 
+		EventsSystem::EventManager::keyA = 97;
+		EventsSystem::EventManager::keyB = 98;
+		EventsSystem::EventManager::keyC = 99;
+		EventsSystem::EventManager::keyD = 100;
+		EventsSystem::EventManager::keyE = 101;
+		EventsSystem::EventManager::keyF = 102;
+		EventsSystem::EventManager::keyG = 103;
+		EventsSystem::EventManager::keyH = 104;
+		EventsSystem::EventManager::keyI = 105;
+		EventsSystem::EventManager::keyJ = 106;
+		EventsSystem::EventManager::keyK = 107;
+		EventsSystem::EventManager::keyL = 108;
+		EventsSystem::EventManager::keyM = 109;
+		EventsSystem::EventManager::keyN = 110;
+		EventsSystem::EventManager::keyO = 111;
+		EventsSystem::EventManager::keyP = 112;
+		EventsSystem::EventManager::keyQ = 113;
+		EventsSystem::EventManager::keyR = 114;
+		EventsSystem::EventManager::keyS = 115;
+		EventsSystem::EventManager::keyT = 116;
+		EventsSystem::EventManager::keyU = 117;
+		EventsSystem::EventManager::keyV = 118;
+		EventsSystem::EventManager::keyW = 119;
+		EventsSystem::EventManager::keyX = 120;
+		EventsSystem::EventManager::keyY = 121;
+		EventsSystem::EventManager::keyZ = 122;
+
 		GRAPHICS_ENGINE_INFO("Initialization browser window completed");
 	}
 

@@ -8,10 +8,12 @@ private:
 
 	GraphicsEngine::OrthographicCamera camera;
 
+	float cameraSpeed = 0.5f;
+
 public:
 	
 	TestLayer()
-		: Layer("Test layer"), camera(-2.0f, 2.0f, -2.0f, 2.0f)
+		: Layer("Test layer"), camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 
 	}
@@ -32,10 +34,11 @@ public:
 		);
 		vertexArrayBuffer->Init();
 
-		float vertices[3 * 7] = {
+		float vertices[4 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
 			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+			0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f
 		};
 
 		std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
@@ -55,8 +58,8 @@ public:
 
 		vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
 
-		unsigned int indices[3] = {
-			0, 1, 2
+		unsigned int indices[6] = {
+			0, 1, 2, 2, 3, 0
 		};
 
 		std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = std::shared_ptr<GraphicsEngine::IndexStaticBuffer>(
@@ -65,11 +68,44 @@ public:
 		indexBuffer->Init();
 
 		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
+
+		camera.SetPosition({ 0.0f, 0.0f, 0.0f });
+		camera.SetRotation(0.0f);
 	}
 
 	void Update() noexcept override
 	{
-		APPLICATION_DEBUG("FPS: [{0}]", 1.0 / GameEngine::Time::GetDeltaTime());
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyD))
+		{
+			camera.GetPosition().x += cameraSpeed * GameEngine::Time::GetDeltaTime();
+		}
+
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyA))
+		{
+			camera.GetPosition().x -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
+		}
+
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyW))
+		{
+			camera.GetPosition().y += (cameraSpeed * GameEngine::Time::GetDeltaTime());
+		}
+
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyS))
+		{
+			camera.GetPosition().y -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
+		}
+
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyE))
+		{	
+			camera.SetRotation(camera.GetRotation() - (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
+		}
+
+		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyQ))
+		{
+			camera.SetRotation(camera.GetRotation() + (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
+		}
+
+		camera.Update();
 	}
 
 	void Render() noexcept override
@@ -77,12 +113,23 @@ public:
 		GraphicsEngine::Renderer::Clear();
 		GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
-		camera.SetPosition({ 0.5f, 0.5f, 0.0f });
-		camera.SetRotation(45.0f);
-
 		GraphicsEngine::Renderer::BeginScene(camera);
-		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		for (int y = -10; y < 10; y++)
+		{
+			for (int x = -10; x < 10; x++)
+			{
+				glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;
+
+				GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
+			}
+		}
+
 		GraphicsEngine::Renderer::EndScene();
+
+		APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 	}
 
 	void MouseEvent(EventsSystem::MouseEvent& event) noexcept override

@@ -4,12 +4,13 @@
 #include <bitset>
 #include <optional>
 
+#include "Core/Core.h"
 #include "KeyboardEvent.h"
 
 namespace EventsSystem
 {
 
-	class Keyboard
+	class GAME_ENGINE_API Keyboard
 	{
 
 	private:

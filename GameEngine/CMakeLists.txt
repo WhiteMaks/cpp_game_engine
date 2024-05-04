@@ -41,6 +41,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
+	includes/Tools/Time.h
 	includes/Tools/LayerStack.h
 	includes/Tools/Math/Vector.h
 	includes/Tools/Math/Vector2.h
@@ -164,6 +165,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/Tools/Log.cpp
 	src/Tools/Layer.cpp
+	src/Tools/Time.cpp
 	src/Tools/LayerStack.cpp
 	src/Tools/Math/Vector.cpp
 	src/Tools/Math/Vector2.cpp

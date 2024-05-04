@@ -5,6 +5,33 @@ namespace EventsSystem
 
 	EventManager* EventManager::instance = nullptr;
 
+	int EventManager::keyA = -1;
+	int EventManager::keyB = -1;
+	int EventManager::keyC = -1;
+	int EventManager::keyD = -1;
+	int EventManager::keyE = -1;
+	int EventManager::keyF = -1;
+	int EventManager::keyG = -1;
+	int EventManager::keyH = -1;
+	int EventManager::keyI = -1;
+	int EventManager::keyJ = -1;
+	int EventManager::keyK = -1;
+	int EventManager::keyL = -1;
+	int EventManager::keyM = -1;
+	int EventManager::keyN = -1;
+	int EventManager::keyO = -1;
+	int EventManager::keyP = -1;
+	int EventManager::keyQ = -1;
+	int EventManager::keyR = -1;
+	int EventManager::keyS = -1;
+	int EventManager::keyT = -1;
+	int EventManager::keyU = -1;
+	int EventManager::keyV = -1;
+	int EventManager::keyW = -1;
+	int EventManager::keyX = -1;
+	int EventManager::keyY = -1;
+	int EventManager::keyZ = -1;
+
 	EventManager::EventManager() noexcept
 	{
 		mouse = new Mouse();

@@ -56,7 +56,7 @@ namespace GraphicsEngine
 
 	void OpenGLContext::EndFrame() noexcept
 	{
-		::SwapBuffers(hdc);
+		wglSwapLayerBuffers(hdc, WGL_SWAP_MAIN_PLANE);
 	}
 
 	void OpenGLContext::Destroy() noexcept

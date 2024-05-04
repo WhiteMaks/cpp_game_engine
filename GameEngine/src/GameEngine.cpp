@@ -51,6 +51,8 @@ namespace GameEngine
 		graphicsEngine->Init();
 		eventManager->Init();
 		layerStack->Init();
+		
+		Time::Init();
 		GAME_ENGINE_INFO("Initialization game engine completed");
 	}
 
@@ -161,6 +163,8 @@ namespace GameEngine
 		}
 
 		graphicsEngine->EndRender();
+
+		Time::Update();
 	}
 
 	void GameEngine::Destroy()

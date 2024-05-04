@@ -17,10 +17,11 @@ namespace GraphicsEngine
 		viewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
-	void Renderer::Submit(std::shared_ptr<ShaderProgram> shaderProgram, std::shared_ptr<VertexArrayBuffer> buffer) noexcept
+	void Renderer::Submit(std::shared_ptr<ShaderProgram> shaderProgram, std::shared_ptr<VertexArrayBuffer> buffer, glm::mat4 modelMatrix) noexcept
 	{
 		shaderProgram->Bind();
 		shaderProgram->SetUniformMat4("u_ViewProjectionMatrix", viewProjectionMatrix);
+		shaderProgram->SetUniformMat4("u_ModelMatrix", modelMatrix);
 
 		buffer->Bind();
 		api->DrawTriangles(buffer);

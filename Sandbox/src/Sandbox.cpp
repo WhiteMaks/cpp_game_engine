@@ -13,7 +13,7 @@ private:
 public:
 	
 	TestLayer()
-		: Layer("Test layer"), camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Test layer"), camera(-16.0f, 16.0f, -9.0f, 9.0f)
 	{
 
 	}
@@ -116,9 +116,9 @@ public:
 		GraphicsEngine::Renderer::BeginScene(camera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		for (int y = -10; y < 10; y++)
+		for (int y = -100; y < 100; y++)
 		{
-			for (int x = -10; x < 10; x++)
+			for (int x = -100; x < 100; x++)
 			{
 				glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;

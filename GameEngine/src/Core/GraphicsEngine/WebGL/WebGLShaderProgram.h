@@ -25,6 +25,11 @@ namespace GraphicsEngine
 		void Unbind() noexcept override;
 		void Destroy() noexcept override;
 
+		void SetUniformFloat(const std::string& uniformName, float value) noexcept override;
+		void SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept override;
+		void SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept override;
+		void SetUniformFloat4(const std::string& uniformName, Math::Vector4 vector) noexcept override;
+		void SetUniformMat3(const std::string& uniformName, glm::mat3 matrix) noexcept override;
 		void SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept override;
 
 	private:

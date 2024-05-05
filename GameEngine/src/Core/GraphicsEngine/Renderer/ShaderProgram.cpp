@@ -20,6 +20,26 @@ namespace GraphicsEngine
 	{
 	}
 
+	void ShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
+	{
+	}
+
+	void ShaderProgram::SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept
+	{
+	}
+
+	void ShaderProgram::SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept
+	{
+	}
+
+	void ShaderProgram::SetUniformFloat4(const std::string& uniformName, Math::Vector4 vector) noexcept
+	{
+	}
+
+	void ShaderProgram::SetUniformMat3(const std::string& uniformName, glm::mat3 matrix) noexcept
+	{
+	}
+
 	void ShaderProgram::SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept
 	{
 	}

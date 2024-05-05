@@ -48,8 +48,8 @@ namespace GameEngine
 	void GameEngine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization game engine has started");
-		graphicsEngine->Init();
 		eventManager->Init();
+		graphicsEngine->Init();
 		layerStack->Init();
 		
 		Time::Init();

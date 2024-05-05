@@ -42,6 +42,36 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL shader program completed");
 	}
 
+	void OpenGLShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform1f(location, value);
+	}
+
+	void OpenGLShaderProgram::SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform2f(location, vector.x, vector.y);
+	}
+
+	void OpenGLShaderProgram::SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform3f(location, vector.x, vector.y, vector.z);
+	}
+
+	void OpenGLShaderProgram::SetUniformFloat4(const std::string& uniformName, Math::Vector4 vector) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+	}
+
+	void OpenGLShaderProgram::SetUniformMat3(const std::string& uniformName, glm::mat3 matrix) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
 	void OpenGLShaderProgram::SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept
 	{
 		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());

@@ -55,6 +55,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
 		src/Core/Platform/Browser/BrowserWindow.h
 		src/Core/Platform/Windows/WindowsWindow.h
+		src/Core/Platform/Glfw/GlfwWindow.h
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.h
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
@@ -99,6 +100,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
 		src/Core/Platform/Windows/WindowsWindow.cpp
+		src/Core/Platform/Glfw/GlfwWindow.cpp
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
@@ -201,6 +203,9 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
+
+	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
 	
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE OpenGL32.lib)
 

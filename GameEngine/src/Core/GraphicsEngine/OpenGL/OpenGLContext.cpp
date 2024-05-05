@@ -2,42 +2,24 @@
 
 namespace GraphicsEngine
 {
-	OpenGLContext::OpenGLContext(HWND window) noexcept
-		: window(window), hdc(nullptr), hglrc(nullptr)
+	OpenGLContext::OpenGLContext(GLFWwindow* window) noexcept
+		: window(window)
 	{
+		if (!window)
+		{
+			GRAPHICS_ENGINE_CRITICAL("GLFW window is null!");
+			exit(GameEngine::GRAPHICS_CONTEXT_INITIALIZAATION_FAILED);
+		}
 	}
 
 	void OpenGLContext::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization openGL context has started");
 
-		hdc = GetDC(window);
-		PIXELFORMATDESCRIPTOR pfd = {
-			sizeof(PIXELFORMATDESCRIPTOR),
-			1,
-			PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-			PFD_TYPE_RGBA,
-			32,
-			0, 0, 0, 0, 0, 0,
-			0,
-			0,
-			0,
-			0, 0, 0, 0,
-			24,
-			8,
-			0,
-			PFD_MAIN_PLANE,
-			0,
-			0, 0, 0
-		};
-		int pixelFormat = ChoosePixelFormat(hdc, &pfd);
-		SetPixelFormat(hdc, pixelFormat, &pfd);
-		
-		hglrc = wglCreateContext(hdc);
-		wglMakeCurrent(hdc, hglrc);
+		glfwMakeContextCurrent(window);
 
 		GRAPHICS_ENGINE_DEBUG("Initialization GLAD has started");
-		if (!gladLoadGL())
+		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
 		{
 			GRAPHICS_ENGINE_CRITICAL("GLAD not initialized!");
 			exit(GameEngine::GRAPHICS_CONTEXT_INITIALIZAATION_FAILED);
@@ -56,15 +38,12 @@ namespace GraphicsEngine
 
 	void OpenGLContext::EndFrame() noexcept
 	{
-		wglSwapLayerBuffers(hdc, WGL_SWAP_MAIN_PLANE);
+		glfwSwapBuffers(window);
 	}
 
 	void OpenGLContext::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Destruction openGL context has started");
-		wglMakeCurrent(NULL, NULL);
-		wglDeleteContext(hglrc);
-		ReleaseDC(window, hdc);
 		GRAPHICS_ENGINE_INFO("Destruction openGL context completed");
 	}
 

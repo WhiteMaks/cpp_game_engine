@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
-#include <Windows.h>
+#include <GLFW/glfw3.h>
 
 #include "Core/GraphicsEngine/Renderer/GraphicsContext.h"
 #include "Tools/Log.h"
@@ -13,12 +13,10 @@ namespace GraphicsEngine
 	class OpenGLContext : public GraphicsContext
 	{
 	private:
-		HWND window;
-		HDC hdc;
-		HGLRC hglrc;
+		GLFWwindow* window;
 
 	public:
-		OpenGLContext(HWND window) noexcept;
+		OpenGLContext(GLFWwindow* window) noexcept;
 
 	public:
 		void Init() noexcept override;

@@ -34,11 +34,11 @@ public:
 		);
 		vertexArrayBuffer->Init();
 
-		float vertices[4 * 7] = {
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f
+		float vertices[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
@@ -47,7 +47,7 @@ public:
 
 		std::vector<GraphicsEngine::BufferElement> bufferElements = {
 			{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
-			{GraphicsEngine::BufferElementType::FLOAT_4, "a_Color"},
+			{GraphicsEngine::BufferElementType::FLOAT_2, "a_TextureCoordinate"},
 		};
 
 		GraphicsEngine::BufferLayout bufferLayout(bufferElements);
@@ -115,7 +115,7 @@ public:
 
 		GraphicsEngine::Renderer::BeginScene(camera);
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.1f));
 		for (int y = -10; y < 10; y++)
 		{
 			for (int x = -10; x < 10; x++)
@@ -126,6 +126,8 @@ public:
 				GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
 			}
 		}
+
+		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.5f)));
 
 		GraphicsEngine::Renderer::EndScene();
 

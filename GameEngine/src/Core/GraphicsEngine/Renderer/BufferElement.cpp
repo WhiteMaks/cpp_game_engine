@@ -12,18 +12,18 @@ namespace GraphicsEngine
 	{
 		switch (Type)
 		{
-		case GraphicsEngine::BufferElementType::FLOAT:		return 1;
-		case GraphicsEngine::BufferElementType::FLOAT_2:	return 2;
-		case GraphicsEngine::BufferElementType::FLOAT_3:	return 3;
-		case GraphicsEngine::BufferElementType::FLOAT_4:	return 4;
-		case GraphicsEngine::BufferElementType::INT:		return 1;
-		case GraphicsEngine::BufferElementType::INT_2:		return 2;
-		case GraphicsEngine::BufferElementType::INT_3:		return 3;
-		case GraphicsEngine::BufferElementType::INT_4:		return 4;
-		case GraphicsEngine::BufferElementType::BOOL:		return 1;
-		case GraphicsEngine::BufferElementType::MAT_2:		return 2 * 2;
-		case GraphicsEngine::BufferElementType::MAT_3:		return 3 * 3;
-		case GraphicsEngine::BufferElementType::MAT_4:		return 4 * 4;
+		case BufferElementType::FLOAT:		return 1;
+		case BufferElementType::FLOAT_2:	return 2;
+		case BufferElementType::FLOAT_3:	return 3;
+		case BufferElementType::FLOAT_4:	return 4;
+		case BufferElementType::INT:		return 1;
+		case BufferElementType::INT_2:		return 2;
+		case BufferElementType::INT_3:		return 3;
+		case BufferElementType::INT_4:		return 4;
+		case BufferElementType::BOOL:		return 1;
+		case BufferElementType::MAT_2:		return 2 * 2;
+		case BufferElementType::MAT_3:		return 3 * 3;
+		case BufferElementType::MAT_4:		return 4 * 4;
 		}
 
 		GAME_ENGINE_WARNING("Unexpected buffer element type, count will be equals 0!");

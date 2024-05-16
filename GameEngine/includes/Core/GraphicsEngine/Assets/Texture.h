@@ -1,15 +1,28 @@
 #pragma once
 
+#include <string>
+
 namespace GraphicsEngine
 {
 
 	class Texture
 	{
+	protected:
+		std::string path;
+
+		unsigned int width;
+		unsigned int height;
+
+	public:
+		Texture(const std::string& path) noexcept;
+
 	public:
 		virtual void Init() noexcept;
 
 		virtual void Bind() noexcept;
+		virtual void Bind(unsigned int slot) noexcept;
 		virtual void Unbind() noexcept;
+		virtual void Unbind(unsigned int slot) noexcept;
 
 		virtual void Destroy() noexcept;
 

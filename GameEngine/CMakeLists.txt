@@ -65,6 +65,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
+		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
 		
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
@@ -72,6 +73,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.h
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
@@ -87,6 +89,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
+		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
 	)
 endif()
 
@@ -110,6 +113,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
@@ -117,6 +121,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
 		
 		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
@@ -132,6 +137,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
 	)
 endif()
 
@@ -196,6 +202,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 
 target_include_directories(${GAME_ENGINE_PROJECT_NAME} PUBLIC includes)
 target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE src)
+
 target_compile_features(${GAME_ENGINE_PROJECT_NAME} PUBLIC cxx_std_20)
 
 add_subdirectory(./vendor/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
@@ -204,31 +211,29 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC spdlog)
 add_subdirectory(./vendor/glm ${CMAKE_CURRENT_BINARY_DIR}/glm)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
 
-if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
-	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
-	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
+add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 
+add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
+target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
+
+add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
+
+if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
 	
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE OpenGL32.lib)
 
-	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
-	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
-	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
-
-	#add_custom_command(TARGET ${GAME_ENGINE_PROJECT_NAME} POST_BUILD
-	#	COMMAND ${CMAKE_COMMAND} -E copy
-	#	$<TARGET_FILE_DIR:SDL2::SDL2>/SDL2d.dll
-	#	$<TARGET_FILE_DIR:${GAME_ENGINE_PROJECT_NAME}>
-	#)
+	add_custom_command(TARGET ${GAME_ENGINE_PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+		$<TARGET_FILE_DIR:SDL2::SDL2>/SDL2d.dll
+		$<TARGET_FILE_DIR:${GAME_ENGINE_PROJECT_NAME}>
+	)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
-	add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
-	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
-
-	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
-	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
-	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
+	
 endif()
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)

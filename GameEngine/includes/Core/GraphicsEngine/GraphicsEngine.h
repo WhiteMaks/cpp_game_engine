@@ -11,6 +11,8 @@
 #include "Core/GraphicsEngine/Renderer/ShaderCodeFactory.h"
 #include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 
+#include "Core/GraphicsEngine/Assets/TextureFactory.h"
+
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
 
 namespace GraphicsEngine

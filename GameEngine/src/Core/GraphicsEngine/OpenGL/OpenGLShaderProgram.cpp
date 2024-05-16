@@ -42,6 +42,12 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL shader program completed");
 	}
 
+	void OpenGLShaderProgram::SetUniformInt(const std::string& uniformName, int value) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform1i(location, value);
+	}
+
 	void OpenGLShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
 	{
 		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());

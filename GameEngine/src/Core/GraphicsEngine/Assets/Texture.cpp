@@ -2,6 +2,11 @@
 
 namespace GraphicsEngine
 {
+	
+	Texture::Texture(const std::string& path) noexcept
+		: path(path), width(0), height(0)
+	{
+	}
 
 	void Texture::Init() noexcept
 	{
@@ -11,7 +16,15 @@ namespace GraphicsEngine
 	{
 	}
 
+	void Texture::Bind(unsigned int slot) noexcept
+	{
+	}
+
 	void Texture::Unbind() noexcept
+	{
+	}
+
+	void Texture::Unbind(unsigned int slot) noexcept
 	{
 	}
 
@@ -21,12 +34,12 @@ namespace GraphicsEngine
 
 	unsigned int Texture::GetHeight() noexcept
 	{
-		return 0;
+		return width;
 	}
 
 	unsigned int Texture::GetWidth() noexcept
 	{
-		return 0;
+		return height;
 	}
 
 }

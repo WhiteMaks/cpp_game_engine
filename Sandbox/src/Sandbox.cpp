@@ -5,6 +5,7 @@ class TestLayer : public GameEngine::Layer
 private:
 	std::shared_ptr<GraphicsEngine::ShaderProgram> shaderProgram;
 	std::shared_ptr<GraphicsEngine::VertexArrayBuffer> vertexArrayBuffer;
+	std::shared_ptr<GraphicsEngine::Texture> texture;
 
 	GraphicsEngine::OrthographicCamera camera;
 
@@ -71,6 +72,13 @@ public:
 
 		camera.SetPosition({ 0.0f, 0.0f, 0.0f });
 		camera.SetRotation(0.0f);
+
+		texture = std::shared_ptr<GraphicsEngine::Texture>(
+			GraphicsEngine::TextureFactory::Create("assets/checkerboard.png")
+		);
+		texture->Init();
+
+		shaderProgram->SetUniformInt("u_Texture", 0);
 	}
 
 	void Update() noexcept override
@@ -116,18 +124,21 @@ public:
 		GraphicsEngine::Renderer::BeginScene(camera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.1f));
-		for (int y = -10; y < 10; y++)
-		{
-			for (int x = -10; x < 10; x++)
-			{
-				glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
-				glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;
+		//for (int y = -10; y < 10; y++)
+		//{
+		//	for (int x = -10; x < 10; x++)
+		//	{
+		//		glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
+		//		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;
+		//
+		//		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
+		//	}
+		//}
 
-				GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
-			}
-		}
 
+		texture->Bind();
 		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.5f)));
+		texture->Unbind();
 
 		GraphicsEngine::Renderer::EndScene();
 

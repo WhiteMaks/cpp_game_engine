@@ -57,8 +57,10 @@ namespace GraphicsEngine
 
 				in vec2 v_TextureCoordinate;
 
+				uniform sampler2D u_Texture;
+
 				void main() {
-					color = vec4(v_TextureCoordinate, 0.0, 1.0);
+					color = texture(u_Texture, v_TextureCoordinate);
 				}
 			)";
 		case GraphicsAPI::OpenGL:
@@ -68,8 +70,10 @@ namespace GraphicsEngine
 
 				in vec2 v_TextureCoordinate;
 
+				uniform sampler2D u_Texture;
+
 				void main() {
-					color = vec4(v_TextureCoordinate, 0.0, 1.0);
+					color = texture(u_Texture, v_TextureCoordinate);
 				}
 			)";
 		}

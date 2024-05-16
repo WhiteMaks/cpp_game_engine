@@ -5,6 +5,7 @@ class TestLayer : public GameEngine::Layer
 private:
 	std::shared_ptr<GraphicsEngine::ShaderProgram> shaderProgram;
 	std::shared_ptr<GraphicsEngine::VertexArrayBuffer> vertexArrayBuffer;
+	std::shared_ptr<GraphicsEngine::Texture> texture;
 
 	GraphicsEngine::OrthographicCamera camera;
 
@@ -13,7 +14,7 @@ private:
 public:
 	
 	TestLayer()
-		: Layer("Test layer"), camera(-16.0f, 16.0f, -9.0f, 9.0f)
+		: Layer("Test layer"), camera(-1.60f, 1.60f, -0.90f, 0.90f)
 	{
 
 	}
@@ -34,11 +35,11 @@ public:
 		);
 		vertexArrayBuffer->Init();
 
-		float vertices[4 * 7] = {
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f
+		float vertices[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
@@ -47,7 +48,7 @@ public:
 
 		std::vector<GraphicsEngine::BufferElement> bufferElements = {
 			{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
-			{GraphicsEngine::BufferElementType::FLOAT_4, "a_Color"},
+			{GraphicsEngine::BufferElementType::FLOAT_2, "a_TextureCoordinate"},
 		};
 
 		GraphicsEngine::BufferLayout bufferLayout(bufferElements);
@@ -71,6 +72,13 @@ public:
 
 		camera.SetPosition({ 0.0f, 0.0f, 0.0f });
 		camera.SetRotation(0.0f);
+
+		texture = std::shared_ptr<GraphicsEngine::Texture>(
+			GraphicsEngine::TextureFactory::Create("assets/checkerboard.png")
+		);
+		texture->Init();
+
+		shaderProgram->SetUniformInt("u_Texture", 0);
 	}
 
 	void Update() noexcept override
@@ -115,17 +123,22 @@ public:
 
 		GraphicsEngine::Renderer::BeginScene(camera);
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		for (int y = -100; y < 100; y++)
-		{
-			for (int x = -100; x < 100; x++)
-			{
-				glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
-				glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.1f));
+		//for (int y = -10; y < 10; y++)
+		//{
+		//	for (int x = -10; x < 10; x++)
+		//	{
+		//		glm::vec3 position(x * 0.11f, y * 0.11f, 0.0f);
+		//		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * scale;
+		//
+		//		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
+		//	}
+		//}
 
-				GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
-			}
-		}
+
+		texture->Bind();
+		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.5f)));
+		texture->Unbind();
 
 		GraphicsEngine::Renderer::EndScene();
 

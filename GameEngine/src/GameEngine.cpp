@@ -82,6 +82,8 @@ namespace GameEngine
 		Input();
 		Update();
 		Render();
+
+		Time::Update();
 	}
 
 	void GameEngine::Input()
@@ -163,8 +165,6 @@ namespace GameEngine
 		}
 
 		graphicsEngine->EndRender();
-
-		Time::Update();
 	}
 
 	void GameEngine::Destroy()

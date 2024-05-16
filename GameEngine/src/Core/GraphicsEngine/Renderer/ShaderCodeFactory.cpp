@@ -11,15 +11,15 @@ namespace GraphicsEngine
 			return R"(#version 300 es
 
 				layout(location = 0) in vec3 a_Position;
-				layout(location = 1) in vec4 a_Color;
+				layout(location = 1) in vec2 a_TextureCoordinate;
 
 				uniform mat4 u_ViewProjectionMatrix;
 				uniform mat4 u_ModelMatrix;
 
-				out vec4 v_Color;
+				out vec2 v_TextureCoordinate;
 
 				void main() {
-					v_Color = a_Color;
+					v_TextureCoordinate = a_TextureCoordinate;
 					gl_Position = u_ViewProjectionMatrix * u_ModelMatrix * vec4(a_Position, 1.0);
 				}
 			)";
@@ -27,15 +27,15 @@ namespace GraphicsEngine
 			return R"(#version 460 core
 
 				layout(location = 0) in vec3 a_Position;
-				layout(location = 1) in vec4 a_Color;
+				layout(location = 1) in vec2 a_TextureCoordinate;
 
 				uniform mat4 u_ViewProjectionMatrix;
 				uniform mat4 u_ModelMatrix;
 
-				out vec4 v_Color;
+				out vec2 v_TextureCoordinate;
 
 				void main() {
-					v_Color = a_Color;
+					v_TextureCoordinate = a_TextureCoordinate;
 					gl_Position = u_ViewProjectionMatrix * u_ModelMatrix * vec4(a_Position, 1.0);
 				}
 			)";
@@ -55,22 +55,25 @@ namespace GraphicsEngine
 
 				layout(location = 0) out vec4 color;
 
-				in vec4 v_Color;
+				in vec2 v_TextureCoordinate;
+
+				uniform sampler2D u_Texture;
 
 				void main() {
-					color = v_Color;
+					color = texture(u_Texture, v_TextureCoordinate);
 				}
 			)";
 		case GraphicsAPI::OpenGL:
-			return R"(
-				#version 460 core
+			return R"(#version 460 core
 
 				layout(location = 0) out vec4 color;
 
-				in vec4 v_Color;
+				in vec2 v_TextureCoordinate;
+
+				uniform sampler2D u_Texture;
 
 				void main() {
-					color = v_Color;
+					color = texture(u_Texture, v_TextureCoordinate);
 				}
 			)";
 		}

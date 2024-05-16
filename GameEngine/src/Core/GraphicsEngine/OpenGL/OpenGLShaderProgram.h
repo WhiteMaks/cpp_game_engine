@@ -25,6 +25,7 @@ namespace GraphicsEngine
 		void Unbind() noexcept override;
 		void Destroy() noexcept override;
 		
+		void SetUniformInt(const std::string& uniformName, int value) noexcept override;
 		void SetUniformFloat(const std::string& uniformName, float value) noexcept override;
 		void SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept override;
 		void SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept override;

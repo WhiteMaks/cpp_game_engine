@@ -18,6 +18,8 @@
 #include "Tools/Math/Vector3.h"
 #include "Tools/Math/Vector4.h"
 
+#include "Tools/Memory/CacheStorage.h"
+
 namespace GameEngine
 {
 

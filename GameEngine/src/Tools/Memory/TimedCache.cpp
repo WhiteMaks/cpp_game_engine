@@ -51,31 +51,31 @@ namespace Memory
     void TimedCache::Monitor()
     {
 		MEMORY_DEBUG("Timed cache monitor thread has started");
-        while (active)
-        {
-            std::unique_lock<std::mutex> lock(mtx123);
-            cv.wait_for(lock, std::chrono::seconds(1), [this] { return !active; });
+		while (active)
+		{
+			std::unique_lock<std::mutex> lock(mtx123);
+			cv.wait_for(lock, std::chrono::seconds(1), [this] { return !active; });
 
-            for (CacheStorage& storage : storages)
-            {
-                std::lock_guard<std::mutex> storageLock(storage.GetMutex());
+			for (CacheStorage& storage : storages)
+			{
+				std::lock_guard<std::mutex> storageLock(storage.GetMutex());
 
-                auto now = std::chrono::steady_clock::now();
-                std::unordered_map<std::string, CacheItem>& cache = storage.GetCache();
+				auto now = std::chrono::steady_clock::now();
+				std::unordered_map<std::string, CacheItem>& cache = storage.GetCache();
 
-                for (auto it = cache.begin(); it != cache.end();)
-                {
-                    if (now - it->second.lastAccessTime > std::chrono::seconds(lifeTimeSeconds))
-                    {
+				for (auto it = cache.begin(); it != cache.end();)
+				{
+					if (now - it->second.lastAccessTime > std::chrono::seconds(lifeTimeSeconds))
+					{
 						MEMORY_TRACE("Deleting cache item [{0}] from storage...", it->second.name);
 						it = cache.erase(it);
 						continue;
-                    }
+					}
 
 					++it;
-                }
-            }
-        }
+				}
+			}
+		}
 		MEMORY_DEBUG("Timed cache monitor thread has stopped");
 	}
 

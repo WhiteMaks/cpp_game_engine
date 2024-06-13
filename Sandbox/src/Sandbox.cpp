@@ -142,7 +142,7 @@ public:
 
 		GraphicsEngine::Renderer::EndScene();
 
-		APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
+		//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 	}
 
 	void MouseEvent(EventsSystem::MouseEvent& event) noexcept override
@@ -179,6 +179,6 @@ public:
 int main()
 {
 	Sandbox* sandbox = new Sandbox();
-	
+
 	sandbox->Start();
 }

@@ -50,6 +50,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Tools/Math/Vector3.h
 	includes/Tools/Math/Vector4.h
 	includes/Tools/Memory/CacheStorage.h
+	includes/Tools/Memory/TimedCache.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -185,6 +186,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Tools/Math/Vector3.cpp
 	src/Tools/Math/Vector4.cpp
 	src/Tools/Memory/CacheStorage.cpp
+	src/Tools/Memory/TimedCache.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

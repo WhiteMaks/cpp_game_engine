@@ -2,51 +2,35 @@
 
 #include <chrono>
 #include <unordered_map>
+#include <memory>
+#include <mutex>
+#include <string>
+
+#include "Core/Core.h"
 
 namespace Memory
 {
-	template <typename Value>
-	struct CacheItem
+
+	struct GAME_ENGINE_API CacheItem
 	{
-		Value value;
+		std::string name;
 		std::chrono::steady_clock::time_point lastAccessTime;
 	};
 
-	template <typename Key, typename Value>
-	class CacheStorage
+	class GAME_ENGINE_API CacheStorage
 	{
 	private:
-		std::unordered_map<Key, CacheItem<Value>> cache;
+		std::unordered_map<std::string, CacheItem> cache;
+
+		std::mutex mtx;
 
 	public:
-		void Add(const Key& key, const Value& value);
+		void Add(const std::string& key, CacheItem value) noexcept;
 
-		CacheItem<Value>* Get(const Key& key);
+		CacheItem* Get(const std::string& key) noexcept;
+
+		std::unordered_map<std::string, CacheItem>& GetCache() noexcept;
+
+		std::mutex& GetMutex() noexcept;
 	};
-
-	template<typename Key, typename Value>
-	inline void CacheStorage<Key, Value>::Add(const Key& key, const Value& value)
-	{
-		CacheItem<Value> item = {
-			value,
-			std::chrono::steady_clock::now()
-		};
-
-		cache[key] = item;
-	}
-
-	template<typename Key, typename Value>
-	inline CacheItem<Value>* CacheStorage<Key, Value>::Get(const Key& key)
-	{
-		auto it = cache.find(key);
-		if (it == cache.end())
-		{
-			return nullptr;
-		}
-
-		auto result = it->second;
-		result.lastAccessTime = std::chrono::steady_clock::now();
-		return &result;
-	}
-	
 }

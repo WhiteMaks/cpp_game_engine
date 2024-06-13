@@ -18,6 +18,7 @@ namespace GameEngine
 		static std::shared_ptr<spdlog::logger> graphicsEngineLogger;
 		static std::shared_ptr<spdlog::logger> eventsSystemLogger;
 		static std::shared_ptr<spdlog::logger> layerLogger;
+		static std::shared_ptr<spdlog::logger> memoryLogger;
 		static std::shared_ptr<spdlog::logger> applicationLogger;
 
 	public:
@@ -39,6 +40,11 @@ namespace GameEngine
 		inline static std::shared_ptr<spdlog::logger>& GetLayerLogger()
 		{
 			return layerLogger;
+		}
+
+		inline static std::shared_ptr<spdlog::logger>& GetMemoryLogger()
+		{
+			return memoryLogger;
 		}
 
 		inline static std::shared_ptr<spdlog::logger>& GetApplicationLogger()
@@ -78,6 +84,13 @@ namespace GameEngine
 #define LAYER_INFO(...)				::GameEngine::Log::GetLayerLogger()->info(__VA_ARGS__)
 #define LAYER_DEBUG(...)			::GameEngine::Log::GetLayerLogger()->debug(__VA_ARGS__)
 #define LAYER_TRACE(...)			::GameEngine::Log::GetLayerLogger()->trace(__VA_ARGS__)
+
+#define MEMORY_CRITICAL(...)		::GameEngine::Log::GetMemoryLogger()->critical(__VA_ARGS__)
+#define MEMORY_ERROR(...)			::GameEngine::Log::GetMemoryLogger()->error(__VA_ARGS__)
+#define MEMORY_WARNING(...)			::GameEngine::Log::GetMemoryLogger()->warn(__VA_ARGS__)
+#define MEMORY_INFO(...)			::GameEngine::Log::GetMemoryLogger()->info(__VA_ARGS__)
+#define MEMORY_DEBUG(...)			::GameEngine::Log::GetMemoryLogger()->debug(__VA_ARGS__)
+#define MEMORY_TRACE(...)			::GameEngine::Log::GetMemoryLogger()->trace(__VA_ARGS__)
 
 #define APPLICATION_CRITICAL(...)	::GameEngine::Log::GetApplicationLogger()->critical(__VA_ARGS__)
 #define APPLICATION_ERROR(...)		::GameEngine::Log::GetApplicationLogger()->error(__VA_ARGS__)

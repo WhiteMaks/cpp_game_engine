@@ -18,11 +18,17 @@
 #include "Tools/Math/Vector3.h"
 #include "Tools/Math/Vector4.h"
 
+#include "Tools/Memory/CacheStorage.h"
+#include "Tools/Memory/TimedCache.h"
+
 namespace GameEngine
 {
 
 	class GAME_ENGINE_API GameEngine
 	{
+	private:
+		static Memory::TimedCache* timedCache;
+
 	private:
 		GraphicsEngine::GraphicsEngine* graphicsEngine;
 		EventsSystem::EventManager* eventManager;
@@ -32,6 +38,9 @@ namespace GameEngine
 		GameEngine(const std::string& applicationTitle, const unsigned int applicationWidth = 1280, const unsigned int applicationHeight = 720);
 		
 		virtual ~GameEngine();
+
+	public:
+		static Memory::TimedCache* GetTimedCache();
 
 	public:
 		void Loop();

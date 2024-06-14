@@ -4,10 +4,14 @@ namespace GameEngine
 {
 
 	const static int WINDOW_INITIALIZAATION_FAILED						= 500100;
+
 	const static int GRAPHICS_CONTEXT_INITIALIZAATION_FAILED			= 500200;
 	const static int GRAPHICS_CONTEXT_SWAP_BUFFER_ERROR					= 500201;
+	
 	const static int SHADER_PROGRAM_INITIALIZAATION_FAILED				= 500300;
+	
 	const static int VERTEX_ARRAY_BUFFER_INITIALIZAATION_FAILED			= 500400;
+	
 	const static int ASSET_INITIALIZAATION_FAILED						= 500500;
 
 }

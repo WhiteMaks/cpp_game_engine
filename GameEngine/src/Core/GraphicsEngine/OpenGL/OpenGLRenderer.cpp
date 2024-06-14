@@ -6,6 +6,8 @@ namespace GraphicsEngine
 	void OpenGLRenderer::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization openGL renderer has started");
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		GRAPHICS_ENGINE_INFO("Initialization openGL renderer completed");
 	}
 

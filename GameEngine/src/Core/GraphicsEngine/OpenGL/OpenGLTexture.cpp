@@ -35,13 +35,16 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Initialization image completed");
 
 		GRAPHICS_ENGINE_DEBUG("Initialization texture has started");
+		GLenum internalFormat = GetTextureInternalFormatByChanels(tempChanels);
+		GLenum format = GetTextureFormatByChanels(tempChanels);
+
 		glCreateTextures(GL_TEXTURE_2D, 1, &texture);
-		glTextureStorage2D(texture, 1, GL_RGB8, width, height);
+		glTextureStorage2D(texture, 1, internalFormat, width, height);
 
 		glTextureParameteri(texture, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(texture, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureSubImage2D(texture, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(texture, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, data);
 		GRAPHICS_ENGINE_DEBUG("Initialization texture completed");
 
 		stbi_image_free(data);
@@ -74,6 +77,40 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL texture has started");
 		glDeleteTextures(1, &texture);
 		GRAPHICS_ENGINE_INFO("Destruction openGL texture completed");
+	}
+
+	GLenum OpenGLTexture::GetTextureInternalFormatByChanels(int chanels) noexcept
+	{
+		GLenum result = 0;
+
+		switch (chanels)
+		{
+		case 3:
+			result = GL_RGB16;
+			break;
+		case 4: 
+			result = GL_RGBA16;
+			break;
+		}
+
+		return result;
+	}
+
+	GLenum OpenGLTexture::GetTextureFormatByChanels(int chanels) noexcept
+	{
+		GLenum result = 0;
+
+		switch (chanels)
+		{
+		case 3:
+			result = GL_RGB;
+			break;
+		case 4:
+			result = GL_RGBA;
+			break;
+		}
+
+		return result;
 	}
 
 }

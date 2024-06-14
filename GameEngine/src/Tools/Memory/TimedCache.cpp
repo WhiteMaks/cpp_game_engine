@@ -48,7 +48,7 @@ namespace Memory
 		cv.notify_all();
 	}
 
-    void TimedCache::Monitor()
+    void TimedCache::Monitor() noexcept
     {
 		MEMORY_DEBUG("Timed cache monitor thread has started");
 		while (active)

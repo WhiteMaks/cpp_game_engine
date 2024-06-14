@@ -36,7 +36,7 @@ namespace Memory
 		void StartCleanupStorage(CacheStorage& storage) noexcept;
 
 	private:
-		void Monitor();
+		void Monitor() noexcept;
 	};
 
 }

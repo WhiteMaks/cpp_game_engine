@@ -6,6 +6,7 @@ private:
 	std::shared_ptr<GraphicsEngine::ShaderProgram> shaderProgram;
 	std::shared_ptr<GraphicsEngine::VertexArrayBuffer> vertexArrayBuffer;
 	std::shared_ptr<GraphicsEngine::Texture> texture;
+	std::shared_ptr<GraphicsEngine::Texture> texture2;
 
 	GraphicsEngine::OrthographicCamera camera;
 
@@ -78,6 +79,11 @@ public:
 		);
 		texture->Init();
 
+		texture2 = std::shared_ptr<GraphicsEngine::Texture>(
+			GraphicsEngine::TextureFactory::Create("assets/butterfly.png")
+		);
+		texture2->Init();
+
 		shaderProgram->SetUniformInt("u_Texture", 0);
 	}
 
@@ -123,7 +129,7 @@ public:
 
 		GraphicsEngine::Renderer::BeginScene(camera);
 
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.1f));
+		//glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.5f));
 		//for (int y = -10; y < 10; y++)
 		//{
 		//	for (int x = -10; x < 10; x++)
@@ -137,8 +143,12 @@ public:
 
 
 		texture->Bind();
-		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.5f)));
+		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
 		texture->Unbind();
+
+		texture2->Bind();
+		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
+		texture2->Unbind();
 
 		GraphicsEngine::Renderer::EndScene();
 

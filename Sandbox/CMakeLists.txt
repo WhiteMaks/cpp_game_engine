@@ -29,7 +29,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
-    set(USE_FLAGS "-s USE_SDL=2 -s FULL_ES3=1 -s USE_WEBGL2=1 --preload-file ${CMAKE_SOURCE_DIR}/${SANDBOX_PROJECT_NAME}/assets/checkerboard.png@assets/checkerboard.png")
+    set(USE_FLAGS "-s USE_SDL=2 -s FULL_ES3=1 -s USE_WEBGL2=1 --preload-file ${CMAKE_SOURCE_DIR}/${SANDBOX_PROJECT_NAME}/assets@/assets --use-preload-plugins")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")

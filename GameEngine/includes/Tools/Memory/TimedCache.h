@@ -17,7 +17,7 @@ namespace Memory
 	private:
 		std::vector<std::reference_wrapper<CacheStorage>> storages;
 
-		std::mutex mtx123;
+		std::mutex mtx;
 		std::condition_variable cv;
 		std::thread monitorThread;
 		std::atomic<bool> active;

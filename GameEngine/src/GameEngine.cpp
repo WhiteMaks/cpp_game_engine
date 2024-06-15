@@ -6,7 +6,7 @@
 
 namespace GameEngine
 {
-	Memory::TimedCache* GameEngine::timedCache = new Memory::TimedCache(2);
+	Memory::TimedCache* GameEngine::timedCache = new Memory::TimedCache(10);
 
 	GameEngine::GameEngine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
@@ -54,7 +54,7 @@ namespace GameEngine
 	void GameEngine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization game engine has started");
-		timedCache->Init();
+		//timedCache->Init();
 		eventManager->Init();
 		graphicsEngine->Init();
 		layerStack->Init();

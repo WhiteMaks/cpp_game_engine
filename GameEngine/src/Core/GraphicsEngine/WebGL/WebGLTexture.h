@@ -24,6 +24,10 @@ namespace GraphicsEngine
 		void Unbind(unsigned int slot) noexcept override;
 
 		void Destroy() noexcept override;
+
+	private:
+		GLenum GetTextureInternalFormatByChanels(int chanels) noexcept;
+		GLenum GetTextureFormatByChanels(int chanels) noexcept;
 	};
 
 }

@@ -35,13 +35,16 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Initialization image completed");
 
 		GRAPHICS_ENGINE_DEBUG("Initialization texture has started");
+		GLenum internalFormat = GetTextureInternalFormatByChanels(tempChanels);
+		GLenum format = GetTextureFormatByChanels(tempChanels);
+
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 		GRAPHICS_ENGINE_DEBUG("Initialization texture completed");
 
 		stbi_image_free(data);
@@ -78,4 +81,37 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction webGL texture completed");
 	}
 
+	GLenum WebGLTexture::GetTextureInternalFormatByChanels(int chanels) noexcept
+	{
+		GLenum result = 0;
+
+		switch (chanels)
+		{
+		case 3:
+			result = GL_RGB8;
+			break;
+		case 4:
+			result = GL_RGBA8;
+			break;
+		}
+
+		return result;
+	}
+
+	GLenum WebGLTexture::GetTextureFormatByChanels(int chanels) noexcept
+	{
+		GLenum result = 0;
+
+		switch (chanels)
+		{
+		case 3:
+			result = GL_RGB;
+			break;
+		case 4:
+			result = GL_RGBA;
+			break;
+		}
+
+		return result;
+	}
 }

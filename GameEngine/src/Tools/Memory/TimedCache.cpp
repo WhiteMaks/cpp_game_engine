@@ -28,7 +28,7 @@ namespace Memory
 	{
 		MEMORY_INFO("Destruction timed cache has started");
 		{
-			std::lock_guard<std::mutex> lock(mtx123);
+			std::lock_guard<std::mutex> lock(mtx);
 			active = false;
 		}
 
@@ -43,17 +43,17 @@ namespace Memory
 
 	void TimedCache::StartCleanupStorage(CacheStorage& storage) noexcept
 	{
-		std::lock_guard<std::mutex> lock(mtx123);
+		std::lock_guard<std::mutex> lock(mtx);
 		storages.push_back(std::ref(storage));
 		cv.notify_all();
 	}
 
-    void TimedCache::Monitor()
+    void TimedCache::Monitor() noexcept
     {
 		MEMORY_DEBUG("Timed cache monitor thread has started");
 		while (active)
 		{
-			std::unique_lock<std::mutex> lock(mtx123);
+			std::unique_lock<std::mutex> lock(mtx);
 			cv.wait_for(lock, std::chrono::seconds(1), [this] { return !active; });
 
 			for (CacheStorage& storage : storages)

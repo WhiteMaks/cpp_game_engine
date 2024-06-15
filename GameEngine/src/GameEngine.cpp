@@ -54,7 +54,7 @@ namespace GameEngine
 	void GameEngine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization game engine has started");
-		timedCache->Init();
+		//timedCache->Init();
 		eventManager->Init();
 		graphicsEngine->Init();
 		layerStack->Init();

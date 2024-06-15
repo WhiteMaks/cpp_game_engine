@@ -88,10 +88,10 @@ namespace GraphicsEngine
 		switch (chanels)
 		{
 		case 3:
-			result = GL_RGB16;
+			result = GL_RGB8;
 			break;
 		case 4:
-			result = GL_RGBA16;
+			result = GL_RGBA8;
 			break;
 		}
 

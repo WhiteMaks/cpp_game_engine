@@ -29,7 +29,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 endif()
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
-    set(USE_FLAGS "-s USE_SDL=2 -s FULL_ES3=1 -s USE_WEBGL2=1 --preload-file ${CMAKE_SOURCE_DIR}/${SANDBOX_PROJECT_NAME}/assets@/assets --use-preload-plugins")
+    set(USE_FLAGS "-s USE_SDL=2 -s FULL_ES3=1 -s USE_WEBGL2=1 -s USE_PTHREADS=1 -s ALLOW_MEMORY_GROWTH=1 -pthread --preload-file ${CMAKE_SOURCE_DIR}/${SANDBOX_PROJECT_NAME}/assets@/assets --use-preload-plugins -matomics -mbulk-memory")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")

@@ -20,7 +20,10 @@ namespace Memory
 		MEMORY_INFO("Initialization timed cache has started");
 		active = true;
 
+#ifdef __EMSCRIPTEN__
+#else
 		monitorThread = std::thread(&TimedCache::Monitor, this);
+#endif
 		MEMORY_INFO("Initialization timed cache completed");
 	}
 

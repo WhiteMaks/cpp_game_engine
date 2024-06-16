@@ -218,14 +218,14 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC glm)
 add_subdirectory(./vendor/glad ${CMAKE_CURRENT_BINARY_DIR}/glad)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 
-add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
-target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
-target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
-
 add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
+	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
+	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
+	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE SDL2::SDL2)
+
 	add_subdirectory(./vendor/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
 	target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glfw)
 	
@@ -237,7 +237,34 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		$<TARGET_FILE_DIR:${GAME_ENGINE_PROJECT_NAME}>
 	)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
-	
+	target_compile_options(${GAME_ENGINE_PROJECT_NAME} PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+	target_link_options(${GAME_ENGINE_PROJECT_NAME} PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+
+	target_compile_options(spdlog PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+	target_link_options(spdlog PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+
+	target_compile_options(stb PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+	target_link_options(stb PRIVATE
+		-matomics
+		-mbulk-memory
+	)
+
+	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
 endif()
 
 set_target_properties(${GAME_ENGINE_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)

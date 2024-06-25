@@ -75,12 +75,12 @@ public:
 		camera.SetRotation(0.0f);
 
 		texture = std::shared_ptr<GraphicsEngine::Texture>(
-			GraphicsEngine::TextureFactory::Create("assets/checkerboard.png")
+			GraphicsEngine::TextureFactory::Create("assets/textures/checkerboard.png")
 		);
 		texture->Init();
 
 		texture2 = std::shared_ptr<GraphicsEngine::Texture>(
-			GraphicsEngine::TextureFactory::Create("assets/butterfly.png")
+			GraphicsEngine::TextureFactory::Create("assets/textures/butterfly.png")
 		);
 		texture2->Init();
 

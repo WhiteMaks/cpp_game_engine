@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build_debug_for_windows:
     name: Build debug binary for Windows
     runs-on: windows-latest
 
@@ -22,3 +22,26 @@ jobs:
 
       - name: Build binary
         run: ./build_windows_debug.bat
+
+  build_for_browser:
+    name: Build binary for Browser
+    runs-on: windows-latest
+
+    steps:
+      - name: Preparing git branch
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install CMake
+        uses: ssrobins/install-cmake@v1
+        with:
+          version: 3.30.1
+
+      - name: Install Emscripten
+        uses: lovasoa/setup-emscripten@master
+        with:
+          emscripten-version: '1.38.47'
+
+      - name: Build binary
+        run: ./build_browser.ps1

@@ -41,7 +41,7 @@ jobs:
       - name: Install Emscripten
         uses: lovasoa/setup-emscripten@master
         with:
-          emscripten-version: '3.1.64'
+          emscripten-version: 'latest'
 
       - name: Build binary
         run: ./build_browser.ps1

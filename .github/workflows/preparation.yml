@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build on Windows
+    name: Build debug binary for Windows
     runs-on: windows-latest
 
     steps:

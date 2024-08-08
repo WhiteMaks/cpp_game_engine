@@ -1,2 +1,6 @@
-./emsdk/emsdk.bat install latest
-./emsdk/emsdk.bat activate latest
+cd .. 
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+./emsdk.bat install latest
+./emsdk.bat activate latest
+cd ..

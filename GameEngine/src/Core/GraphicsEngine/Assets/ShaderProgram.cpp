@@ -62,6 +62,12 @@ namespace GraphicsEngine
 
 		std::string shaderCode;
 
+#ifdef GAME_ENGINE_PLATFORM_BROWSER
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
+#else
+		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+#endif
+
 		std::ifstream in(filepath, std::ios::in, std::ios::binary);
 		if (!in)
 		{

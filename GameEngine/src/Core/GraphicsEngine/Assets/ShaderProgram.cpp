@@ -62,11 +62,7 @@ namespace GraphicsEngine
 
 		std::string shaderCode;
 
-#ifdef GAME_ENGINE_PLATFORM_BROWSER
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
-#else
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
-#endif
 		if (!in)
 		{
 			GRAPHICS_ENGINE_CRITICAL("Could not open shader file [{0}]", filepath);
@@ -83,7 +79,7 @@ namespace GraphicsEngine
 		const std::string endToken = "//end: " + shaderName;
 		size_t beginTokenLength = beginToken.length();
 		size_t endTokenLength = endToken.length();
-		size_t beginPos = shaderCode.find(beginToken) + beginTokenLength + 1;
+		size_t beginPos = shaderCode.find(beginToken) + beginTokenLength + 2;
 		size_t endPos = shaderCode.find(endToken);
 
 		GRAPHICS_ENGINE_DEBUG("Shader file [{0}] reading for type [{1}] completed", filepath, shaderName);

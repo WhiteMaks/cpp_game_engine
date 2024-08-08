@@ -45,7 +45,6 @@ jobs:
 
       - name: Install Emscripten
         run: |
-          git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk
           ./emsdk.bat install latest
           ./emsdk.bat activate latest
@@ -53,4 +52,4 @@ jobs:
 
       - name: Build binary
         run: |
-          ./build_browser.bat
+          ./build_browser.ps1

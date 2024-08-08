@@ -13,3 +13,6 @@
 [submodule "GameEngine/vendor/stb/stb_submodule"]
 	path = GameEngine/vendor/stb/stb_submodule
 	url = https://github.com/nothings/stb.git
+[submodule "emsdk"]
+	path = emsdk
+	url = https://github.com/emscripten-core/emsdk.git

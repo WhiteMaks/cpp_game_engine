@@ -67,8 +67,6 @@ namespace GraphicsEngine
 #else
 		std::ifstream in(filepath, std::ios::in, std::ios::binary);
 #endif
-
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
 		if (!in)
 		{
 			GRAPHICS_ENGINE_CRITICAL("Could not open shader file [{0}]", filepath);

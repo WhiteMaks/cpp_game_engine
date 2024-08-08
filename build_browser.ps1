@@ -1,5 +1,4 @@
 $env:GAME_ENGINE_PLATFORM="BROWSER"
-./emsdk/emsdk_env.bat
 mkdir build
 cd build
 emsdk activate

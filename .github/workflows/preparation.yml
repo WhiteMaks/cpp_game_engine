@@ -53,6 +53,4 @@ jobs:
 
       - name: Build binary
         run: |
-          ./emsdk/emsdk.bat activate latest
-          ./emsdk/emsdk_env.bat
-          ./build_browser.ps1
+          ./build_browser.bat

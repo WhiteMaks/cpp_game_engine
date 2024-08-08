@@ -52,4 +52,7 @@ jobs:
           cd ..
 
       - name: Build binary
-        run: ./build_browser.ps1
+        run: |
+          ./emsdk/emsdk.bat activate latest
+          ./emsdk/emsdk_env.bat
+          ./build_browser.ps1

@@ -77,8 +77,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.h
 		
-		src/Core/GraphicsEngine/DirectX/DirectX11Context.h
-		src/Core/GraphicsEngine/DirectX/DirectX12Context.h
+		#src/Core/GraphicsEngine/DirectX/DirectX11Context.h
+		#src/Core/GraphicsEngine/DirectX/DirectX12Context.h
 	)
 endif()
 
@@ -125,8 +125,8 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
 		
-		src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
-		src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
+		#src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
+		#src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
 	)
 endif()
 

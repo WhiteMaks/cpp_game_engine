@@ -1,0 +1,24 @@
+name: CPP Game Engine preparation
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Preparing git branch
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install CMake
+        uses: ssrobins/install-cmake@v1
+        with:
+          version: 3.30.1
+
+      - name: Build binary
+        run: ./build_windows_debug.bat

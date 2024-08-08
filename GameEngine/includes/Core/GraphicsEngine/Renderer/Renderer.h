@@ -3,7 +3,7 @@
 #include "Core/Core.h"
 #include "RendererAPIFactory.h"
 #include "VertexArrayBuffer.h"
-#include "ShaderProgram.h"
+#include "Core/GraphicsEngine/Assets/ShaderProgram.h"
 
 #include "OrthographicCamera.h"
 #include "Tools/Math/Vector4.h"

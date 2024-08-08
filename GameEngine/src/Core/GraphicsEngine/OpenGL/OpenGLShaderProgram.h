@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "Core/GraphicsEngine/Renderer/ShaderProgram.h"
+#include "Core/GraphicsEngine/Assets/ShaderProgram.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 
@@ -17,6 +17,7 @@ namespace GraphicsEngine
 		GLuint fragmentShader;
 
 	public:
+		OpenGLShaderProgram(const std::string& filepath) noexcept;
 		OpenGLShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept;
 
 	public:
@@ -36,6 +37,9 @@ namespace GraphicsEngine
 	private:
 		void InitShaderProgram() noexcept;
 		void InitShaders() noexcept;
+
+		std::string ReadVertexShaderCode(const std::string& filepath);
+		std::string ReadFragmentShaderCode(const std::string& filepath);
 	};
 
 }

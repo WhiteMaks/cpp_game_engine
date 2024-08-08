@@ -22,11 +22,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/WindowFactory.h
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/GraphicsAPI.h
+	includes/Core/GraphicsEngine/OrthographicCameraController.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
-	includes/Core/GraphicsEngine/Renderer/ShaderProgram.h
-	includes/Core/GraphicsEngine/Renderer/ShaderProgramFactory.h
-	includes/Core/GraphicsEngine/Renderer/ShaderCodeFactory.h
 	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/IndexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/VertexArrayBuffer.h
@@ -40,6 +38,8 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
 	includes/Core/GraphicsEngine/Assets/Texture.h
 	includes/Core/GraphicsEngine/Assets/TextureFactory.h
+	includes/Core/GraphicsEngine/Assets/ShaderProgram.h
+	includes/Core/GraphicsEngine/Assets/ShaderProgramFactory.h
 
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
@@ -157,11 +157,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
+	src/Core/GraphicsEngine/OrthographicCameraController.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
-	src/Core/GraphicsEngine/Renderer/ShaderProgram.cpp
-	src/Core/GraphicsEngine/Renderer/ShaderProgramFactory.cpp
-	src/Core/GraphicsEngine/Renderer/ShaderCodeFactory.cpp
 	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/IndexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/VertexArrayBuffer.cpp
@@ -174,6 +172,8 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
 	src/Core/GraphicsEngine/Assets/Texture.cpp
 	src/Core/GraphicsEngine/Assets/TextureFactory.cpp
+	src/Core/GraphicsEngine/Assets/ShaderProgram.cpp
+	src/Core/GraphicsEngine/Assets/ShaderProgramFactory.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFORM_SOURCES}
 

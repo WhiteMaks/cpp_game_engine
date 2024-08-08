@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
+#include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
 
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 #include "Core/GraphicsEngine/GraphicsEngine.h"
@@ -10,6 +10,19 @@
 
 namespace GraphicsEngine
 {
+	ShaderProgram* ShaderProgramFactory::Create(const std::string& filepath)
+	{
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		switch (GraphicsEngine::GetAPI())
+		{
+		case GraphicsAPI::WebGL: return new WebGLShaderProgram(filepath);
+		case GraphicsAPI::OpenGL: return new OpenGLShaderProgram(filepath);
+		}
+#elif GAME_ENGINE_PLATFORM_BROWSER
+		return new WebGLShaderProgram(filepath);
+#endif
+		return new ShaderProgram("", "");
+	}
 
 	ShaderProgram* ShaderProgramFactory::Create(const std::string& vertexShaderCode, const std::string& fragmentShaderCode)
 	{

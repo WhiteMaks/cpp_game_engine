@@ -22,11 +22,8 @@ public:
 
 	void Init() noexcept override
 	{
-		std::string vertex = GraphicsEngine::ShaderCodeFactory::CreateDefaultVertexShader();
-		std::string fragment = GraphicsEngine::ShaderCodeFactory::CreateDefaultFragmentShader();
-
 		shaderProgram = std::shared_ptr<GraphicsEngine::ShaderProgram>(
-			GraphicsEngine::ShaderProgramFactory::Create(vertex, fragment)
+			GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/texture_shader")
 		);
 		shaderProgram->Init();
 

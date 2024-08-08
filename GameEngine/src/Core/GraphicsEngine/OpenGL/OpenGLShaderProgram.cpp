@@ -2,7 +2,11 @@
 
 namespace GraphicsEngine
 {
-	
+	OpenGLShaderProgram::OpenGLShaderProgram(const std::string& filepath) noexcept
+		: OpenGLShaderProgram(ReadVertexShaderCode(filepath + "_opengl.glsl"), ReadFragmentShaderCode(filepath + "_opengl.glsl"))
+	{
+	}
+
 	OpenGLShaderProgram::OpenGLShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept
 		: ShaderProgram(vertexShaderCode, fragmentShaderCode), shaderProgram(0), vertexShader(0), fragmentShader(0)
 	{
@@ -169,6 +173,16 @@ namespace GraphicsEngine
 		}
 
 		GRAPHICS_ENGINE_DEBUG("Initialization shaders completed");
+	}
+
+	std::string OpenGLShaderProgram::ReadVertexShaderCode(const std::string& filepath)
+	{
+		return ReadShaderCode(filepath, "vertex_shader");
+	}
+
+	std::string OpenGLShaderProgram::ReadFragmentShaderCode(const std::string& filepath)
+	{
+		return ReadShaderCode(filepath, "fragment_shader");
 	}
 
 }

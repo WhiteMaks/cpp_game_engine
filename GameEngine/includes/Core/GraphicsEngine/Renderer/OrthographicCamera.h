@@ -21,7 +21,7 @@ namespace GraphicsEngine
 
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
-	
+
 	public:
 		void SetPosition(const Math::Vector3& position) noexcept;
 		void SetRotation(float rotation) noexcept;

@@ -25,15 +25,16 @@ namespace GraphicsEngine
 	public:
 		void SetPosition(const Math::Vector3& position) noexcept;
 		void SetRotation(float rotation) noexcept;
+		void RecalculateProjectionMatrix(float left, float right, float bottom, float top) noexcept;
 		void Update() noexcept;
 
-		glm::mat4 GetProjectionMatrix() noexcept;
-		glm::mat4 GetViewMatrix() noexcept;
-		glm::mat4 GetViewProjectionMatrix() noexcept;
+		const glm::mat4 GetProjectionMatrix() const noexcept;
+		const glm::mat4 GetViewMatrix() const noexcept;
+		const glm::mat4 GetViewProjectionMatrix() const noexcept;
 
 		Math::Vector3& GetPosition() noexcept;
 
-		float GetRotation() noexcept;
+		const float GetRotation() const noexcept;
 
 	private:
 		void RecalculateMatrix() noexcept;

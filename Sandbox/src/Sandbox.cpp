@@ -8,14 +8,12 @@ private:
 	std::shared_ptr<GraphicsEngine::Texture> texture;
 	std::shared_ptr<GraphicsEngine::Texture> texture2;
 
-	GraphicsEngine::OrthographicCamera camera;
-
-	float cameraSpeed = 0.5f;
+	std::shared_ptr<GraphicsEngine::OrthographicCameraController> cameraController;
 
 public:
 	
 	TestLayer()
-		: Layer("Test layer"), camera(-1.60f, 1.60f, -0.90f, 0.90f)
+		: Layer("Test layer")
 	{
 
 	}
@@ -26,7 +24,6 @@ public:
 			GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/texture_shader")
 		);
 		shaderProgram->Init();
-
 
 		vertexArrayBuffer = std::shared_ptr<GraphicsEngine::VertexArrayBuffer>(
 			GraphicsEngine::BufferFactory::CreateVertexArrayBuffer()
@@ -68,8 +65,10 @@ public:
 
 		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 
-		camera.SetPosition({ 0.0f, 0.0f, 0.0f });
-		camera.SetRotation(0.0f);
+		cameraController = std::shared_ptr<GraphicsEngine::OrthographicCameraController>(
+			new GraphicsEngine::OrthographicCameraController(0.0f)
+		);
+		cameraController->Init();
 
 		texture = std::shared_ptr<GraphicsEngine::Texture>(
 			GraphicsEngine::TextureFactory::Create("assets/textures/checkerboard.png")
@@ -86,37 +85,7 @@ public:
 
 	void Update() noexcept override
 	{
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyD))
-		{
-			camera.GetPosition().x += cameraSpeed * GameEngine::Time::GetDeltaTime();
-		}
-
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyA))
-		{
-			camera.GetPosition().x -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
-		}
-
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyW))
-		{
-			camera.GetPosition().y += (cameraSpeed * GameEngine::Time::GetDeltaTime());
-		}
-
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyS))
-		{
-			camera.GetPosition().y -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
-		}
-
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyE))
-		{	
-			camera.SetRotation(camera.GetRotation() - (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
-		}
-
-		if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyQ))
-		{
-			camera.SetRotation(camera.GetRotation() + (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
-		}
-
-		camera.Update();
+		cameraController->Update();
 	}
 
 	void Render() noexcept override
@@ -124,7 +93,7 @@ public:
 		GraphicsEngine::Renderer::Clear();
 		GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
-		GraphicsEngine::Renderer::BeginScene(camera);
+		GraphicsEngine::Renderer::BeginScene(cameraController->GetCamera());
 
 		//glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.5f));
 		//for (int y = -10; y < 10; y++)
@@ -154,16 +123,24 @@ public:
 
 	void MouseEvent(EventsSystem::MouseEvent& event) noexcept override
 	{
+		cameraController->MouseEvent(event);
 	}
 
 	void KeyboardEvent(EventsSystem::KeyboardEvent& event) noexcept override
 	{
+		cameraController->KeyboardEvent(event);
+	}
+
+	void WindowEvent(EventsSystem::WindowEvent& event) noexcept override
+	{
+		cameraController->WindowEvent(event);
 	}
 
 	void Destroy() noexcept override
 	{
 		vertexArrayBuffer->Destroy();
 		shaderProgram->Destroy();
+		cameraController->Destroy();
 	}
 };
 

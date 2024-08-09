@@ -1,7 +1,3 @@
-# Based on:
-# https://stackoverflow.com/a/21957017
-# https://gist.github.com/HaiyangXu/ec88cbdce3cdbac7b8d5
-
 from http.server import SimpleHTTPRequestHandler
 import socketserver
 import sys

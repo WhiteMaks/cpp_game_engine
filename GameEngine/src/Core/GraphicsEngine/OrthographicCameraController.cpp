@@ -24,7 +24,7 @@ namespace GraphicsEngine
 		if (keyboardEvent.GetCode() == EventsSystem::EventManager::keyR && keyboardEvent.IsPressed())
 		{
 			zoom--;
-			zoom = std::max(zoom, 1.0f);
+			zoom = std::max(zoom, 0.5f);
 			camera.RecalculateProjectionMatrix(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom);
 
 			keyboardEvent.Invalidate();

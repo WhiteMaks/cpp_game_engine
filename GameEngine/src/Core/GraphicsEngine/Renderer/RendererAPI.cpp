@@ -11,6 +11,10 @@ namespace GraphicsEngine
 	{
 	}
 
+	void RendererAPI::SetViewport(const unsigned int x, const unsigned int y, const unsigned int width, const unsigned int height) noexcept
+	{
+	}
+
 	void RendererAPI::ClearColorBuffer() noexcept
 	{
 	}

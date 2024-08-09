@@ -17,6 +17,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction webGL renderer completed");
 	}
 
+	void WebGLRenderer::SetViewport(const unsigned int x, const unsigned int y, const unsigned int width, const unsigned int height) noexcept
+	{
+		glViewport(x, y, width, height);
+	}
+
 	void WebGLRenderer::ClearColorBuffer() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);

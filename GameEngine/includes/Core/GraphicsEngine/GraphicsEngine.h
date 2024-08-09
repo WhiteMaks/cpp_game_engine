@@ -38,6 +38,7 @@ namespace GraphicsEngine
 		void BeginRender() noexcept;
 		void EndRender() noexcept;
 		void Destroy() noexcept;
+		void Resize(const unsigned int width, const unsigned int height) noexcept;
 		void Stop() noexcept;
 
 		bool ShouldStop() noexcept;

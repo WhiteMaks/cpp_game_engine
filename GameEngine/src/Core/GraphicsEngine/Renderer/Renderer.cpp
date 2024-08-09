@@ -12,6 +12,11 @@ namespace GraphicsEngine
 		api->Init();
 	}
 
+	void Renderer::Resize(const unsigned int width, const unsigned int height) noexcept
+	{
+		api->SetViewport(0, 0, width, height);
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera) noexcept
 	{
 		viewProjectionMatrix = camera.GetViewProjectionMatrix();

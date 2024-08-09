@@ -17,6 +17,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL renderer completed");
 	}
 
+	void OpenGLRenderer::SetViewport(const unsigned int x, const unsigned int y, const unsigned int width, const unsigned int height) noexcept
+	{
+		glViewport(x, y, width, height);
+	}
+
 	void OpenGLRenderer::ClearColorBuffer() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);

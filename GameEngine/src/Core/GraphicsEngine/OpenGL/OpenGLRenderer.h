@@ -15,6 +15,7 @@ namespace GraphicsEngine
 		void Init() noexcept override;
 		void Destroy() noexcept override;
 
+		void SetViewport(const unsigned int x, const unsigned int y, const unsigned int width, const unsigned int height) noexcept override;
 		void ClearColorBuffer() noexcept override;
 		void SetClearColor(const Math::Vector4& color) noexcept override;
 		void DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept override;

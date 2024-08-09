@@ -153,6 +153,7 @@ namespace GameEngine
 				graphicsEngine->Stop();
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
+				graphicsEngine->Resize(windowEvent.GetWidth(), windowEvent.GetHeight());
 				break;
 			}
 		}

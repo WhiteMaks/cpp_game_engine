@@ -50,7 +50,7 @@ jobs:
         run: |
           ./build_browser.ps1
 
-      - name: Install Emscripten
+      - name: Create Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-application

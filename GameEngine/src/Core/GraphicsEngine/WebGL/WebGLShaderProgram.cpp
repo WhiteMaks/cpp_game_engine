@@ -108,7 +108,7 @@ namespace GraphicsEngine
 			glDeleteShader(fragmentShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Program not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		glDetachShader(shaderProgram, vertexShader);
@@ -141,7 +141,7 @@ namespace GraphicsEngine
 			glDeleteShader(vertexShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Vertex shader not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -163,7 +163,7 @@ namespace GraphicsEngine
 			glDeleteShader(vertexShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Fragment shader not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		GRAPHICS_ENGINE_DEBUG("Initialization shaders completed");

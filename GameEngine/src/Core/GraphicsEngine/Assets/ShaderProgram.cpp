@@ -66,7 +66,7 @@ namespace GraphicsEngine
 		if (!in)
 		{
 			GRAPHICS_ENGINE_CRITICAL("Could not open shader file [{0}]", filepath);
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		in.seekg(0, std::ios::end);

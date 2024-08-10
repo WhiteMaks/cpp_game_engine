@@ -50,8 +50,12 @@ jobs:
         run: |
           ./build_browser.ps1
 
+      - name: Extend Web Assembly
+        run: |
+          ./extend_web_assembly.ps1
+
       - name: Create Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web-application
+          name: web-sandbox
           path: ./build/bin/

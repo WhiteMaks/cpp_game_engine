@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/BufferElement.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/BufferElement.h"
 
 namespace GraphicsEngine
 {

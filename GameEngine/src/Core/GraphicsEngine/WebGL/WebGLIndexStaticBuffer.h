@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "Core/GraphicsEngine/Renderer/IndexStaticBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 

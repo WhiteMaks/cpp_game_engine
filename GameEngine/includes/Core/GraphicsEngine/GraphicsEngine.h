@@ -6,8 +6,9 @@
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
-#include "Core/GraphicsEngine/Renderer/BufferFactory.h"
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
+
+#include "Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h"
 
 #include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
 #include "Core/GraphicsEngine/Assets/TextureFactory.h"

@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/BufferFactory.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h"
 
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 #include "Core/GraphicsEngine/GraphicsEngine.h"

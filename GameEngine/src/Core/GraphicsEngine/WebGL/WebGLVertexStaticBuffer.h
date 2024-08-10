@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "Core/GraphicsEngine/Renderer/VertexStaticBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 

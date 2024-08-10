@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VertexArrayBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h"
 #include "Tools/Math/Vector4.h"
 
 namespace GraphicsEngine

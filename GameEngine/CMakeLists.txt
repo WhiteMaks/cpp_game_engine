@@ -23,19 +23,22 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/WindowFactory.h
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/GraphicsAPI.h
+
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
-	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
-	includes/Core/GraphicsEngine/Renderer/IndexStaticBuffer.h
-	includes/Core/GraphicsEngine/Renderer/VertexArrayBuffer.h
-	includes/Core/GraphicsEngine/Renderer/BufferFactory.h
-	includes/Core/GraphicsEngine/Renderer/BufferLayout.h
-	includes/Core/GraphicsEngine/Renderer/BufferElement.h
-	includes/Core/GraphicsEngine/Renderer/BufferElementType.h
 	includes/Core/GraphicsEngine/Renderer/Renderer.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPI.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPIFactory.h
 	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
+
+	includes/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/BufferLayout.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElement.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElementType.h
+
 	includes/Core/GraphicsEngine/Assets/Texture.h
 	includes/Core/GraphicsEngine/Assets/TextureFactory.h
 	includes/Core/GraphicsEngine/Assets/ShaderProgram.h
@@ -111,19 +114,19 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 
 		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
 		
 		#src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		#src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
@@ -159,18 +162,21 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
+
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
-	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/IndexStaticBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/VertexArrayBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/BufferFactory.cpp
-	src/Core/GraphicsEngine/Renderer/BufferLayout.cpp
-	src/Core/GraphicsEngine/Renderer/BufferElement.cpp
 	src/Core/GraphicsEngine/Renderer/Renderer.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPI.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
 	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
+
+	src/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/BufferLayout.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/BufferElement.cpp
+
 	src/Core/GraphicsEngine/Assets/Texture.cpp
 	src/Core/GraphicsEngine/Assets/TextureFactory.cpp
 	src/Core/GraphicsEngine/Assets/ShaderProgram.cpp

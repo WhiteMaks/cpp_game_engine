@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/VertexStaticBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h"
 
 namespace GraphicsEngine
 {

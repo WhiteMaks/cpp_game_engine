@@ -4,10 +4,12 @@ set(SANDBOX_PROJECT_NAME Sandbox)
 
 set(SANDBOX_SOURCES
 	src/Sandbox.cpp
+
+	src/Layers/TestLayer.cpp
 )
 
 set(SANDBOX_INCLUDES
-
+    includes/Layers/TestLayer.h
 )
 
 set(SANDBOX_TEXTURES
@@ -36,6 +38,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 )
 
 target_include_directories(${SANDBOX_PROJECT_NAME} PRIVATE src)
+target_include_directories(${SANDBOX_PROJECT_NAME} PUBLIC includes)
 target_include_directories(${SANDBOX_PROJECT_NAME} PRIVATE assets)
 
 target_link_libraries(${SANDBOX_PROJECT_NAME} 

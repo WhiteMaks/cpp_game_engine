@@ -7,67 +7,10 @@ TestLayer::TestLayer() noexcept
 
 void TestLayer::Init() noexcept
 {
-	shaderProgram = std::shared_ptr<GraphicsEngine::ShaderProgram>(
-		GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/texture_shader")
-	);
-	shaderProgram->Init();
-
-	vertexArrayBuffer = std::shared_ptr<GraphicsEngine::VertexArrayBuffer>(
-		GraphicsEngine::BufferFactory::CreateVertexArrayBuffer()
-	);
-	vertexArrayBuffer->Init();
-
-	float vertices[4 * 5] = {
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-	};
-
-	std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
-		GraphicsEngine::BufferFactory::CreateVertexStaticBuffer(vertices, sizeof(vertices))
-	);
-
-	std::vector<GraphicsEngine::BufferElement> bufferElements = {
-		{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
-		{GraphicsEngine::BufferElementType::FLOAT_2, "a_TextureCoordinate"},
-	};
-
-	GraphicsEngine::BufferLayout bufferLayout(bufferElements);
-	bufferLayout.Init();
-
-	vertexBuffer->SetLayout(bufferLayout);
-	vertexBuffer->Init();
-
-	vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
-
-	unsigned int indices[6] = {
-		0, 1, 2, 2, 3, 0
-	};
-
-	std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = std::shared_ptr<GraphicsEngine::IndexStaticBuffer>(
-		GraphicsEngine::BufferFactory::CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
-	);
-	indexBuffer->Init();
-
-	vertexArrayBuffer->SetIndexBuffer(indexBuffer);
-
-	cameraController = std::shared_ptr<GameEngine::OrthographicCameraController>(
-		new GameEngine::OrthographicCameraController(0.0f)
-	);
-	cameraController->Init();
-
-	texture = std::shared_ptr<GraphicsEngine::Texture>(
-		GraphicsEngine::TextureFactory::Create("assets/textures/checkerboard.png")
-	);
-	texture->Init();
-
-	texture2 = std::shared_ptr<GraphicsEngine::Texture>(
-		GraphicsEngine::TextureFactory::Create("assets/textures/butterfly.png")
-	);
-	texture2->Init();
-
-	shaderProgram->SetUniformInt("u_Texture", 0);
+	CreateShaderProgram();
+	CreateBuffers();
+	CreateCameraController();
+	CreateTextures();
 }
 
 void TestLayer::MouseEvent(EventsSystem::MouseEvent& event) noexcept
@@ -127,4 +70,78 @@ void TestLayer::Destroy() noexcept
 	vertexArrayBuffer->Destroy();
 	shaderProgram->Destroy();
 	cameraController->Destroy();
+}
+
+void TestLayer::CreateShaderProgram() noexcept
+{
+	shaderProgram = std::shared_ptr<GraphicsEngine::ShaderProgram>(
+		GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/texture_shader")
+	);
+	shaderProgram->Init();
+}
+
+void TestLayer::CreateBuffers() noexcept
+{
+	vertexArrayBuffer = std::shared_ptr<GraphicsEngine::VertexArrayBuffer>(
+		GraphicsEngine::BufferFactory::CreateVertexArrayBuffer()
+	);
+	vertexArrayBuffer->Init();
+
+	float vertices[4 * 5] = {
+		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+		-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+	};
+
+	std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
+		GraphicsEngine::BufferFactory::CreateVertexStaticBuffer(vertices, sizeof(vertices))
+	);
+
+	std::vector<GraphicsEngine::BufferElement> bufferElements = {
+		{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
+		{GraphicsEngine::BufferElementType::FLOAT_2, "a_TextureCoordinate"},
+	};
+
+	GraphicsEngine::BufferLayout bufferLayout(bufferElements);
+	bufferLayout.Init();
+
+	vertexBuffer->SetLayout(bufferLayout);
+	vertexBuffer->Init();
+
+	vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
+
+	unsigned int indices[6] = {
+		0, 1, 2, 2, 3, 0
+	};
+
+	std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = std::shared_ptr<GraphicsEngine::IndexStaticBuffer>(
+		GraphicsEngine::BufferFactory::CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
+	);
+	indexBuffer->Init();
+
+	vertexArrayBuffer->SetIndexBuffer(indexBuffer);
+}
+
+void TestLayer::CreateCameraController() noexcept
+{
+	cameraController = std::shared_ptr<GameEngine::OrthographicCameraController>(
+		new GameEngine::OrthographicCameraController(0.0f)
+	);
+	cameraController->Init();
+}
+
+void TestLayer::CreateTextures() noexcept
+{
+	texture = std::shared_ptr<GraphicsEngine::Texture>(
+		GraphicsEngine::TextureFactory::Create("assets/textures/checkerboard.png")
+	);
+	texture->Init();
+
+	texture2 = std::shared_ptr<GraphicsEngine::Texture>(
+		GraphicsEngine::TextureFactory::Create("assets/textures/butterfly.png")
+	);
+	texture2->Init();
+
+	shaderProgram->SetUniformInt("u_Texture", 0);
 }

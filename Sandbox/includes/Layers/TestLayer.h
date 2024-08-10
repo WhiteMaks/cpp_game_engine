@@ -24,4 +24,10 @@ public:
 	void Update() noexcept override;
 	void Render() noexcept override;
 	void Destroy() noexcept override;
+
+private:
+	void CreateShaderProgram() noexcept;
+	void CreateBuffers() noexcept;
+	void CreateCameraController() noexcept;
+	void CreateTextures() noexcept;
 };

@@ -20,6 +20,7 @@ namespace GraphicsEngine
 
 	void Renderer2D::Init() noexcept
 	{
+		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer has started");
 		data.shaderProgram = std::shared_ptr<ShaderProgram>(
 			ShaderProgramFactory::Create("assets/shaders/flat_color_shader")
 		);
@@ -72,6 +73,7 @@ namespace GraphicsEngine
 		indexBuffer->Init();
 
 		data.vertexArrayBuffer->SetIndexBuffer(indexBuffer);
+		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer completed");
 	}
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera) noexcept
@@ -104,8 +106,10 @@ namespace GraphicsEngine
 
 	void Renderer2D::Destroy() noexcept
 	{
+		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
 		data.vertexArrayBuffer->Destroy();
 		data.shaderProgram->Destroy();
+		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}
 
 }

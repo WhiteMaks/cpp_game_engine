@@ -88,18 +88,18 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           touch ~/.ssh/known_hosts
-          ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
+          ssh-keyscan -H localhost.run >> ~/.ssh/known_hosts
       
       - name: Start Serveo tunnel
         run: |
-          echo "Serveo tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > serveo.log 2>&1 &
+          echo "LocalhostRun tunnel starting..."
+          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 localhost.run > localhost.run.log 2>&1 &
           sleep 30
-          cat serveo.log
-          grep -o 'https://[a-z0-9]*\.serveo\.net' serveo.log > serveo_url.txt || echo "URL not found"
+          cat localhost.run.log
+          grep -o 'https://[a-z0-9]*\.localhost\.run' localhost.run.log > public_url.txt || echo "URL not found"
 
-      - name: Display Serveo URL
-        run: cat serveo_url.txt
+      - name: Display Public URL
+        run: cat public_url.txt
 
       - name: Keep Job Alive
         run: |

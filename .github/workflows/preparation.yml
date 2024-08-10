@@ -47,15 +47,43 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
 
       - name: Build binary
-        run: |
-          ./build_browser.ps1
+        run: ./build_browser.ps1
 
       - name: Extend Assembly
-        run: |
-          ./extend_web_assembly.ps1
+        run: ./extend_web_assembly.ps1
 
       - name: Create Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-sandbox
           path: ./build/bin/
+
+      - name: Run Server
+        shell: pwsh
+        run: |
+          Start-Process -NoNewWindow -FilePath "python" -ArgumentList "./build/bin/server.py"
+
+      - name: Download OpenSSH for Windows
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v8.9.1.0p1-Beta/OpenSSH-Win64-v8.9.1.0.msi" -OutFile "OpenSSH-Win64.msi"
+          Start-Process -Wait msiexec -ArgumentList '/i', 'OpenSSH-Win64.msi', '/quiet'
+          $env:PATH += ";C:\Program Files\OpenSSH-Win64"
+
+      - name: Start Serveo tunnel
+        shell: pwsh
+        run: |
+          echo "Serveo tunnel starting..."
+          Start-Process -NoNewWindow -FilePath "ssh" -ArgumentList "-R 80:localhost:8000 serveo.net" -RedirectStandardOutput "serveo.log" -RedirectStandardError "serveo.log"
+          Start-Sleep -Seconds 5
+          $serveo_url = Select-String -Path serveo.log -Pattern "https://[a-z0-9]*\.serveo\.net" | ForEach-Object { $_.Matches.Value }
+          Set-Content -Path "serveo_url.txt" -Value $serveo_url
+
+      - name: Display Serveo URL
+        shell: pwsh
+        run: Get-Content -Path "serveo_url.txt"
+
+      - name: Keep Job Alive
+        shell: pwsh
+        run: |
+          echo "Keeping job alive. Access your server at the URL above."
+          Start-Sleep -Seconds 3600

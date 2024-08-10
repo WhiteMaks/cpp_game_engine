@@ -78,7 +78,13 @@ jobs:
           python-version: '3.x'
 
       - name: Run Python server
-        run: python deploy/server.py
+        run: python deploy/server.py &
+
+      - name: Check server status
+        run: |
+          sleep 10
+          echo "Checking if the server is running..."
+          netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
       
       - name: Start Serveo tunnel
         run: |

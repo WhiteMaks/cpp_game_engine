@@ -78,21 +78,15 @@ jobs:
           python-version: '3.x'
 
       - name: Run Python server
-        run: python deploy/server.py &
+        run: python deploy/server.py
       
       - name: Start Serveo tunnel
         run: |
           echo "Serveo tunnel starting..."
           nohup ssh -R 80:localhost:8000 serveo.net > serveo.log 2>&1 &
           sleep 30
+          cat serveo.log  # Добавим вывод логов для диагностики
           grep -o 'https://[a-z0-9]*\.serveo\.net' serveo.log > serveo_url.txt
-
-      - name: Display Serveo Logs
-        run: |
-          echo "Serveo Output Log:"
-          cat serveo.log
-          echo "Serveo Error Log:"
-          cat serveo.log
 
       - name: Display Serveo URL
         run: cat serveo_url.txt

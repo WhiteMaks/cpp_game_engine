@@ -83,20 +83,14 @@ jobs:
         run: |
           echo "Checking if the server is running..."
           netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
-
-      - name: Prepare SSH environment
-        run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/known_hosts
-          ssh-keyscan -H localhost.run >> ~/.ssh/known_hosts
       
-      - name: Start Serveo tunnel
+      - name: Start Public tunnel
         run: |
-          echo "LocalhostRun tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 localhost.run > localhost.run.log 2>&1 &
+          echo "Public tunnel starting..."
+          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 localhost.run > public_url.log 2>&1 &
           sleep 30
           cat localhost.run.log
-          grep -o 'https://[a-z0-9]*\.localhost\.run' localhost.run.log > public_url.txt || echo "URL not found"
+          grep -o 'https://[a-z0-9]*\.localhost\.run' public_url.log > public_url.txt || echo "URL not found"
 
       - name: Display Public URL
         run: cat public_url.txt

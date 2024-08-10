@@ -84,25 +84,17 @@ jobs:
           echo "Checking if the server is running..."
           netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
 
-      - name: Create SSH folder
-        run: mkdir -p ~/.ssh
+      - name: Install LocalTunnel
+        run: npm install -g localtunnel
 
-      - name: Create SSH known hosts file
-        run: touch ~/.ssh/known_hosts
-
-      - name: Update SSH known hosts file
-        run: ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
-      
-      - name: Start Serveo tunnel
+      - name: Start LocalTunnel
         run: |
-          echo "Serveo tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > serveo.log 2>&1 &
-          sleep 30
-          cat serveo.log
-          grep -o 'https://[a-z0-9]*\.serveo\.net' serveo.log > serveo_url.txt || echo "URL not found"
+          echo "Starting LocalTunnel..."
+          lt --port 8000 > lt.log 2>&1 &
+          sleep 10
 
-      - name: Display Serveo URL
-        run: cat serveo_url.txt
+      - name: Display LocalTunnel URL
+        run: cat lt.log | grep -o 'https://[a-z0-9]*\.loca\.lt' || echo "URL not found in lt.log"
 
       - name: Keep Job Alive
         run: |

@@ -61,7 +61,7 @@ jobs:
   deploy_artifact_for_browser:
     name: Deploy Artifact for Browser
     runs-on: ubuntu-latest
-    needs: build
+    needs: build_for_browser
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

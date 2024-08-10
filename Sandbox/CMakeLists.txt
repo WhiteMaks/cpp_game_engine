@@ -2,10 +2,41 @@ cmake_minimum_required(VERSION 3.22)
 
 set(SANDBOX_PROJECT_NAME Sandbox)
 
-add_executable(
-	${SANDBOX_PROJECT_NAME}
+set(SANDBOX_SOURCES
 	src/Sandbox.cpp
 )
+
+set(SANDBOX_INCLUDES
+
+)
+
+set(SANDBOX_TEXTURES
+    assets/textures/butterfly.png
+    assets/textures/checkerboard.png
+)
+
+set(SANDBOX_SHADERS
+    assets/shaders/texture_shader_opengl.glsl
+    assets/shaders/texture_shader_webgl.glsl
+)
+
+set(SANDBOX_ALL_SOURCES
+	${SANDBOX_SOURCES}
+	${SANDBOX_INCLUDES}
+	${SANDBOX_TEXTURES}
+	${SANDBOX_SHADERS}
+)
+
+add_executable(${SANDBOX_PROJECT_NAME}
+	${SANDBOX_ALL_SOURCES}
+)
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
+	${SANDBOX_ALL_SOURCES}
+)
+
+target_include_directories(${SANDBOX_PROJECT_NAME} PRIVATE src)
+target_include_directories(${SANDBOX_PROJECT_NAME} PRIVATE assets)
 
 target_link_libraries(${SANDBOX_PROJECT_NAME} 
 	GameEngine

@@ -77,11 +77,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Check 8000 port status
-        run: |
-          echo "Checking if the server is running..."
-          netstat -tuln | grep ':8000'
-
       - name: Run Python server
         run: python deploy/server.py &
 
@@ -97,7 +92,7 @@ jobs:
           ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
           nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > serveo.log 2>&1 &
           sleep 30
-          cat serveo.log  # Добавим вывод логов для диагностики
+          cat serveo.log
           grep -o 'https://[a-z0-9]*\.serveo\.net' serveo.log > serveo_url.txt || echo "URL not found"
 
       - name: Display Serveo URL

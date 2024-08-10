@@ -104,4 +104,4 @@ jobs:
       - name: Keep Job Alive
         run: |
           echo "Keeping job alive. Access your server at the URL above."
-          tail -f /dev/null
+          sleep 900

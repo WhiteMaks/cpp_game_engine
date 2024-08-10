@@ -73,9 +73,9 @@ jobs:
         shell: pwsh
         run: |
           echo "Serveo tunnel starting..."
-          Start-Process -NoNewWindow -FilePath "ssh" -ArgumentList "-R 80:localhost:8000 serveo.net" -RedirectStandardOutput "serveo.log" -RedirectStandardError "serveo.log"
+          Start-Process -NoNewWindow -FilePath "ssh" -ArgumentList "-R 80:localhost:8000 serveo.net" -RedirectStandardOutput "serveo_output.log" -RedirectStandardError "serveo_error.log"
           Start-Sleep -Seconds 5
-          $serveo_url = Select-String -Path serveo.log -Pattern "https://[a-z0-9]*\.serveo\.net" | ForEach-Object { $_.Matches.Value }
+          $serveo_url = Select-String -Path "serveo_output.log" -Pattern "https://[a-z0-9]*\.serveo\.net" | ForEach-Object { $_.Matches.Value }
           Set-Content -Path "serveo_url.txt" -Value $serveo_url
 
       - name: Display Serveo URL

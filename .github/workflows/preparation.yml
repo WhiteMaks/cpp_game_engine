@@ -89,7 +89,7 @@ jobs:
           echo "Public tunnel starting..."
           nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 localhost.run > public_url.log 2>&1 &
           sleep 30
-          cat localhost.run.log
+          cat public_url.log
           grep -o 'https://[a-z0-9]*\.localhost\.run' public_url.log > public_url.txt || echo "URL not found"
 
       - name: Display Public URL

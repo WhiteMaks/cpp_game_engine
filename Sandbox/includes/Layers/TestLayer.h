@@ -6,8 +6,6 @@ class TestLayer : public GameEngine::Layer
 {
 
 private:
-	std::shared_ptr<GraphicsEngine::ShaderProgram> shaderProgram;
-	std::shared_ptr<GraphicsEngine::VertexArrayBuffer> vertexArrayBuffer;
 	std::shared_ptr<GraphicsEngine::Texture> texture;
 	std::shared_ptr<GraphicsEngine::Texture> texture2;
 
@@ -26,8 +24,6 @@ public:
 	void Destroy() noexcept override;
 
 private:
-	void CreateShaderProgram() noexcept;
-	void CreateBuffers() noexcept;
 	void CreateCameraController() noexcept;
 	void CreateTextures() noexcept;
 };

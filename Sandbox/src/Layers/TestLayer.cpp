@@ -7,8 +7,7 @@ TestLayer::TestLayer() noexcept
 
 void TestLayer::Init() noexcept
 {
-	CreateShaderProgram();
-	CreateBuffers();
+	GraphicsEngine::Renderer2D::Init();
 	CreateCameraController();
 	CreateTextures();
 }
@@ -38,7 +37,10 @@ void TestLayer::Render() noexcept
 	GraphicsEngine::Renderer::Clear();
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
-	GraphicsEngine::Renderer::BeginScene(cameraController->GetCamera());
+	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
+	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(-1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	GraphicsEngine::Renderer2D::EndScene();
 
 	//glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.5f));
 	//for (int y = -10; y < 10; y++)
@@ -52,75 +54,22 @@ void TestLayer::Render() noexcept
 	//	}
 	//}
 
-	texture->Bind();
-	GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
-	texture->Unbind();
+	//texture->Bind();
+	//GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
+	//texture->Unbind();
 
-	texture2->Bind();
-	GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
-	texture2->Unbind();
+	//texture2->Bind();
+	//GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));
+	//texture2->Unbind();
 
-	GraphicsEngine::Renderer::EndScene();
 
 	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 }
 
 void TestLayer::Destroy() noexcept
 {
-	vertexArrayBuffer->Destroy();
-	shaderProgram->Destroy();
 	cameraController->Destroy();
-}
-
-void TestLayer::CreateShaderProgram() noexcept
-{
-	shaderProgram = std::shared_ptr<GraphicsEngine::ShaderProgram>(
-		GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/texture_shader")
-	);
-	shaderProgram->Init();
-}
-
-void TestLayer::CreateBuffers() noexcept
-{
-	vertexArrayBuffer = std::shared_ptr<GraphicsEngine::VertexArrayBuffer>(
-		GraphicsEngine::BufferFactory::CreateVertexArrayBuffer()
-	);
-	vertexArrayBuffer->Init();
-
-	float vertices[4 * 5] = {
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-	};
-
-	std::shared_ptr<GraphicsEngine::VertexStaticBuffer> vertexBuffer = std::shared_ptr<GraphicsEngine::VertexStaticBuffer>(
-		GraphicsEngine::BufferFactory::CreateVertexStaticBuffer(vertices, sizeof(vertices))
-	);
-
-	std::vector<GraphicsEngine::BufferElement> bufferElements = {
-		{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
-		{GraphicsEngine::BufferElementType::FLOAT_2, "a_TextureCoordinate"},
-	};
-
-	GraphicsEngine::BufferLayout bufferLayout(bufferElements);
-	bufferLayout.Init();
-
-	vertexBuffer->SetLayout(bufferLayout);
-	vertexBuffer->Init();
-
-	vertexArrayBuffer->AddVertexBuffer(vertexBuffer);
-
-	unsigned int indices[6] = {
-		0, 1, 2, 2, 3, 0
-	};
-
-	std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = std::shared_ptr<GraphicsEngine::IndexStaticBuffer>(
-		GraphicsEngine::BufferFactory::CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int))
-	);
-	indexBuffer->Init();
-
-	vertexArrayBuffer->SetIndexBuffer(indexBuffer);
+	GraphicsEngine::Renderer2D::Destroy();
 }
 
 void TestLayer::CreateCameraController() noexcept
@@ -143,5 +92,5 @@ void TestLayer::CreateTextures() noexcept
 	);
 	texture2->Init();
 
-	shaderProgram->SetUniformInt("u_Texture", 0);
+	//shaderProgram->SetUniformInt("u_Texture", 0);
 }

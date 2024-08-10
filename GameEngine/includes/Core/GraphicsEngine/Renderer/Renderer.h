@@ -15,19 +15,15 @@ namespace GraphicsEngine
 	{
 	private:
 		static RendererAPI* api;
-		
-		static glm::mat4 viewProjectionMatrix;
 
 	public:
 		static void Init() noexcept;
-		static void Resize(const unsigned int width, const unsigned int height) noexcept;
-		static void BeginScene(OrthographicCamera& camera) noexcept;
-		static void Submit(std::shared_ptr<ShaderProgram> shaderProgram, std::shared_ptr<VertexArrayBuffer> buffer, glm::mat4 modelMatrix = glm::mat4(1.0f)) noexcept;
-		static void EndScene() noexcept;
-		static void Destroy() noexcept;
-
 		static void Clear() noexcept;
 		static void SetClearColor(const Math::Vector4& color) noexcept;
+		static void Resize(const unsigned int width, const unsigned int height) noexcept;
+		static void DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept;
+		static void Destroy() noexcept;
+
 	};
 
 }

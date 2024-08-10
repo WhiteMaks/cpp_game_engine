@@ -58,32 +58,50 @@ jobs:
           name: web-sandbox
           path: ./build/bin/
 
-      - name: Run Server
-        shell: pwsh
-        run: |
-          Start-Process -NoNewWindow -FilePath "python" -ArgumentList "./build/bin/server.py"
+  deploy_artifact_for_browser:
+    name: Deploy Artifact for Browser
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Download OpenSSH for Windows
-        run: |
-          Invoke-WebRequest -Uri "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v8.9.1.0p1-Beta/OpenSSH-Win64-v8.9.1.0.msi" -OutFile "OpenSSH-Win64.msi"
-          Start-Process -Wait msiexec -ArgumentList '/i', 'OpenSSH-Win64.msi', '/quiet'
-          $env:PATH += ";C:\Program Files\OpenSSH-Win64"
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-sandbox
+          path: ./deploy/
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        working-directory: ./deploy
+
+      - name: Run Python server
+        run: python deploy/server.py &
+      
       - name: Start Serveo tunnel
-        shell: pwsh
         run: |
           echo "Serveo tunnel starting..."
-          Start-Process -NoNewWindow -FilePath "ssh" -ArgumentList "-R 80:localhost:8000 serveo.net" -RedirectStandardOutput "serveo_output.log" -RedirectStandardError "serveo_error.log"
-          Start-Sleep -Seconds 5
-          $serveo_url = Select-String -Path "serveo_output.log" -Pattern "https://[a-z0-9]*\.serveo\.net" | ForEach-Object { $_.Matches.Value }
-          Set-Content -Path "serveo_url.txt" -Value $serveo_url
+          nohup ssh -R 80:localhost:8000 serveo.net > serveo.log 2>&1 &
+          sleep 30
+          grep -o 'https://[a-z0-9]*\.serveo\.net' serveo.log > serveo_url.txt
+
+      - name: Display Serveo Logs
+        run: |
+          echo "Serveo Output Log:"
+          cat serveo.log
+          echo "Serveo Error Log:"
+          cat serveo.log
 
       - name: Display Serveo URL
-        shell: pwsh
-        run: Get-Content -Path "serveo_url.txt"
+        run: cat serveo_url.txt
 
       - name: Keep Job Alive
-        shell: pwsh
         run: |
           echo "Keeping job alive. Access your server at the URL above."
-          Start-Sleep -Seconds 3600
+          tail -f /dev/null

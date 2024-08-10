@@ -3,7 +3,6 @@
 #include "Core/GraphicsEngine/Window.h"
 #include "Core/GraphicsEngine/WindowFactory.h"
 #include "Core/GraphicsEngine/GraphicsAPI.h"
-#include "Core/GraphicsEngine/OrthographicCameraController.h"
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"

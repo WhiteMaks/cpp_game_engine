@@ -1,7 +1,7 @@
-#include "Core/GraphicsEngine/OrthographicCameraController.h"
+#include "Core/OrthographicCameraController.h"
 #include "Tools/Time.h"
 
-namespace GraphicsEngine
+namespace GameEngine
 {
 
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio)
@@ -88,7 +88,7 @@ namespace GraphicsEngine
 		
 	}
 
-	OrthographicCamera& OrthographicCameraController::GetCamera() noexcept
+	GraphicsEngine::OrthographicCamera& OrthographicCameraController::GetCamera() noexcept
 	{
 		return camera;
 	}

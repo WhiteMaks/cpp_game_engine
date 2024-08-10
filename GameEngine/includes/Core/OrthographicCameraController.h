@@ -3,7 +3,7 @@
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
 #include "Core/EventsSystem/EventManager.h"
 
-namespace GraphicsEngine
+namespace GameEngine
 {
 	class GAME_ENGINE_API OrthographicCameraController
 	{
@@ -12,7 +12,7 @@ namespace GraphicsEngine
 		float aspectRatio;
 		float zoom;
 
-		OrthographicCamera camera;
+		GraphicsEngine::OrthographicCamera camera;
 
 	public:
 		OrthographicCameraController(float aspectRatio);
@@ -25,6 +25,6 @@ namespace GraphicsEngine
 		void Update() noexcept;
 		void Destroy() noexcept;
 
-		OrthographicCamera& GetCamera() noexcept;
+		GraphicsEngine::OrthographicCamera& GetCamera() noexcept;
 	};
 }

@@ -6,6 +6,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/GameEngine.h
 
 	includes/Core/Core.h
+	includes/Core/OrthographicCameraController.h
 	
 	includes/Core/EventsSystem/Keyboard.h
 	includes/Core/EventsSystem/KeyboardEvent.h
@@ -22,7 +23,6 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/WindowFactory.h
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/GraphicsAPI.h
-	includes/Core/GraphicsEngine/OrthographicCameraController.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/VertexStaticBuffer.h
@@ -145,6 +145,8 @@ endif()
 
 set(GAME_ENGINE_PRIVATE_SOURCES
 	src/GameEngine.cpp
+
+	src/Core/OrthographicCameraController.cpp
 	
 	src/Core/EventsSystem/Keyboard.cpp
 	src/Core/EventsSystem/KeyboardEvent.cpp
@@ -157,7 +159,6 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
-	src/Core/GraphicsEngine/OrthographicCameraController.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
 	src/Core/GraphicsEngine/Renderer/VertexStaticBuffer.cpp

@@ -8,7 +8,7 @@ private:
 	std::shared_ptr<GraphicsEngine::Texture> texture;
 	std::shared_ptr<GraphicsEngine::Texture> texture2;
 
-	std::shared_ptr<GraphicsEngine::OrthographicCameraController> cameraController;
+	std::shared_ptr<GameEngine::OrthographicCameraController> cameraController;
 
 public:
 	
@@ -65,8 +65,8 @@ public:
 
 		vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 
-		cameraController = std::shared_ptr<GraphicsEngine::OrthographicCameraController>(
-			new GraphicsEngine::OrthographicCameraController(0.0f)
+		cameraController = std::shared_ptr<GameEngine::OrthographicCameraController>(
+			new GameEngine::OrthographicCameraController(0.0f)
 		);
 		cameraController->Init();
 
@@ -106,7 +106,6 @@ public:
 		//		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, modelMatrix);
 		//	}
 		//}
-
 
 		texture->Bind();
 		GraphicsEngine::Renderer::Submit(shaderProgram, vertexArrayBuffer, glm::scale(glm::mat4(1.0f), Math::Vector3(1.0f)));

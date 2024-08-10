@@ -6,7 +6,7 @@ on:
 
 jobs:
   build_debug_for_windows:
-    name: Build debug binary for Windows
+    name: Build Debug Binary for Windows
     runs-on: windows-latest
 
     steps:
@@ -24,7 +24,7 @@ jobs:
         run: ./build_windows_debug.bat
 
   build_for_browser:
-    name: Build binary for Browser
+    name: Build Binary for Browser
     runs-on: windows-latest
 
     steps:
@@ -63,14 +63,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_for_browser
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: web-sandbox
-          path: ./deploy/
+          path: ./
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -78,11 +75,12 @@ jobs:
           python-version: '3.x'
 
       - name: Run Python server
-        run: python deploy/server.py &
+        run: |
+          python server.py &
+          sleep 10
 
       - name: Check server status
         run: |
-          sleep 10
           echo "Checking if the server is running..."
           netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
 

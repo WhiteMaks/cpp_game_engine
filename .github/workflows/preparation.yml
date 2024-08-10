@@ -50,7 +50,7 @@ jobs:
         run: |
           ./build_browser.ps1
 
-      - name: Extend Web Assembly
+      - name: Extend Assembly
         run: |
           ./extend_web_assembly.ps1
 

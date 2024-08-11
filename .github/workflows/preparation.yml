@@ -84,13 +84,22 @@ jobs:
           echo "Checking if the server is running..."
           netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
       
+      - name: Create SSH folder
+        run: mkdir -p ~/.ssh
+
+      - name: Create SSH known hosts file
+        run: touch ~/.ssh/known_hosts
+
+      - name: Update SSH known hosts file
+        run: ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
+
       - name: Start Public tunnel
         run: |
           echo "Public tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 nokey@localhost.run > public_url.log 2>&1 &
+          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > public_url.log 2>&1 &
           sleep 30
           cat public_url.log
-          grep -o 'https://[a-z0-9]*\.localhost\.run' public_url.log > public_url.txt || echo "URL not found"
+          grep -o 'https://[a-z0-9]*\.serveo\.net' public_url.log > public_url.txt || echo "URL not found"
 
       - name: Display Public URL
         run: cat public_url.txt

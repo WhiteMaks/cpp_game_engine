@@ -31,7 +31,7 @@ namespace GraphicsEngine
 		case GraphicsAPI::OpenGL: return new OpenGLTexture(width, height);
 		}
 		#elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLTexture(pathToTexture);
+		return new WebGLTexture(width, height);
 		#endif
 		return new Texture(width, height);
 	}

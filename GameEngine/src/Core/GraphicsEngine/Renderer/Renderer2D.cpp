@@ -14,8 +14,8 @@ namespace GraphicsEngine
 		std::shared_ptr<ShaderProgram> shaderProgram;
 		std::shared_ptr<VertexArrayBuffer> vertexArrayBuffer;
 
-		Math::Vector4 whiteColor;
 		std::shared_ptr<Texture> whiteTexture;
+		Math::Vector4 whiteColor;
 	};
 
 	static Data data;
@@ -73,7 +73,13 @@ namespace GraphicsEngine
 		data.vertexArrayBuffer->SetIndexBuffer(indexBuffer);
 
 		data.whiteColor = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		data.whiteTexture = std::shared_ptr<Texture>(TextureFactory::CreateWhite());
+
+		unsigned int whiteColorData = 0xffffffff;
+		data.whiteTexture = std::shared_ptr<Texture>(
+			TextureFactory::Create(1, 1)
+		);
+		data.whiteTexture->Init();
+		data.whiteTexture->SetData(&whiteColorData);
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer completed");
 	}
 
@@ -114,6 +120,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
 		data.vertexArrayBuffer->Destroy();
 		data.shaderProgram->Destroy();
+		data.whiteTexture->Destroy();
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}
 

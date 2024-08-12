@@ -1,6 +1,7 @@
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/constants.hpp>
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
@@ -86,27 +87,49 @@ namespace GraphicsEngine
 	void Renderer2D::BeginScene(OrthographicCamera& camera) noexcept
 	{
 		data.shaderProgram->Bind();
+		data.vertexArrayBuffer->Bind();
+
 		data.shaderProgram->SetUniformMat4("u_ViewProjectionMatrix", camera.GetViewProjectionMatrix());
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& size, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, size, data.whiteTexture, color);
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteTexture, color);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& size, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, size, data.whiteTexture, color);
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteTexture, color);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& size, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		DrawQuad(position, size, texture, data.whiteColor);
+		DrawQuad(position, Math::Vector3(0.0f), scale, texture, data.whiteColor);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& size, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, size, texture, data.whiteColor);
+		DrawQuad(position, rotation, scale, data.whiteTexture, color);
+	}
+
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
+	{
+		DrawQuad(position, Math::Vector3(0.0f), scale, texture, data.whiteColor);
+	}
+
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
+	{
+		DrawQuad(position, Math::Vector3(0.0f), scale, texture, data.whiteColor);
+	}
+
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
+	{
+		DrawQuad(position, rotation, scale, data.whiteTexture, color);
+	}
+
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
+	{
+		DrawQuad(position, rotation, scale, texture, data.whiteColor);
 	}
 
 	void Renderer2D::EndScene() noexcept
@@ -119,27 +142,29 @@ namespace GraphicsEngine
 	{
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
 		data.vertexArrayBuffer->Destroy();
-		data.shaderProgram->Destroy();
 		data.whiteTexture->Destroy();
+		data.shaderProgram->Destroy();
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& size, const std::shared_ptr<Texture>& texture, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(Math::Vector3(position.x, position.y, 0.0f), size, texture, color);
+		DrawQuad(Math::Vector3(position.x, position.y, 0.0f), rotation, scale, texture, color);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& size, const std::shared_ptr<Texture>& texture, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture, const Math::Vector4& color) noexcept
 	{
-		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), Math::Vector3(size.x, size.y, 1.0f));
+		texture->Bind();
+
+		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) 
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::scale(glm::mat4(1.0f), Math::Vector3(scale.x, scale.y, 1.0f));
 
 		data.shaderProgram->SetUniformMat4("u_ModelMatrix", modelMatrix);
 		data.shaderProgram->SetUniformFloat4("u_Color", color);
 
-		texture->Bind();
-		
-		data.vertexArrayBuffer->Bind();
-		
 		Renderer::DrawTriangles(data.vertexArrayBuffer);
 
 		texture->Unbind();

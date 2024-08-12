@@ -7,6 +7,7 @@ namespace GraphicsEngine
 	{
 		GRAPHICS_ENGINE_INFO("Initialization webGL renderer has started");
 		glEnable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		GRAPHICS_ENGINE_INFO("Initialization webGL renderer completed");
 	}
@@ -25,6 +26,11 @@ namespace GraphicsEngine
 	void WebGLRenderer::ClearColorBuffer() noexcept
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	void WebGLRenderer::ClearDepthBuffer() noexcept
+	{
+		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
 	void WebGLRenderer::SetClearColor(const Math::Vector4& color) noexcept

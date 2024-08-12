@@ -21,8 +21,11 @@ set(SANDBOX_SHADERS
     assets/shaders/texture_shader_opengl.glsl
     assets/shaders/texture_shader_webgl.glsl
 
-    assets/shaders/flat_color_shader_opengl.glsl
-    assets/shaders/flat_color_shader_webgl.glsl
+    assets/shaders/color_shader_opengl.glsl
+    assets/shaders/color_shader_webgl.glsl
+
+    assets/shaders/default_2d_shader_opengl.glsl
+    assets/shaders/default_2d_shader_webgl.glsl
 )
 
 set(SANDBOX_ALL_SOURCES

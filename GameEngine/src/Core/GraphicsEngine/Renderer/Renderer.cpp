@@ -28,6 +28,7 @@ namespace GraphicsEngine
 	void Renderer::Clear() noexcept
 	{
 		api->ClearColorBuffer();
+		api->ClearDepthBuffer();
 	}
 
 	void Renderer::SetClearColor(const Math::Vector4& color) noexcept

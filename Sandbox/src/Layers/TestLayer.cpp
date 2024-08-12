@@ -40,6 +40,8 @@ void TestLayer::Render() noexcept
 	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(-1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector3(0.0f, 0.0f, -0.1f), Math::Vector2(0.5f, 0.5f), texture);
+	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 0.5f), texture2);
 	GraphicsEngine::Renderer2D::EndScene();
 
 	//glm::mat4 scale = glm::scale(glm::mat4(1.0f), Math::Vector3(0.5f));

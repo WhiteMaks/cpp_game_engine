@@ -14,6 +14,7 @@ namespace GraphicsEngine
 		unsigned int height;
 
 	public:
+		Texture(const unsigned int width, const unsigned int height) noexcept;
 		Texture(const std::string& path) noexcept;
 
 	public:
@@ -23,6 +24,7 @@ namespace GraphicsEngine
 		virtual void Bind(unsigned int slot) noexcept;
 		virtual void Unbind() noexcept;
 		virtual void Unbind(unsigned int slot) noexcept;
+		virtual void SetData(void* data) noexcept;
 
 		virtual void Destroy() noexcept;
 

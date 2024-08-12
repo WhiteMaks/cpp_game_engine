@@ -11,6 +11,8 @@ namespace GraphicsEngine
 	class GAME_ENGINE_API TextureFactory
 	{
 	public:
+		static Texture* CreateWhite();
+		static Texture* Create(const unsigned int width, const unsigned int height);
 		static Texture* Create(const std::string& pathToTexture);
 	};
 

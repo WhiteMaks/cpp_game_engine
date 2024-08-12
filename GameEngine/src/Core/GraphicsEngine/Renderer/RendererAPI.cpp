@@ -19,6 +19,10 @@ namespace GraphicsEngine
 	{
 	}
 
+	void RendererAPI::ClearDepthBuffer() noexcept
+	{
+	}
+
 	void RendererAPI::SetClearColor(const Math::Vector4& color) noexcept
 	{
 	}

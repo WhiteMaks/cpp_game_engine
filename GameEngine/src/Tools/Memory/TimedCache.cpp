@@ -56,6 +56,8 @@ namespace Memory
 			std::unique_lock<std::mutex> lock(mtx);
 			cv.wait_for(lock, std::chrono::seconds(1), [this] { return !active; });
 
+			MEMORY_TRACE("Timed cache working...");
+
 			for (CacheStorage& storage : storages)
 			{
 				std::lock_guard<std::mutex> storageLock(storage.GetMutex());

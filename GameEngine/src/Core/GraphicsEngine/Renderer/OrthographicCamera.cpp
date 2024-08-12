@@ -21,22 +21,27 @@ namespace GraphicsEngine
 		this->rotation = rotation;
 	}
 
+	void OrthographicCamera::RecalculateProjectionMatrix(float left, float right, float bottom, float top) noexcept
+	{
+		projectionMatrix = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+	}
+
 	void OrthographicCamera::Update() noexcept
 	{
 		RecalculateMatrix();
 	}
 
-	glm::mat4 OrthographicCamera::GetProjectionMatrix() noexcept
+	const glm::mat4 OrthographicCamera::GetProjectionMatrix() const noexcept
 	{
 		return projectionMatrix;
 	}
 
-	glm::mat4 OrthographicCamera::GetViewMatrix() noexcept
+	const glm::mat4 OrthographicCamera::GetViewMatrix() const noexcept
 	{
 		return viewMatrix;
 	}
 
-	glm::mat4 OrthographicCamera::GetViewProjectionMatrix() noexcept
+	const glm::mat4 OrthographicCamera::GetViewProjectionMatrix() const noexcept
 	{
 		return viewProjectionMatrix;
 	}
@@ -46,7 +51,7 @@ namespace GraphicsEngine
 		return position;
 	}
 
-	float OrthographicCamera::GetRotation() noexcept
+	const float OrthographicCamera::GetRotation() const noexcept
 	{
 		return rotation;
 	}

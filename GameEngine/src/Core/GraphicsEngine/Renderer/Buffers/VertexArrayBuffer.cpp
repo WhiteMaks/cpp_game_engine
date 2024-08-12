@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/VertexArrayBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h"
 
 namespace GraphicsEngine
 {

@@ -36,6 +36,10 @@ namespace GameEngine
 	{
 	}
 
+	void Layer::WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept
+	{
+	}
+
 	const std::string& Layer::GetName() const noexcept
 	{
 		return name;

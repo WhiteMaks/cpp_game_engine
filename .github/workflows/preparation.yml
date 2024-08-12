@@ -1,0 +1,110 @@
+name: CPP Game Engine preparation
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build_debug_for_windows:
+    name: Build Debug Binary for Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Preparing git branch
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install CMake
+        uses: ssrobins/install-cmake@v1
+        with:
+          version: 3.30.1
+
+      - name: Build binary
+        run: ./build_windows_debug.bat
+
+  build_for_browser:
+    name: Build Binary for Browser
+    runs-on: windows-latest
+
+    steps:
+      - name: Preparing git branch
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install CMake
+        uses: ssrobins/install-cmake@v1
+        with:
+          version: 3.30.1
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+
+      - name: Build binary
+        run: ./build_browser.ps1
+
+      - name: Extend Assembly
+        run: ./extend_web_assembly.ps1
+
+      - name: Create Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-sandbox
+          path: ./build/bin/
+
+  deploy_artifact_for_browser:
+    name: Deploy Artifact for Browser
+    runs-on: ubuntu-latest
+    needs: build_for_browser
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-sandbox
+          path: ./
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run Python server
+        run: |
+          python server.py &
+          sleep 10
+
+      - name: Check server status
+        run: |
+          echo "Checking if the server is running..."
+          netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
+      
+      - name: Create SSH folder
+        run: mkdir -p ~/.ssh
+
+      - name: Create SSH known hosts file
+        run: touch ~/.ssh/known_hosts
+
+      - name: Update SSH known hosts file
+        run: ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
+
+      - name: Start Public tunnel
+        run: |
+          echo "Public tunnel starting..."
+          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > public_url.log 2>&1 &
+          sleep 30
+          cat public_url.log
+          grep -o 'https://[a-z0-9]*\.serveo\.net' public_url.log > public_url.txt || echo "URL not found"
+
+      - name: Display Public URL
+        run: cat public_url.txt
+
+      - name: Keep Job Alive
+        run: |
+          echo "Keeping job alive. Access your server at the URL above."
+          sleep 900

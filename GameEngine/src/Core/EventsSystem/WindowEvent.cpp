@@ -2,8 +2,6 @@
 
 namespace EventsSystem
 {
-
-	
 	WindowEvent::WindowEvent(const WindowEventType type, const unsigned int width, const unsigned int height) noexcept
 		: type(type), width(width), height(height)
 	{

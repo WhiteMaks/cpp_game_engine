@@ -2,7 +2,11 @@
 
 namespace GraphicsEngine
 {
-	
+	Texture::Texture(const unsigned int width, const unsigned int height) noexcept
+		: width(width), height(height)
+	{
+	}
+
 	Texture::Texture(const std::string& path) noexcept
 		: path(path), width(0), height(0)
 	{
@@ -25,6 +29,10 @@ namespace GraphicsEngine
 	}
 
 	void Texture::Unbind(unsigned int slot) noexcept
+	{
+	}
+
+	void Texture::SetData(void* data) noexcept
 	{
 	}
 

@@ -20,8 +20,8 @@ Platforms:
 Graphics API:
 - [x]  OpenGL
 - [x]  WebGL
-- [x]  DirectX 11
-- [x]  DirectX 12
+- [ ]  DirectX 11
+- [ ]  DirectX 12
 - [ ]  Metal
 - [ ]  Vulkan
 

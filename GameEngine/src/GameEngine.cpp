@@ -135,16 +135,25 @@ namespace GameEngine
 		EventsSystem::Window* window = eventManager->GetWindow();
 		if (!window->BufferIsEmpty())
 		{
-			const auto windowEvent = window->Read();
+			EventsSystem::WindowEvent windowEvent = window->Read().value();
 
-			EventsSystem::WindowEventType eventType = windowEvent->GetType();
+			for (auto currentLayer = layerStack->end(); currentLayer != layerStack->begin(); )
+			{
+				(*--currentLayer)->WindowEvent(windowEvent);
+
+				if (!windowEvent.IsValid())
+				{
+					break;
+				}
+			}
 			
-			switch (eventType)
+			switch (windowEvent.GetType())
 			{
 			case EventsSystem::WindowEventType::CLOSE:
 				graphicsEngine->Stop();
 				break;
 			case EventsSystem::WindowEventType::RESIZE:
+				graphicsEngine->Resize(windowEvent.GetWidth(), windowEvent.GetHeight());
 				break;
 			}
 		}

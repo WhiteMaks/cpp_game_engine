@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Core/Core.h"
+#include "Core/OrthographicCameraController.h"
 
 #include "Core/EventsSystem/EventManager.h"
 

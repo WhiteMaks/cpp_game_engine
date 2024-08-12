@@ -11,8 +11,11 @@ namespace GraphicsEngine
 	{
 	private:
 		GLuint texture;
+		GLenum internalFormat;
+		GLenum format;
 
 	public:
+		OpenGLTexture(const unsigned int width, const unsigned int height) noexcept;
 		OpenGLTexture(const std::string& path) noexcept;
 
 	public:
@@ -22,12 +25,15 @@ namespace GraphicsEngine
 		void Bind(unsigned int slot) noexcept override;
 		void Unbind() noexcept override;
 		void Unbind(unsigned int slot) noexcept override;
+		void SetData(void* data) noexcept override;
 
 		void Destroy() noexcept override;
 
 	private:
 		GLenum GetTextureInternalFormatByChanels(int chanels) noexcept;
 		GLenum GetTextureFormatByChanels(int chanels) noexcept;
+
+		void InitTexture() noexcept;
 	};
 
 }

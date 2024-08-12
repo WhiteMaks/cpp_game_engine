@@ -14,8 +14,8 @@ namespace GraphicsEngine
 	class ShaderProgram
 	{
 	protected:
-		const std::string& vertexShaderCode;
-		const std::string& fragmentShaderCode;
+		std::string vertexShaderCode;
+		std::string fragmentShaderCode;
 
 	public:
 		ShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept;
@@ -35,7 +35,10 @@ namespace GraphicsEngine
 		virtual void SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept;
 
 		virtual void Destroy() noexcept;
-	
+
+	protected:
+		std::string ReadShaderCode(const std::string& filepath, const std::string& shaderName);
+
 	};
 
 }

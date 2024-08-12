@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "Core/GraphicsEngine/Renderer/VertexArrayBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
 

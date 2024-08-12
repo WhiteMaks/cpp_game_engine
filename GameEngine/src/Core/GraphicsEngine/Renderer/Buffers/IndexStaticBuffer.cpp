@@ -1,4 +1,4 @@
-#include "Core/GraphicsEngine/Renderer/IndexStaticBuffer.h"
+#include "Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h"
 
 namespace GraphicsEngine
 {

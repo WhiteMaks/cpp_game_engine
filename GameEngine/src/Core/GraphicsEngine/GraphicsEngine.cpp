@@ -64,6 +64,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction graphics engine completed");
 	}
 
+	void GraphicsEngine::Resize(const unsigned int width, const unsigned int height) noexcept
+	{
+		Renderer::Resize(width, height);
+	}
+
 	void GraphicsEngine::Stop() noexcept
 	{
 		window->ShouldClose(true);

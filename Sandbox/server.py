@@ -1,7 +1,3 @@
-# Based on:
-# https://stackoverflow.com/a/21957017
-# https://gist.github.com/HaiyangXu/ec88cbdce3cdbac7b8d5
-
 from http.server import SimpleHTTPRequestHandler
 import socketserver
 import sys
@@ -28,6 +24,6 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-    with socketserver.TCPServer(("localhost", port), Handler) as httpd:
+    with socketserver.TCPServer(("0.0.0.0", port), Handler) as httpd:
         print("Serving on port", port)
         httpd.serve_forever()

@@ -2,7 +2,11 @@
 
 namespace GraphicsEngine
 {
-	
+	WebGLShaderProgram::WebGLShaderProgram(const std::string& filepath) noexcept
+		: WebGLShaderProgram(ReadVertexShaderCode(filepath + "_webgl.glsl"), ReadFragmentShaderCode(filepath + "_webgl.glsl"))
+	{
+	}
+
 	WebGLShaderProgram::WebGLShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept
 		: ShaderProgram(vertexShaderCode, fragmentShaderCode), shaderProgram(0), vertexShader(0), fragmentShader(0)
 	{
@@ -104,7 +108,7 @@ namespace GraphicsEngine
 			glDeleteShader(fragmentShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Program not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		glDetachShader(shaderProgram, vertexShader);
@@ -137,7 +141,7 @@ namespace GraphicsEngine
 			glDeleteShader(vertexShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Vertex shader not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -159,10 +163,20 @@ namespace GraphicsEngine
 			glDeleteShader(vertexShader);
 
 			GRAPHICS_ENGINE_CRITICAL("Fragment shader not initialized! Error: [{0}]", messageLog.data());
-			exit(GameEngine::SHADER_PROGRAM_INITIALIZAATION_FAILED);
+			exit(GameEngine::ASSET_INITIALIZAATION_FAILED);
 		}
 
 		GRAPHICS_ENGINE_DEBUG("Initialization shaders completed");
+	}
+
+	std::string WebGLShaderProgram::ReadVertexShaderCode(const std::string& filepath)
+	{
+		return ReadShaderCode(filepath, "vertex_shader");
+	}
+
+	std::string WebGLShaderProgram::ReadFragmentShaderCode(const std::string& filepath)
+	{
+		return ReadShaderCode(filepath, "fragment_shader");
 	}
 
 }

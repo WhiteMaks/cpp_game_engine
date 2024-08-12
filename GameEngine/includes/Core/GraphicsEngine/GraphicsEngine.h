@@ -5,15 +5,14 @@
 #include "Core/GraphicsEngine/GraphicsAPI.h"
 
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
+#include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
-
-#include "Core/GraphicsEngine/Renderer/ShaderProgramFactory.h"
-#include "Core/GraphicsEngine/Renderer/ShaderCodeFactory.h"
-#include "Core/GraphicsEngine/Renderer/BufferFactory.h"
-
-#include "Core/GraphicsEngine/Assets/TextureFactory.h"
-
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
+
+#include "Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h"
+
+#include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
+#include "Core/GraphicsEngine/Assets/TextureFactory.h"
 
 namespace GraphicsEngine
 {
@@ -40,6 +39,7 @@ namespace GraphicsEngine
 		void BeginRender() noexcept;
 		void EndRender() noexcept;
 		void Destroy() noexcept;
+		void Resize(const unsigned int width, const unsigned int height) noexcept;
 		void Stop() noexcept;
 
 		bool ShouldStop() noexcept;

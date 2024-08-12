@@ -5,20 +5,21 @@
 namespace Math
 {
 	Vector2::Vector2() noexcept
-		: Vector2(0.0f)
+		: glm::vec2(0.0f)
 	{
 	}
 
 	Vector2::Vector2(float scalar) noexcept
-		: Vector2(scalar, scalar)
+		: glm::vec2(scalar, scalar)
 	{
 	}
 
 	Vector2::Vector2(float x, float y) noexcept
-		: x(x), y(y)
+		: glm::vec2(x, y)
 	{
 	}
 
+	/*
 	Vector2 Vector2::operator+(const Vector2& other) noexcept
 	{
 		return Vector2(x + other.x, y + other.y);
@@ -59,6 +60,6 @@ namespace Math
 			x /= length;
 			y /= length;
 		}
-	}
+	}*/
 
 }

@@ -5,6 +5,7 @@
 #include "Core/Core.h"
 #include "Core/EventsSystem/MouseEvent.h"
 #include "Core/EventsSystem/KeyboardEvent.h"
+#include "Core/EventsSystem/WindowEvent.h"
 
 namespace GameEngine
 {
@@ -26,6 +27,7 @@ namespace GameEngine
 		virtual void Render() noexcept;
 		virtual void MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept;
 		virtual void KeyboardEvent(EventsSystem::KeyboardEvent& keyboardEvent) noexcept;
+		virtual void WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept;
 
 		const std::string& GetName() const noexcept;
 

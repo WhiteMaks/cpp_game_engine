@@ -19,7 +19,7 @@ namespace GraphicsEngine
 		void ClearColorBuffer() noexcept override;
 		void ClearDepthBuffer() noexcept override;
 		void SetClearColor(const Math::Vector4& color) noexcept override;
-		void DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept override;
+		void DrawTriangles(unsigned int indexCount) noexcept override;
 	};
 
 }

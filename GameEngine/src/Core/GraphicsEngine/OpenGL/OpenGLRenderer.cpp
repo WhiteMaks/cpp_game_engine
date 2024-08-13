@@ -38,9 +38,9 @@ namespace GraphicsEngine
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void OpenGLRenderer::DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept
+	void OpenGLRenderer::DrawTriangles(unsigned int indexCount) noexcept
 	{
-		glDrawElements(GL_TRIANGLES, buffer->GetIndexStaticBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
 	}
 
 }

@@ -65,6 +65,31 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("New vertex static buffer saved into vertex array buffer. Ready [{0}] vertex static buffers to use", vertexStaticBuffers.size());
 	}
 
+	void OpenGLVertexArrayBuffer::AddVertexBuffer(std::shared_ptr<VertexDynamicBuffer>& buffer) noexcept
+	{
+		if (buffer->GetLayout().GetElements().size() <= 0)
+		{
+			GRAPHICS_ENGINE_CRITICAL("Buffer layout not initialized");
+			exit(GameEngine::VERTEX_ARRAY_BUFFER_INITIALIZAATION_FAILED);
+		}
+
+		glBindVertexArray(this->buffer);
+		buffer->Bind();
+
+		BufferLayout& layout = buffer->GetLayout();
+
+		unsigned int index = 0;
+		for (auto& element : layout.GetElements())
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, element.GetCount(), ConvertBufferElementTypeToOpenGL(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*) element.Offset);
+			index++;
+		}
+
+		vertexDynamicBuffers.push_back(buffer);
+		GRAPHICS_ENGINE_INFO("New vertex dynamic buffer saved into vertex array buffer. Ready [{0}] vertex static buffers to use", vertexDynamicBuffers.size());
+	}
+
 	void OpenGLVertexArrayBuffer::SetIndexBuffer(std::shared_ptr<IndexStaticBuffer>& buffer) noexcept
 	{
 		glBindVertexArray(this->buffer);

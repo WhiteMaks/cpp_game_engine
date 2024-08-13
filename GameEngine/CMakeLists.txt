@@ -33,6 +33,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
 
 	includes/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/VertexDynamicBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h
@@ -69,6 +70,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
 		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
@@ -77,6 +79,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.h
 		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.h
@@ -93,6 +96,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
 		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
@@ -119,6 +123,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 
 		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
@@ -127,6 +132,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.cpp
 		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.cpp
 		
 		#src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
@@ -141,6 +147,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
 		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
@@ -173,6 +180,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
 
 	src/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Renderer/Buffers/VertexDynamicBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.cpp

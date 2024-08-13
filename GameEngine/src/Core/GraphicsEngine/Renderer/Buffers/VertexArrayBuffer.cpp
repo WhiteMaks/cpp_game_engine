@@ -23,6 +23,10 @@ namespace GraphicsEngine
 	{
 	}
 
+	void VertexArrayBuffer::AddVertexBuffer(std::shared_ptr<VertexDynamicBuffer>& buffer) noexcept
+	{
+	}
+
 	void VertexArrayBuffer::SetIndexBuffer(std::shared_ptr<IndexStaticBuffer>& buffer) noexcept
 	{
 	}
@@ -30,6 +34,11 @@ namespace GraphicsEngine
 	std::vector<std::shared_ptr<VertexStaticBuffer>> VertexArrayBuffer::GetVertexStaticBuffers() noexcept
 	{
 		return vertexStaticBuffers;
+	}
+
+	std::vector<std::shared_ptr<VertexDynamicBuffer>> VertexArrayBuffer::GetVertexDynamicBuffers() noexcept
+	{
+		return vertexDynamicBuffers;
 	}
 
 	std::shared_ptr<IndexStaticBuffer> VertexArrayBuffer::GetIndexStaticBuffer() noexcept

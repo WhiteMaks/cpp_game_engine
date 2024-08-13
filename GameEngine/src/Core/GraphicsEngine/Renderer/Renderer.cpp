@@ -17,7 +17,12 @@ namespace GraphicsEngine
 
 	void Renderer::DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept
 	{
-		api->DrawTriangles(buffer);
+		DrawTriangles(buffer->GetIndexStaticBuffer()->GetCount());
+	}
+
+	void Renderer::DrawTriangles(unsigned int indexCount) noexcept
+	{
+		api->DrawTriangles(indexCount);
 	}
 
 	void Renderer::Destroy() noexcept

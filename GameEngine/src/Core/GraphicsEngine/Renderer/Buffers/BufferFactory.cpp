@@ -43,7 +43,7 @@ namespace GraphicsEngine
 		case GraphicsAPI::OpenGL: return new OpenGLVertexDynamicBuffer(size);
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLVertexDynamicBuffer(vertices, size);
+		return new WebGLVertexDynamicBuffer(size);
 #endif
 		return new VertexDynamicBuffer(size);
 	}

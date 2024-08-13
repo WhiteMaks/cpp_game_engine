@@ -91,6 +91,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction webGL texture completed");
 	}
 
+	bool WebGLTexture::operator==(const Texture& other) const
+	{
+		return texture == ((WebGLTexture&) other).texture;
+	}
+
 	GLenum WebGLTexture::GetTextureInternalFormatByChanels(int chanels) noexcept
 	{
 		GLenum result = 0;

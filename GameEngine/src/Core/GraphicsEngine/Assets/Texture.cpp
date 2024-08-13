@@ -50,4 +50,9 @@ namespace GraphicsEngine
 		return height;
 	}
 
+	bool Texture::operator==(const Texture& other) const
+	{
+		return false;
+	}
+
 }

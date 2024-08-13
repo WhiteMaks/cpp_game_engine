@@ -28,6 +28,10 @@ namespace GraphicsEngine
 	{
 	}
 
+	void ShaderProgram::SetUniformInts(const std::string& uniformName, int* values, unsigned int count) noexcept
+	{
+	}
+
 	void ShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
 	{
 	}

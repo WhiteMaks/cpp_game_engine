@@ -29,6 +29,9 @@ namespace GraphicsEngine
 
 		void Destroy() noexcept override;
 
+	public:
+		bool operator==(const Texture& other) const override;
+
 	private:
 		GLenum GetTextureInternalFormatByChanels(int chanels) noexcept;
 		GLenum GetTextureFormatByChanels(int chanels) noexcept;

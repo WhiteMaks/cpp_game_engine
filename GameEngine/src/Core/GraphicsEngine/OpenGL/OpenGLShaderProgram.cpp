@@ -52,6 +52,12 @@ namespace GraphicsEngine
 		glUniform1i(location, value);
 	}
 
+	void OpenGLShaderProgram::SetUniformInts(const std::string& uniformName, int* values, unsigned int count) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform1iv(location, count, values);
+	}
+
 	void OpenGLShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
 	{
 		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());

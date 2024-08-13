@@ -90,6 +90,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL texture completed");
 	}
 
+	bool OpenGLTexture::operator==(const Texture& other) const
+	{
+		return texture == ((OpenGLTexture&) other).texture;
+	}
+
 	GLenum OpenGLTexture::GetTextureInternalFormatByChanels(int chanels) noexcept
 	{
 		GLenum result = 0;

@@ -15,13 +15,19 @@ namespace GraphicsEngine
 		Math::Vector3 position;
 		Math::Vector4 color;
 		Math::Vector2 textureCoordinate;
+		float textureIndex;
 	};
 
 	struct Data
 	{
-		const unsigned int batchQuadsSize = 10000;
-		const unsigned int batchVerticesSize = batchQuadsSize * 4;
-		const unsigned int batchIndicesSize = batchQuadsSize * 6;
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		static const unsigned int batchTextureSlots = 32;
+#elif GAME_ENGINE_PLATFORM_BROWSER
+		static const unsigned int batchTextureSlots = 16;
+#endif
+		static const unsigned int batchQuadsSize = 10000;
+		static const unsigned int batchVerticesSize = batchQuadsSize * 4;
+		static const unsigned int batchIndicesSize = batchQuadsSize * 6;
 
 		std::shared_ptr<ShaderProgram> shaderProgram;
 		std::shared_ptr<VertexDynamicBuffer> vertexDynamicBuffer;
@@ -31,6 +37,9 @@ namespace GraphicsEngine
 		Math::Vector4 whiteColor;
 
 		unsigned int quadIndexCount = 0;
+
+		std::array<std::shared_ptr<Texture>, batchTextureSlots> textureSlots;
+		unsigned int textureSlotIndex = 0;
 
 		Quad* quadBuffer = nullptr;
 		Quad* quadBufferPtr = nullptr;
@@ -43,13 +52,6 @@ namespace GraphicsEngine
 	void Renderer2D::Init() noexcept
 	{
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer has started");
-		data.shaderProgram = std::shared_ptr<ShaderProgram>(
-			ShaderProgramFactory::Create("assets/shaders/default_2d_shader")
-		);
-		data.shaderProgram->Init();
-		data.shaderProgram->Bind();
-		data.shaderProgram->SetUniformInt("u_Texture", 0);
-
 		data.vertexArrayBuffer = std::shared_ptr<VertexArrayBuffer>(
 			BufferFactory::CreateVertexArrayBuffer()
 		);
@@ -63,6 +65,7 @@ namespace GraphicsEngine
 			{BufferElementType::FLOAT_3, "a_Position"},
 			{BufferElementType::FLOAT_4, "a_Color"},
 			{BufferElementType::FLOAT_2, "a_TextureCoordinate"},
+			{BufferElementType::FLOAT, "a_TextureIndex"},
 		};
 
 		BufferLayout bufferLayout(bufferElements);
@@ -77,7 +80,7 @@ namespace GraphicsEngine
 
 		unsigned int offset = 0;
 		unsigned int* quadIndices = new unsigned int[data.batchIndicesSize];
-		for (unsigned int i = 0; i < data.batchIndicesSize; i += 6)
+		for (unsigned int i = 0; i + 5 < data.batchIndicesSize; i += 6)
 		{
 			quadIndices[i + 0] = offset + 0;
 			quadIndices[i + 1] = offset + 1;
@@ -105,6 +108,22 @@ namespace GraphicsEngine
 		);
 		data.whiteTexture->Init();
 		data.whiteTexture->SetData(&whiteColorData);
+
+		data.textureSlots[data.textureSlotIndex] = data.whiteTexture;
+		data.textureSlotIndex++;
+
+		int samplers[data.batchTextureSlots];
+		for (unsigned int i = 0; i < data.batchTextureSlots; i++)
+		{
+			samplers[i] = i;
+		}
+
+		data.shaderProgram = std::shared_ptr<ShaderProgram>(
+			ShaderProgramFactory::Create("assets/shaders/default_2d_shader")
+		);
+		data.shaderProgram->Init();
+		data.shaderProgram->Bind();
+		data.shaderProgram->SetUniformInts("u_Textures", samplers, data.batchTextureSlots);
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer completed");
 	}
 
@@ -117,6 +136,8 @@ namespace GraphicsEngine
 		
 		data.quadIndexCount = 0;
 		data.quadBufferPtr = data.quadBuffer;
+
+		//data.textureSlotIndex = 1;
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
@@ -188,47 +209,59 @@ namespace GraphicsEngine
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept
 	{
+		float textureIndex = -1.0f;
+
+		for (unsigned int i = 0; i < data.textureSlotIndex; i++)
+		{
+			if (*data.textureSlots[i].get() == *texture.get())
+			{
+				textureIndex = i;
+				break;
+			}
+		}
+
+		if (textureIndex == -1.0f)
+		{
+			textureIndex = data.textureSlotIndex;
+			data.textureSlots[data.textureSlotIndex] = texture;
+
+			data.textureSlotIndex++;
+		}
+
 		data.quadBufferPtr->position = position;
 		data.quadBufferPtr->color = color;
 		data.quadBufferPtr->textureCoordinate = {0.0f, 0.0f};
+		data.quadBufferPtr->textureIndex = textureIndex;
 		data.quadBufferPtr++;
 
 		data.quadBufferPtr->position = {position.x + scale.x, position.y, position.z};
 		data.quadBufferPtr->color = color;
 		data.quadBufferPtr->textureCoordinate = {1.0f, 0.0f};
+		data.quadBufferPtr->textureIndex = textureIndex;
 		data.quadBufferPtr++;
 
 		data.quadBufferPtr->position = {position.x + scale.x, position.y + scale.y, position.z};
 		data.quadBufferPtr->color = color;
 		data.quadBufferPtr->textureCoordinate = {1.0f, 1.0f};
+		data.quadBufferPtr->textureIndex = textureIndex;
 		data.quadBufferPtr++;
 
 		data.quadBufferPtr->position = {position.x, position.y + scale.y, position.z};
 		data.quadBufferPtr->color = color;
 		data.quadBufferPtr->textureCoordinate = {0.0f, 1.0f};
+		data.quadBufferPtr->textureIndex = textureIndex;
 		data.quadBufferPtr++;
 
 		data.quadIndexCount += 6;
-		/*
-		
-		texture->Bind();
-
-		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position) 
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f))
-			* glm::scale(glm::mat4(1.0f), Math::Vector3(scale.x, scale.y, 1.0f));
-
-		data.shaderProgram->SetUniformMat4("u_ModelMatrix", modelMatrix);
-
-		Renderer::DrawTriangles(data.vertexArrayBuffer);
-
-		texture->Unbind();
-		*/
 	}
 
 	void Renderer2D::Flush() noexcept
 	{
+		for (unsigned int i = 0; i < data.textureSlotIndex; i++)
+		{
+			data.textureSlots[i]->Bind(i);
+		}
+
 		Renderer::DrawTriangles(data.quadIndexCount);
 	}
 

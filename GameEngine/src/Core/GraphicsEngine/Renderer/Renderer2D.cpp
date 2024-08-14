@@ -283,9 +283,9 @@ namespace GraphicsEngine
 	void Renderer2D::InitQuadData() noexcept
 	{
 		data.quadVertexPositions[0] = Math::Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
-		data.quadVertexPositions[1] = Math::Vector4(0.5f, -0.5f, 0.0f, 1.0f);
-		data.quadVertexPositions[2] = Math::Vector4(0.5f, 0.5f, 0.0f, 1.0f);
-		data.quadVertexPositions[3] = Math::Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
+		data.quadVertexPositions[1] = Math::Vector4( 0.5f, -0.5f, 0.0f, 1.0f);
+		data.quadVertexPositions[2] = Math::Vector4( 0.5f,  0.5f, 0.0f, 1.0f);
+		data.quadVertexPositions[3] = Math::Vector4(-0.5f,  0.5f, 0.0f, 1.0f);
 
 		data.quadTextureCoordinates[0] = Math::Vector2(0.0f, 0.0f);
 		data.quadTextureCoordinates[1] = Math::Vector2(1.0f, 0.0f);

@@ -127,6 +127,10 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
 		data.vertexArrayBuffer->Destroy();
 		data.whiteTexture->Destroy();
+		for (unsigned int i = 0; i < data.textureSlotIndex; i++)
+		{
+			data.textureSlots[i]->Destroy();
+		}
 		data.shaderProgram->Destroy();
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}

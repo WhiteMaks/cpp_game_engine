@@ -40,11 +40,9 @@ void TestLayer::Render() noexcept
 	GraphicsEngine::Renderer::Clear();
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
-	GraphicsEngine::Renderer2D::ResetStatistics();
-
 	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
 	
-	float cubeSize = 50.0f;
+	float cubeSize = 10.0f;
 	float offset = 0.05f;
 
 	for (float y = -cubeSize; y < cubeSize; y = y + 0.5f)
@@ -60,18 +58,9 @@ void TestLayer::Render() noexcept
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f));
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 0.5f), texture2);
 
-
 	GraphicsEngine::Renderer2D::EndScene();
-	
-	GraphicsEngine::Renderer2D::Statistics statistics = GraphicsEngine::Renderer2D::GetStatistics();
 
-	APPLICATION_TRACE("Quads: {0}", statistics.quads);
-	APPLICATION_TRACE("Vertex count: {0}", statistics.GetVertexCount());
-	APPLICATION_TRACE("Index count: {0}", statistics.GetIndexCount());
-	APPLICATION_TRACE("Textures: {0}", statistics.textures);
-	APPLICATION_TRACE("Draw calls: {0}", statistics.drawCalls);
-
-	APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
+	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 }
 
 void TestLayer::Destroy() noexcept

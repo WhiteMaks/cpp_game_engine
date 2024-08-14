@@ -53,8 +53,6 @@ namespace GraphicsEngine
 
 	static Data data;
 
-	Renderer2D::Statistics Renderer2D::statistics;
-
 	void Renderer2D::Init() noexcept
 	{
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer has started");
@@ -114,17 +112,6 @@ namespace GraphicsEngine
 		DrawQuad(position, rotation, scale, data.whiteColor, texture);
 	}
 
-	void Renderer2D::ResetStatistics() noexcept
-	{
-		statistics.drawCalls = 0;
-		statistics.quads = 0;
-	}
-
-	Renderer2D::Statistics Renderer2D::GetStatistics() noexcept
-	{
-		return statistics;
-	}
-
 	void Renderer2D::EndScene() noexcept
 	{
 		unsigned int dataSize = (uint8_t*) data.quadBufferPtr - (uint8_t*) data.quadBuffer;
@@ -173,8 +160,6 @@ namespace GraphicsEngine
 			data.textureSlots[data.textureSlotIndex] = texture;
 
 			data.textureSlotIndex++;
-
-			statistics.textures++;
 		}
 
 		glm::mat4 modelMatrix = glm::translate(data.identityMatrix, position)
@@ -194,8 +179,6 @@ namespace GraphicsEngine
 		FillQuadBufferPtr(Math::Vector3(tlPosition.x, tlPosition.y, tlPosition.z), color, data.quadTextureCoordinates[3], textureSlotIndex);
 
 		data.quadIndexCount += 6;
-
-		statistics.quads++;
 	}
 
 	void Renderer2D::FillQuadBufferPtr(const Math::Vector3& position, const Math::Vector4& color, const Math::Vector2& textureCoordinate, float textureIndex)
@@ -216,8 +199,6 @@ namespace GraphicsEngine
 		}
 
 		Renderer::DrawTriangles(data.quadIndexCount);
-
-		statistics.drawCalls++;
 	}
 
 	void Renderer2D::StartNewBatch() noexcept
@@ -297,8 +278,6 @@ namespace GraphicsEngine
 
 		data.textureSlots[data.textureSlotIndex] = data.whiteTexture;
 		data.textureSlotIndex++;
-
-		statistics.textures++;
 
 		int samplers[data.batchTextureSlots];
 		for (unsigned int i = 0; i < data.batchTextureSlots; i++)

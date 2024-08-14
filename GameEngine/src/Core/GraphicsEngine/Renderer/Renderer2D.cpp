@@ -171,31 +171,45 @@ namespace GraphicsEngine
 		glm::vec4 topRightPosition = modelMatrix * data.quadVertexPositions[2];
 		glm::vec4 topLeftPosition = modelMatrix * data.quadVertexPositions[3];
 
-		data.quadBufferPtr->position = Math::Vector3(bottomLeftPosition.x, bottomLeftPosition.y, bottomLeftPosition.z);
-		data.quadBufferPtr->color = color;
-		data.quadBufferPtr->textureCoordinate = {0.0f, 0.0f};
-		data.quadBufferPtr->textureIndex = textureIndex;
-		data.quadBufferPtr++;
+		FillQuadBufferPtr(
+			Math::Vector3(bottomLeftPosition.x, bottomLeftPosition.y, bottomLeftPosition.z),
+			color,
+			Math::Vector2(0.0f, 0.0f),
+			textureIndex
+		);
 
-		data.quadBufferPtr->position = Math::Vector3(bottomRightPosition.x, bottomRightPosition.y, bottomRightPosition.z);
-		data.quadBufferPtr->color = color;
-		data.quadBufferPtr->textureCoordinate = {1.0f, 0.0f};
-		data.quadBufferPtr->textureIndex = textureIndex;
-		data.quadBufferPtr++;
+		FillQuadBufferPtr(
+			Math::Vector3(bottomRightPosition.x, bottomRightPosition.y, bottomRightPosition.z),
+			color,
+			Math::Vector2(1.0f, 0.0f),
+			textureIndex
+		);
 
-		data.quadBufferPtr->position = Math::Vector3(topRightPosition.x, topRightPosition.y, topRightPosition.z);
-		data.quadBufferPtr->color = color;
-		data.quadBufferPtr->textureCoordinate = {1.0f, 1.0f};
-		data.quadBufferPtr->textureIndex = textureIndex;
-		data.quadBufferPtr++;
+		FillQuadBufferPtr(
+			Math::Vector3(topRightPosition.x, topRightPosition.y, topRightPosition.z),
+			color,
+			Math::Vector2(1.0f, 1.0f),
+			textureIndex
+		);
 
-		data.quadBufferPtr->position = Math::Vector3(topLeftPosition.x, topLeftPosition.y, topLeftPosition.z);
-		data.quadBufferPtr->color = color;
-		data.quadBufferPtr->textureCoordinate = {0.0f, 1.0f};
-		data.quadBufferPtr->textureIndex = textureIndex;
-		data.quadBufferPtr++;
+		FillQuadBufferPtr(
+			Math::Vector3(topLeftPosition.x, topLeftPosition.y, topLeftPosition.z),
+			color,
+			Math::Vector2(0.0f, 1.0f),
+			textureIndex
+		);
 
 		data.quadIndexCount += 6;
+	}
+
+	void Renderer2D::FillQuadBufferPtr(const Math::Vector3& position, const Math::Vector4& color, const Math::Vector2& textureCoordinate, float textureIndex)
+	{
+		data.quadBufferPtr->position = position;
+		data.quadBufferPtr->color = color;
+		data.quadBufferPtr->textureCoordinate = textureCoordinate;
+		data.quadBufferPtr->textureIndex = textureIndex;
+
+		data.quadBufferPtr++;
 	}
 
 	void Renderer2D::Flush() noexcept

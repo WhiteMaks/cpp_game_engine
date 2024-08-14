@@ -34,13 +34,16 @@ void TestLayer::Update() noexcept
 
 void TestLayer::Render() noexcept
 {
+	static float rotationAngle = 0.0f;
+	rotationAngle += GameEngine::Time::GetDeltaTime() * 50;
+
 	GraphicsEngine::Renderer::Clear();
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
 	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(-1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f));
-	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector3(0.0f, 0.0f, -0.1f), Math::Vector3(0.0f, 0.0f, 45.0f), Math::Vector2(0.5f, 0.5f), texture);
+	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector3(0.0f, 0.0f, -0.1f), Math::Vector3(0.0f, 0.0f, rotationAngle), Math::Vector2(0.5f, 0.5f), texture);
 	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 0.5f), texture2);
 	GraphicsEngine::Renderer2D::EndScene();
 

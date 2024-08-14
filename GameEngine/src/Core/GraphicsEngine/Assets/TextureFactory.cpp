@@ -10,18 +10,6 @@
 
 namespace GraphicsEngine
 {
-	Texture* TextureFactory::CreateWhite()
-	{
-		Texture* result = Create(1, 1);
-		result->Init();
-
-		unsigned int whiteColor = 0xffffffff;
-		result->SetData(&whiteColor);
-
-		return result;
-	}
-
-
 	Texture* TextureFactory::Create(const unsigned int width, const unsigned int height)
 	{
 		#ifdef GAME_ENGINE_PLATFORM_WINDOWS

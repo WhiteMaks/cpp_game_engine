@@ -24,6 +24,7 @@ namespace GraphicsEngine
 		void Destroy() noexcept override;
 
 		void AddVertexBuffer(std::shared_ptr<VertexStaticBuffer>& buffer) noexcept override;
+		void AddVertexBuffer(std::shared_ptr<VertexDynamicBuffer>& buffer) noexcept override;
 		void SetIndexBuffer(std::shared_ptr<IndexStaticBuffer>& buffer) noexcept override;
 
 	private:

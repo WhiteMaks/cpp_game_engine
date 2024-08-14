@@ -10,11 +10,11 @@ namespace GraphicsEngine
 
 	void OpenGLVertexStaticBuffer::Init() noexcept
 	{
-		GRAPHICS_ENGINE_INFO("Initialization openGL vertex buffer has started");
+		GRAPHICS_ENGINE_INFO("Initialization openGL static vertex buffer has started");
 		glCreateBuffers(1, &buffer);
 		glBindBuffer(GL_ARRAY_BUFFER, buffer);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
-		GRAPHICS_ENGINE_INFO("Initialization openGL vertex buffer completed");
+		GRAPHICS_ENGINE_INFO("Initialization openGL static vertex buffer completed");
 	}
 
 	void OpenGLVertexStaticBuffer::Bind() noexcept
@@ -29,9 +29,9 @@ namespace GraphicsEngine
 
 	void OpenGLVertexStaticBuffer::Destroy() noexcept
 	{
-		GRAPHICS_ENGINE_INFO("Destruction openGL vertex buffer has started");
+		GRAPHICS_ENGINE_INFO("Destruction openGL static vertex buffer has started");
 		glDeleteBuffers(1, &buffer);
-		GRAPHICS_ENGINE_INFO("Destruction openGL vertex buffer completed");
+		GRAPHICS_ENGINE_INFO("Destruction openGL static vertex buffer completed");
 	}
 
 }

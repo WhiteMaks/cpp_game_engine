@@ -3,13 +3,16 @@
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 #include "Core/GraphicsEngine/GraphicsEngine.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h"
+#include "Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h"
+#include "Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h"
 #elif GAME_ENGINE_PLATFORM_BROWSER
 #include "Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h"
+#include "Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h"
 #endif
@@ -31,18 +34,32 @@ namespace GraphicsEngine
 		return new VertexStaticBuffer(vertices, size);
 	}
 
-	IndexStaticBuffer* BufferFactory::CreateIndexStaticBuffer(unsigned int* indeces, unsigned int size)
+	VertexDynamicBuffer* BufferFactory::CreateVertexDynamicBuffer(unsigned int size)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLIndexStaticBuffer(indeces, size);
-		case GraphicsAPI::OpenGL: return new OpenGLIndexStaticBuffer(indeces, size);
+		case GraphicsAPI::WebGL: return new WebGLVertexDynamicBuffer(size);
+		case GraphicsAPI::OpenGL: return new OpenGLVertexDynamicBuffer(size);
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLIndexStaticBuffer(indeces, size);
+		return new WebGLVertexDynamicBuffer(size);
 #endif
-		return new IndexStaticBuffer(indeces, size);
+		return new VertexDynamicBuffer(size);
+	}
+
+	IndexStaticBuffer* BufferFactory::CreateIndexStaticBuffer(unsigned int* indeces, unsigned int count)
+	{
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		switch (GraphicsEngine::GetAPI())
+		{
+		case GraphicsAPI::WebGL: return new WebGLIndexStaticBuffer(indeces, count);
+		case GraphicsAPI::OpenGL: return new OpenGLIndexStaticBuffer(indeces, count);
+		}
+#elif GAME_ENGINE_PLATFORM_BROWSER
+		return new WebGLIndexStaticBuffer(indeces, count);
+#endif
+		return new IndexStaticBuffer(indeces, count);
 	}
 
 	VertexArrayBuffer* BufferFactory::CreateVertexArrayBuffer()

@@ -46,6 +46,18 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction webGL shader program completed");
 	}
 
+	void WebGLShaderProgram::SetUniformInt(const std::string& uniformName, int value) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform1i(location, value);
+	}
+
+	void WebGLShaderProgram::SetUniformInts(const std::string& uniformName, int* values, unsigned int count) noexcept
+	{
+		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		glUniform1iv(location, count, values);
+	}
+
 	void WebGLShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
 	{
 		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());

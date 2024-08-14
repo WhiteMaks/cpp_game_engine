@@ -16,7 +16,7 @@ namespace GraphicsEngine
 		virtual void ClearColorBuffer() noexcept;
 		virtual void ClearDepthBuffer() noexcept;
 		virtual void SetClearColor(const Math::Vector4& color) noexcept;
-		virtual void DrawTriangles(std::shared_ptr<VertexArrayBuffer> buffer) noexcept;
+		virtual void DrawTriangles(unsigned int indexCount) noexcept;
 	};
 
 }

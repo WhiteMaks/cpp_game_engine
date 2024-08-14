@@ -27,6 +27,7 @@ namespace GraphicsEngine
 		virtual void Unbind() noexcept;
 
 		virtual void SetUniformInt(const std::string& uniformName, int value) noexcept;
+		virtual void SetUniformInts(const std::string& uniformName, int* values, unsigned int count) noexcept;
 		virtual void SetUniformFloat(const std::string& uniformName, float value) noexcept;
 		virtual void SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept;
 		virtual void SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept;

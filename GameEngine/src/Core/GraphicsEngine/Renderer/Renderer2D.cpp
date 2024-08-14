@@ -45,7 +45,9 @@ namespace GraphicsEngine
 
 		Quad* quadBuffer = nullptr;
 		Quad* quadBufferPtr = nullptr;
+
 		Math::Vector4 quadVertexPositions[4];
+		Math::Vector2 quadTextureCoordinates[4];
 	};
 
 	static Data data;
@@ -141,20 +143,20 @@ namespace GraphicsEngine
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		float textureIndex = -1.0f;
+		float textureSlotIndex = -1.0f;
 
 		for (unsigned int i = 0; i < data.textureSlotIndex; i++)
 		{
 			if (*data.textureSlots[i].get() == *texture.get())
 			{
-				textureIndex = i;
+				textureSlotIndex = i;
 				break;
 			}
 		}
 
-		if (textureIndex == -1.0f)
+		if (textureSlotIndex == -1.0f)
 		{
-			textureIndex = data.textureSlotIndex;
+			textureSlotIndex = data.textureSlotIndex;
 			data.textureSlots[data.textureSlotIndex] = texture;
 
 			data.textureSlotIndex++;
@@ -166,38 +168,15 @@ namespace GraphicsEngine
 			* glm::rotate(data.identityMatrix, glm::radians(rotation.z), Math::Vector3(0.0f, 0.0f, 1.0f))
 			* glm::scale(data.identityMatrix, Math::Vector3(scale.x, scale.y, 1.0f));
 
-		glm::vec4 bottomLeftPosition = modelMatrix * data.quadVertexPositions[0];
-		glm::vec4 bottomRightPosition = modelMatrix * data.quadVertexPositions[1];
-		glm::vec4 topRightPosition = modelMatrix * data.quadVertexPositions[2];
-		glm::vec4 topLeftPosition = modelMatrix * data.quadVertexPositions[3];
+		glm::vec4 blPosition = modelMatrix * data.quadVertexPositions[0];
+		glm::vec4 brPosition = modelMatrix * data.quadVertexPositions[1];
+		glm::vec4 trPosition = modelMatrix * data.quadVertexPositions[2];
+		glm::vec4 tlPosition = modelMatrix * data.quadVertexPositions[3];
 
-		FillQuadBufferPtr(
-			Math::Vector3(bottomLeftPosition.x, bottomLeftPosition.y, bottomLeftPosition.z),
-			color,
-			Math::Vector2(0.0f, 0.0f),
-			textureIndex
-		);
-
-		FillQuadBufferPtr(
-			Math::Vector3(bottomRightPosition.x, bottomRightPosition.y, bottomRightPosition.z),
-			color,
-			Math::Vector2(1.0f, 0.0f),
-			textureIndex
-		);
-
-		FillQuadBufferPtr(
-			Math::Vector3(topRightPosition.x, topRightPosition.y, topRightPosition.z),
-			color,
-			Math::Vector2(1.0f, 1.0f),
-			textureIndex
-		);
-
-		FillQuadBufferPtr(
-			Math::Vector3(topLeftPosition.x, topLeftPosition.y, topLeftPosition.z),
-			color,
-			Math::Vector2(0.0f, 1.0f),
-			textureIndex
-		);
+		FillQuadBufferPtr(Math::Vector3(blPosition.x, blPosition.y, blPosition.z), color, data.quadTextureCoordinates[0], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(brPosition.x, brPosition.y, brPosition.z), color, data.quadTextureCoordinates[1], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(trPosition.x, trPosition.y, trPosition.z), color, data.quadTextureCoordinates[2], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(tlPosition.x, tlPosition.y, tlPosition.z), color, data.quadTextureCoordinates[3], textureSlotIndex);
 
 		data.quadIndexCount += 6;
 	}
@@ -307,6 +286,11 @@ namespace GraphicsEngine
 		data.quadVertexPositions[1] = Math::Vector4(0.5f, -0.5f, 0.0f, 1.0f);
 		data.quadVertexPositions[2] = Math::Vector4(0.5f, 0.5f, 0.0f, 1.0f);
 		data.quadVertexPositions[3] = Math::Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
+
+		data.quadTextureCoordinates[0] = Math::Vector2(0.0f, 0.0f);
+		data.quadTextureCoordinates[1] = Math::Vector2(1.0f, 0.0f);
+		data.quadTextureCoordinates[2] = Math::Vector2(1.0f, 1.0f);
+		data.quadTextureCoordinates[3] = Math::Vector2(0.0f, 1.0f);
 	}
 
 }

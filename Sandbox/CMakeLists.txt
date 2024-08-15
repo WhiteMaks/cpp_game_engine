@@ -13,8 +13,11 @@ set(SANDBOX_INCLUDES
 )
 
 set(SANDBOX_TEXTURES
-    assets/textures/butterfly.png
-    assets/textures/checkerboard.png
+
+)
+
+set(SANDBOX_SPRITESHEETS
+    assets/spritesheets/tiny_town_16x16_0x0.png
 )
 
 set(SANDBOX_SHADERS
@@ -32,6 +35,7 @@ set(SANDBOX_ALL_SOURCES
 	${SANDBOX_SOURCES}
 	${SANDBOX_INCLUDES}
 	${SANDBOX_TEXTURES}
+	${SANDBOX_SPRITESHEETS}
 	${SANDBOX_SHADERS}
 )
 

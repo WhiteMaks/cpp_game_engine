@@ -10,32 +10,32 @@
 
 namespace GraphicsEngine
 {
-	Texture* TextureFactory::Create(const unsigned int width, const unsigned int height)
+	std::shared_ptr<Texture> TextureFactory::Create(const unsigned int width, const unsigned int height)
 	{
 		#ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLTexture(width, height);
-		case GraphicsAPI::OpenGL: return new OpenGLTexture(width, height);
+		case GraphicsAPI::WebGL: return std::shared_ptr<Texture>(new WebGLTexture(width, height));
+		case GraphicsAPI::OpenGL: return std::shared_ptr<Texture>(new OpenGLTexture(width, height));
 		}
 		#elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLTexture(width, height);
+		return std::shared_ptr<Texture>(new WebGLTexture(width, height));
 		#endif
-		return new Texture(width, height);
+		return std::shared_ptr<Texture>(new Texture(width, height));
 	}
 
-	Texture* TextureFactory::Create(const std::string& pathToTexture)
+	std::shared_ptr<Texture> TextureFactory::Create(const std::string& pathToTexture)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLTexture(pathToTexture);
-		case GraphicsAPI::OpenGL: return new OpenGLTexture(pathToTexture);
+		case GraphicsAPI::WebGL: return std::shared_ptr<Texture>(new WebGLTexture(pathToTexture));
+		case GraphicsAPI::OpenGL: return std::shared_ptr<Texture>(new OpenGLTexture(pathToTexture));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLTexture(pathToTexture);
+		return std::shared_ptr<Texture>(new WebGLTexture(pathToTexture));
 #endif
-		return new Texture(pathToTexture);
+		return std::shared_ptr<Texture>(new Texture(pathToTexture));
 	}
 
 }

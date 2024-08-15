@@ -9,10 +9,8 @@ namespace GraphicsEngine
 	{
 		GraphicsEngine::api = api;
 
-		window = std::unique_ptr<Window>(
-			WindowFactory::Create(
-				WindowData(windowTitle, windowWidth, windowHeight)
-			)
+		window = WindowFactory::Create(
+			WindowData(windowTitle, windowWidth, windowHeight)
 		);
 	}
 
@@ -21,9 +19,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization graphics engine has started");
 		window->Init();
 
-		context = std::unique_ptr<GraphicsContext>(
-			GraphicsContextFactory::Create()
-		);
+		context = GraphicsContextFactory::Create();
 		context->Init();
 
 		Renderer::Init();

@@ -13,6 +13,8 @@
 
 #include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
 #include "Core/GraphicsEngine/Assets/TextureFactory.h"
+#include "Core/GraphicsEngine/Assets/Spritesheet.h"
+#include "Core/GraphicsEngine/Assets/Sprite.h"
 
 namespace GraphicsEngine
 {

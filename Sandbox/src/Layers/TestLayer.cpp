@@ -34,30 +34,11 @@ void TestLayer::Update() noexcept
 
 void TestLayer::Render() noexcept
 {
-	static float rotationAngle = 0.0f;
-	rotationAngle += GameEngine::Time::GetDeltaTime() * 50;
-
 	GraphicsEngine::Renderer::Clear();
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 
 	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
-	
-	float cubeSize = 10.0f;
-	float offset = 0.05f;
-
-	for (float y = -cubeSize; y < cubeSize; y = y + 0.5f)
-	{
-		for (float x = -cubeSize; x < cubeSize; x = x + 0.5f)
-		{
-			GraphicsEngine::Renderer2D::DrawQuad(Math::Vector3(x, y, -0.2f), Math::Vector2(0.45f, 0.45f), Math::Vector4((x + cubeSize) / (2 * cubeSize), (y + cubeSize) / (2 * cubeSize), (x + y + cubeSize) / (3 * cubeSize), 1.0f));
-		}
-	}
-
-	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector3(0.0f, 0.0f, -0.1f), Math::Vector3(0.0f, 0.0f, rotationAngle), Math::Vector2(0.5f, 0.5f), texture);
-	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(-1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(1.0f, 0.0f, 1.0f, 1.0f));
-	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(1.0f, 0.0f), Math::Vector2(0.5f, 0.5f), Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f));
-	GraphicsEngine::Renderer2D::DrawQuad(Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 0.5f), texture2);
-
+	GraphicsEngine::Renderer2D::DrawSprite(Math::Vector2(0.0f, 0.0f), Math::Vector2(1.0f, 1.0f), spriteTest);
 	GraphicsEngine::Renderer2D::EndScene();
 
 	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
@@ -79,13 +60,12 @@ void TestLayer::CreateCameraController() noexcept
 
 void TestLayer::CreateTextures() noexcept
 {
-	texture = std::shared_ptr<GraphicsEngine::Texture>(
-		GraphicsEngine::TextureFactory::Create("assets/textures/checkerboard.png")
-	);
-	texture->Init();
+	std::shared_ptr<GraphicsEngine::Texture> spritesheetTinyTownTexture = GraphicsEngine::TextureFactory::Create("assets/spritesheets/tiny_town_16x16_0x0.png");
+	spritesheetTinyTownTexture->Init();
 
-	texture2 = std::shared_ptr<GraphicsEngine::Texture>(
-		GraphicsEngine::TextureFactory::Create("assets/textures/butterfly.png")
+	spritesheetTinyTown = std::shared_ptr<GraphicsEngine::Spritesheet>(
+		new GraphicsEngine::Spritesheet(spritesheetTinyTownTexture, Math::Vector2(16.0f, 16.0f))
 	);
-	texture2->Init();
+
+	spriteTest = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
 }

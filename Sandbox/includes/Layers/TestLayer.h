@@ -6,8 +6,8 @@ class TestLayer : public GameEngine::Layer
 {
 
 private:
-	std::shared_ptr<GraphicsEngine::Texture> texture;
-	std::shared_ptr<GraphicsEngine::Texture> texture2;
+	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetTinyTown;
+	std::shared_ptr<GraphicsEngine::Sprite> spriteTest;
 
 	std::shared_ptr<GameEngine::OrthographicCameraController> cameraController;
 

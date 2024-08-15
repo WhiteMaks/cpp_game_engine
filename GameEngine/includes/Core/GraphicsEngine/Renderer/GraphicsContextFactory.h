@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "GraphicsContext.h"
 
 namespace GraphicsEngine
@@ -8,7 +10,7 @@ namespace GraphicsEngine
 	class GraphicsContextFactory
 	{
 	public:
-		static GraphicsContext* Create();
+		static std::unique_ptr<GraphicsContext> Create();
 	};
 
 }

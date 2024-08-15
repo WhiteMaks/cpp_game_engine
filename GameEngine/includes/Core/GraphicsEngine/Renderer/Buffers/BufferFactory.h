@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Core/Core.h"
 #include "IndexStaticBuffer.h"
 #include "VertexStaticBuffer.h"
@@ -12,10 +14,10 @@ namespace GraphicsEngine
 	class GAME_ENGINE_API BufferFactory
 	{
 	public:
-		static VertexStaticBuffer* CreateVertexStaticBuffer(float* vertices, unsigned int size);
-		static VertexDynamicBuffer* CreateVertexDynamicBuffer(unsigned int size);
-		static IndexStaticBuffer* CreateIndexStaticBuffer(unsigned int* indeces, unsigned int size);
-		static VertexArrayBuffer* CreateVertexArrayBuffer();
+		static std::shared_ptr<VertexStaticBuffer> CreateVertexStaticBuffer(float* vertices, unsigned int size);
+		static std::shared_ptr<VertexDynamicBuffer> CreateVertexDynamicBuffer(unsigned int size);
+		static std::shared_ptr<IndexStaticBuffer> CreateIndexStaticBuffer(unsigned int* indeces, unsigned int size);
+		static std::shared_ptr<VertexArrayBuffer> CreateVertexArrayBuffer();
 
 	};
 

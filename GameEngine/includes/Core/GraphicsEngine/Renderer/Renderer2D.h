@@ -6,6 +6,7 @@
 
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
 #include "Core/GraphicsEngine/Assets/Texture.h"
+#include "Core/GraphicsEngine/Assets/Sprite.h"
 #include "Tools/Math/Vector4.h"
 #include "Tools/Math/Vector3.h"
 #include "Tools/Math/Vector2.h"
@@ -33,9 +34,15 @@ namespace GraphicsEngine
 		static void DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept;
 		static void DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept;
 
+		static void DrawSprite(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept;
+		static void DrawSprite(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept;
+
+		static void DrawSprite(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept;
+		static void DrawSprite(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept;
+
 	private:
-		static void DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept;
-		static void DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept;
+		static void DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept;
+		static void DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept;
 
 		static void FillQuadBufferPtr(const Math::Vector3& position, const Math::Vector4& color, const Math::Vector2& textureCoordinate, float textureIndex);
 

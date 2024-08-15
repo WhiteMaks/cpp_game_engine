@@ -2,7 +2,7 @@
 
 namespace GraphicsEngine
 {
-	RendererAPI* Renderer::api = nullptr;
+	std::unique_ptr<RendererAPI> Renderer::api = nullptr;
 
 	void Renderer::Init() noexcept
 	{

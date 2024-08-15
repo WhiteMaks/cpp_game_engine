@@ -41,6 +41,8 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElement.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElementType.h
 
+	includes/Core/GraphicsEngine/Assets/Sprite.h
+	includes/Core/GraphicsEngine/Assets/Spritesheet.h
 	includes/Core/GraphicsEngine/Assets/Texture.h
 	includes/Core/GraphicsEngine/Assets/TextureFactory.h
 	includes/Core/GraphicsEngine/Assets/ShaderProgram.h
@@ -187,6 +189,8 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/Buffers/BufferLayout.cpp
 	src/Core/GraphicsEngine/Renderer/Buffers/BufferElement.cpp
 
+	src/Core/GraphicsEngine/Assets/Sprite.cpp
+	src/Core/GraphicsEngine/Assets/Spritesheet.cpp
 	src/Core/GraphicsEngine/Assets/Texture.cpp
 	src/Core/GraphicsEngine/Assets/TextureFactory.cpp
 	src/Core/GraphicsEngine/Assets/ShaderProgram.cpp

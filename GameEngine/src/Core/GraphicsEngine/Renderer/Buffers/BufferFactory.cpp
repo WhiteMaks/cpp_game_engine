@@ -20,59 +20,59 @@
 namespace GraphicsEngine
 {
 
-	VertexStaticBuffer* BufferFactory::CreateVertexStaticBuffer(float* vertices, unsigned int size)
+	std::shared_ptr<VertexStaticBuffer> BufferFactory::CreateVertexStaticBuffer(float* vertices, unsigned int size)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLVertexStaticBuffer(vertices, size);
-		case GraphicsAPI::OpenGL: return new OpenGLVertexStaticBuffer(vertices, size);
+		case GraphicsAPI::WebGL: return std::shared_ptr<VertexStaticBuffer>(new WebGLVertexStaticBuffer(vertices, size));
+		case GraphicsAPI::OpenGL: return std::shared_ptr<VertexStaticBuffer>(new OpenGLVertexStaticBuffer(vertices, size));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLVertexStaticBuffer(vertices, size);
+		return std::shared_ptr<VertexStaticBuffer>(new WebGLVertexStaticBuffer(vertices, size));
 #endif
-		return new VertexStaticBuffer(vertices, size);
+		return std::shared_ptr<VertexStaticBuffer>(new VertexStaticBuffer(vertices, size));
 	}
 
-	VertexDynamicBuffer* BufferFactory::CreateVertexDynamicBuffer(unsigned int size)
+	std::shared_ptr<VertexDynamicBuffer> BufferFactory::CreateVertexDynamicBuffer(unsigned int size)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLVertexDynamicBuffer(size);
-		case GraphicsAPI::OpenGL: return new OpenGLVertexDynamicBuffer(size);
+		case GraphicsAPI::WebGL: return std::shared_ptr<VertexDynamicBuffer>(new WebGLVertexDynamicBuffer(size));
+		case GraphicsAPI::OpenGL: return std::shared_ptr<VertexDynamicBuffer>(new OpenGLVertexDynamicBuffer(size));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLVertexDynamicBuffer(size);
+		return std::shared_ptr<VertexDynamicBuffer>(new WebGLVertexDynamicBuffer(size));
 #endif
-		return new VertexDynamicBuffer(size);
+		return std::shared_ptr<VertexDynamicBuffer>(new VertexDynamicBuffer(size));
 	}
 
-	IndexStaticBuffer* BufferFactory::CreateIndexStaticBuffer(unsigned int* indeces, unsigned int count)
+	std::shared_ptr<IndexStaticBuffer> BufferFactory::CreateIndexStaticBuffer(unsigned int* indeces, unsigned int count)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLIndexStaticBuffer(indeces, count);
-		case GraphicsAPI::OpenGL: return new OpenGLIndexStaticBuffer(indeces, count);
+		case GraphicsAPI::WebGL: return std::shared_ptr<IndexStaticBuffer>(new WebGLIndexStaticBuffer(indeces, count));
+		case GraphicsAPI::OpenGL: return std::shared_ptr<IndexStaticBuffer>(new OpenGLIndexStaticBuffer(indeces, count));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLIndexStaticBuffer(indeces, count);
+		return std::shared_ptr<IndexStaticBuffer>(new WebGLIndexStaticBuffer(indeces, count));
 #endif
-		return new IndexStaticBuffer(indeces, count);
+		return std::shared_ptr<IndexStaticBuffer>(new IndexStaticBuffer(indeces, count));
 	}
 
-	VertexArrayBuffer* BufferFactory::CreateVertexArrayBuffer()
+	std::shared_ptr<VertexArrayBuffer> BufferFactory::CreateVertexArrayBuffer()
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLVertexArrayBuffer();
-		case GraphicsAPI::OpenGL: return new OpenGLVertexArrayBuffer();
+		case GraphicsAPI::WebGL: return std::shared_ptr<VertexArrayBuffer>(new WebGLVertexArrayBuffer());
+		case GraphicsAPI::OpenGL: return std::shared_ptr<VertexArrayBuffer>(new OpenGLVertexArrayBuffer());
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLVertexArrayBuffer();
+		return std::shared_ptr<VertexArrayBuffer>(new WebGLVertexArrayBuffer());
 #endif
-		return new VertexArrayBuffer();
+		return std::shared_ptr<VertexArrayBuffer>(new VertexArrayBuffer());
 	}
 }

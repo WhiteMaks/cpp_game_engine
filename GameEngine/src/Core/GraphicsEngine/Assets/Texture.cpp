@@ -42,12 +42,12 @@ namespace GraphicsEngine
 
 	unsigned int Texture::GetHeight() noexcept
 	{
-		return width;
+		return height;
 	}
 
 	unsigned int Texture::GetWidth() noexcept
 	{
-		return height;
+		return width;
 	}
 
 	bool Texture::operator==(const Texture& other) const

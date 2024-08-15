@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Core/Core.h"
 #include "RendererAPIFactory.h"
 #include "Buffers/VertexArrayBuffer.h"
@@ -14,7 +16,7 @@ namespace GraphicsEngine
 	class GAME_ENGINE_API Renderer
 	{
 	private:
-		static RendererAPI* api;
+		static std::unique_ptr<RendererAPI> api;
 
 	public:
 		static void Init() noexcept;

@@ -12,20 +12,20 @@
 namespace GraphicsEngine
 {
 
-	Window* WindowFactory::Create(const WindowData& windowData)
+	std::unique_ptr<Window> WindowFactory::Create(const WindowData& windowData)
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new Platform::BrowserWindow(windowData);
-		case GraphicsAPI::OpenGL: return new Platform::GlfwWindow(windowData);
+		case GraphicsAPI::WebGL: return std::unique_ptr<Window>(new Platform::BrowserWindow(windowData));
+		case GraphicsAPI::OpenGL: return std::unique_ptr<Window>(new Platform::GlfwWindow(windowData));
 		case GraphicsAPI::DirectX_11: 
-		case GraphicsAPI::DirectX_12: return new Platform::WindowsWindow(windowData);
+		case GraphicsAPI::DirectX_12: return std::unique_ptr<Window>(new Platform::WindowsWindow(windowData));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new Platform::BrowserWindow(windowData);
+		return std::unique_ptr<Window>(new Platform::BrowserWindow(windowData));
 #endif
-		return new Window(windowData);
+		return std::unique_ptr<Window>(new Window(windowData));
 	}
 
 }

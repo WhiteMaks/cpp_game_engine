@@ -8,7 +8,7 @@ namespace GraphicsEngine
 	class WindowFactory
 	{
 	public:
-		static Window* Create(const WindowData& windowData);
+		static std::unique_ptr<Window> Create(const WindowData& windowData);
 	};
 
 }

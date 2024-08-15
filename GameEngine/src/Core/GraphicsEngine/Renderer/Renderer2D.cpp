@@ -53,8 +53,6 @@ namespace GraphicsEngine
 
 	static Data data;
 
-	Renderer2D::Statistics Renderer2D::statistics;
-
 	void Renderer2D::Init() noexcept
 	{
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer has started");
@@ -76,53 +74,62 @@ namespace GraphicsEngine
 
 	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture);
+		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture);
+		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor,  texture);
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor,  texture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, rotation, scale, color, data.whiteTexture);
+		DrawQuad(position, rotation, scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture);
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture);
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
 	{
-		DrawQuad(position, rotation, scale, color, data.whiteTexture);
+		DrawQuad(position, rotation, scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
 	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
-		DrawQuad(position, rotation, scale, data.whiteColor, texture);
+		DrawQuad(position, rotation, scale, data.whiteColor, texture, data.quadTextureCoordinates);
 	}
 
-	void Renderer2D::ResetStatistics() noexcept
+	void Renderer2D::DrawSprite(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
 	{
-		statistics.drawCalls = 0;
-		statistics.quads = 0;
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
 	}
 
-	Renderer2D::Statistics Renderer2D::GetStatistics() noexcept
+	void Renderer2D::DrawSprite(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
 	{
-		return statistics;
+		DrawQuad(position, rotation, scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
+	}
+
+	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
+	{
+		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
+	}
+
+	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
+	{
+		DrawQuad(position, rotation, scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
 	}
 
 	void Renderer2D::EndScene() noexcept
@@ -140,16 +147,20 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
 		data.vertexArrayBuffer->Destroy();
 		data.whiteTexture->Destroy();
+		for (unsigned int i = 0; i < data.textureSlotIndex; i++)
+		{
+			data.textureSlots[i]->Destroy();
+		}
 		data.shaderProgram->Destroy();
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept
 	{
-		DrawQuad(Math::Vector3(position.x, position.y, 0.0f), rotation, scale, color, texture);
+		DrawQuad(Math::Vector3(position.x, position.y, 0.0f), rotation, scale, color, texture, textureCoordinates);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept
 	{
 		if (data.quadIndexCount >= data.batchIndicesSize)
 		{
@@ -173,8 +184,6 @@ namespace GraphicsEngine
 			data.textureSlots[data.textureSlotIndex] = texture;
 
 			data.textureSlotIndex++;
-
-			statistics.textures++;
 		}
 
 		glm::mat4 modelMatrix = glm::translate(data.identityMatrix, position)
@@ -188,14 +197,12 @@ namespace GraphicsEngine
 		glm::vec4 trPosition = modelMatrix * data.quadVertexPositions[2];
 		glm::vec4 tlPosition = modelMatrix * data.quadVertexPositions[3];
 
-		FillQuadBufferPtr(Math::Vector3(blPosition.x, blPosition.y, blPosition.z), color, data.quadTextureCoordinates[0], textureSlotIndex);
-		FillQuadBufferPtr(Math::Vector3(brPosition.x, brPosition.y, brPosition.z), color, data.quadTextureCoordinates[1], textureSlotIndex);
-		FillQuadBufferPtr(Math::Vector3(trPosition.x, trPosition.y, trPosition.z), color, data.quadTextureCoordinates[2], textureSlotIndex);
-		FillQuadBufferPtr(Math::Vector3(tlPosition.x, tlPosition.y, tlPosition.z), color, data.quadTextureCoordinates[3], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(blPosition.x, blPosition.y, blPosition.z), color, textureCoordinates[0], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(brPosition.x, brPosition.y, brPosition.z), color, textureCoordinates[1], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(trPosition.x, trPosition.y, trPosition.z), color, textureCoordinates[2], textureSlotIndex);
+		FillQuadBufferPtr(Math::Vector3(tlPosition.x, tlPosition.y, tlPosition.z), color, textureCoordinates[3], textureSlotIndex);
 
 		data.quadIndexCount += 6;
-
-		statistics.quads++;
 	}
 
 	void Renderer2D::FillQuadBufferPtr(const Math::Vector3& position, const Math::Vector4& color, const Math::Vector2& textureCoordinate, float textureIndex)
@@ -216,8 +223,6 @@ namespace GraphicsEngine
 		}
 
 		Renderer::DrawTriangles(data.quadIndexCount);
-
-		statistics.drawCalls++;
 	}
 
 	void Renderer2D::StartNewBatch() noexcept
@@ -235,14 +240,10 @@ namespace GraphicsEngine
 
 	void Renderer2D::InitBuffers() noexcept
 	{
-		data.vertexArrayBuffer = std::shared_ptr<VertexArrayBuffer>(
-			BufferFactory::CreateVertexArrayBuffer()
-		);
+		data.vertexArrayBuffer = BufferFactory::CreateVertexArrayBuffer();
 		data.vertexArrayBuffer->Init();
 
-		data.vertexDynamicBuffer = std::shared_ptr<VertexDynamicBuffer>(
-			BufferFactory::CreateVertexDynamicBuffer(data.batchVerticesSize * sizeof(Quad))
-		);
+		data.vertexDynamicBuffer = BufferFactory::CreateVertexDynamicBuffer(data.batchVerticesSize * sizeof(Quad));
 
 		std::vector<BufferElement> bufferElements = {
 			{BufferElementType::FLOAT_3, "a_Position"},
@@ -275,9 +276,7 @@ namespace GraphicsEngine
 			offset += 4;
 		}
 
-		std::shared_ptr<IndexStaticBuffer> indexBuffer = std::shared_ptr<IndexStaticBuffer>(
-			BufferFactory::CreateIndexStaticBuffer(quadIndices, data.batchIndicesSize)
-		);
+		std::shared_ptr<IndexStaticBuffer> indexBuffer = BufferFactory::CreateIndexStaticBuffer(quadIndices, data.batchIndicesSize);
 		indexBuffer->Init();
 		delete[] quadIndices;
 
@@ -289,16 +288,12 @@ namespace GraphicsEngine
 		data.whiteColor = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 
 		unsigned int whiteColorData = 0xffffffff;
-		data.whiteTexture = std::shared_ptr<Texture>(
-			TextureFactory::Create(1, 1)
-		);
+		data.whiteTexture = TextureFactory::Create(1, 1);
 		data.whiteTexture->Init();
 		data.whiteTexture->SetData(&whiteColorData);
 
 		data.textureSlots[data.textureSlotIndex] = data.whiteTexture;
 		data.textureSlotIndex++;
-
-		statistics.textures++;
 
 		int samplers[data.batchTextureSlots];
 		for (unsigned int i = 0; i < data.batchTextureSlots; i++)
@@ -306,9 +301,7 @@ namespace GraphicsEngine
 			samplers[i] = i;
 		}
 
-		data.shaderProgram = std::shared_ptr<ShaderProgram>(
-			ShaderProgramFactory::Create("assets/shaders/default_2d_shader")
-		);
+		data.shaderProgram = ShaderProgramFactory::Create("assets/shaders/default_2d_shader");
 		data.shaderProgram->Init();
 		data.shaderProgram->Bind();
 		data.shaderProgram->SetUniformInts("u_Textures", samplers, data.batchTextureSlots);

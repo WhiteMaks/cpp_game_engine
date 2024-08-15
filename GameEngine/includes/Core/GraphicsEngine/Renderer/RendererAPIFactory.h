@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "RendererAPI.h"
 
 namespace GraphicsEngine
@@ -8,7 +10,7 @@ namespace GraphicsEngine
 	class RendererAPIFactory
 	{
 	public:
-		static RendererAPI* Create();
+		static std::unique_ptr<RendererAPI> Create();
 	};
 
 }

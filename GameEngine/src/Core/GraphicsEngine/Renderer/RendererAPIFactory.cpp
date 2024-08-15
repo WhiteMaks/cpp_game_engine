@@ -11,18 +11,18 @@
 namespace GraphicsEngine
 {
 
-	RendererAPI* RendererAPIFactory::Create()
+	std::unique_ptr<RendererAPI> RendererAPIFactory::Create()
 	{
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 		switch (GraphicsEngine::GetAPI())
 		{
-		case GraphicsAPI::WebGL: return new WebGLRenderer();
-		case GraphicsAPI::OpenGL: return new OpenGLRenderer();
+		case GraphicsAPI::WebGL: return std::unique_ptr<RendererAPI>(new WebGLRenderer());
+		case GraphicsAPI::OpenGL: return std::unique_ptr<RendererAPI>(new OpenGLRenderer());
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return new WebGLRenderer();
+		return std::unique_ptr<RendererAPI>(new WebGLRenderer());
 #endif
-		return new RendererAPI();
+		return std::unique_ptr<RendererAPI>(new RendererAPI());
 	}
 
 }

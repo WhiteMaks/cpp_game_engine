@@ -33,6 +33,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
 
 	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.h
+	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBufferData.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/VertexDynamicBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h

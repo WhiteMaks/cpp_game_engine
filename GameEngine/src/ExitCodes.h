@@ -14,4 +14,6 @@ namespace GameEngine
 	
 	const static int ASSET_INITIALIZAATION_FAILED						= 500500;
 
+	const static int FRAME_BUFFER_INITIALIZAATION_FAILED				= 500600;
+
 }

@@ -26,7 +26,7 @@ namespace GraphicsEngine
 #elif GAME_ENGINE_PLATFORM_BROWSER
 		static const unsigned int batchTextureSlots = 16;
 #endif
-		unsigned int batchQuadsSize = 10000;
+		const unsigned int batchQuadsSize = 10000;
 		const unsigned int batchVerticesSize = batchQuadsSize * 4;
 		const unsigned int batchIndicesSize = batchQuadsSize * 6;
 
@@ -145,6 +145,7 @@ namespace GraphicsEngine
 	void Renderer2D::Destroy() noexcept
 	{
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer has started");
+		data.vertexDynamicBuffer->Destroy();
 		data.vertexArrayBuffer->Destroy();
 		data.whiteTexture->Destroy();
 		for (unsigned int i = 0; i < data.textureSlotIndex; i++)

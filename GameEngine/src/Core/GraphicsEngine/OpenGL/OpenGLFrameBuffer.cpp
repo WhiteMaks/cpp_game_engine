@@ -43,11 +43,6 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL frame buffer completed");
 	}
 
-	std::shared_ptr<Texture>& OpenGLFrameBuffer::GetColorAttachment() noexcept
-	{
-		return colorAttachment;
-	}
-
 	void OpenGLFrameBuffer::Resize(const unsigned int width, const unsigned int height) noexcept
 	{
 		FrameBuffer::Resize(width, height);

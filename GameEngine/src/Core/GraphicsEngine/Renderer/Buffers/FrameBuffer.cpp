@@ -46,8 +46,7 @@ namespace GraphicsEngine
 
 	std::shared_ptr<Texture>& FrameBuffer::GetColorAttachment() noexcept
 	{
-		std::shared_ptr<Texture> result = std::shared_ptr<Texture>(new Texture(0, 0));
-		return result;
+		return colorAttachment;
 	}
 
 }

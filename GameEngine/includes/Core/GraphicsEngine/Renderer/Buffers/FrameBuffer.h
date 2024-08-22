@@ -15,6 +15,8 @@ namespace GraphicsEngine
 	protected:
 		FrameBufferData data;
 
+		std::shared_ptr<Texture> colorAttachment;
+
 	public:
 		FrameBuffer(const FrameBufferData& data) noexcept;
 
@@ -28,7 +30,7 @@ namespace GraphicsEngine
 
 		const FrameBufferData& GetData() const noexcept;
 
-		virtual std::shared_ptr<Texture>& GetColorAttachment() noexcept;
+		std::shared_ptr<Texture>& GetColorAttachment() noexcept;
 
 	protected:
 		virtual void Resize(const unsigned int width, const unsigned int height) noexcept;

@@ -1,8 +1,11 @@
 #pragma once
 
+#include <memory>
+
 #include "Core/Core.h"
 #include "FrameBufferData.h"
 #include "Core/EventsSystem/WindowEvent.h"
+#include "Core/GraphicsEngine/Assets/Texture.h"
 
 namespace GraphicsEngine
 {
@@ -24,6 +27,8 @@ namespace GraphicsEngine
 		virtual void WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept;
 
 		const FrameBufferData& GetData() const noexcept;
+
+		virtual std::shared_ptr<Texture>& GetColorAttachment() noexcept;
 
 	protected:
 		virtual void Resize(const unsigned int width, const unsigned int height) noexcept;

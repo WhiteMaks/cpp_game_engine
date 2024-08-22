@@ -6,10 +6,14 @@ set(SANDBOX_SOURCES
 	src/Sandbox.cpp
 
 	src/Layers/TestLayer.cpp
+
+	src/Renderer/FixedFullScreenTextureRenderer.cpp
 )
 
 set(SANDBOX_INCLUDES
     includes/Layers/TestLayer.h
+
+    includes/Renderer/FixedFullScreenTextureRenderer.h
 )
 
 set(SANDBOX_TEXTURES
@@ -29,6 +33,9 @@ set(SANDBOX_SHADERS
 
     assets/shaders/default_2d_shader_opengl.glsl
     assets/shaders/default_2d_shader_webgl.glsl
+
+    assets/shaders/fixed_full_screen_texture_shader_opengl.glsl
+    assets/shaders/fixed_full_screen_texture_shader_webgl.glsl
 )
 
 set(SANDBOX_ALL_SOURCES

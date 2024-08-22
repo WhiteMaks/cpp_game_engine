@@ -4,12 +4,13 @@
 
 #include "Tools/Log.h"
 #include "ExitCodes.h"
+#include "OpenGLTexture.h"
 
 namespace GraphicsEngine
 {
 
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FrameBufferData& data) noexcept
-		: FrameBuffer(data), buffer(0), colorAttachment(0), depthAttachment(0)
+		: FrameBuffer(data), buffer(0), colorAttachmentId(0), depthAttachmentId(0)
 	{
 	}
 
@@ -42,6 +43,11 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Destruction openGL frame buffer completed");
 	}
 
+	std::shared_ptr<Texture>& OpenGLFrameBuffer::GetColorAttachment() noexcept
+	{
+		return colorAttachment;
+	}
+
 	void OpenGLFrameBuffer::Resize(const unsigned int width, const unsigned int height) noexcept
 	{
 		FrameBuffer::Resize(width, height);
@@ -55,21 +61,22 @@ namespace GraphicsEngine
 
 	void OpenGLFrameBuffer::InitColorAttachment() noexcept
 	{
-		glCreateTextures(GL_TEXTURE_2D, 1, &colorAttachment);
-		glBindTexture(GL_TEXTURE_2D, colorAttachment);
+		glCreateTextures(GL_TEXTURE_2D, 1, &colorAttachmentId);
+		colorAttachment = std::shared_ptr<OpenGLTexture>(new OpenGLTexture(colorAttachmentId));
+		colorAttachment->Bind();
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, data.Width, data.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorAttachment, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorAttachmentId, 0);
+		colorAttachment->Unbind();
 	}
 
 	void OpenGLFrameBuffer::InitDepthAttachment() noexcept
 	{
-		glCreateTextures(GL_TEXTURE_2D, 1, &depthAttachment);
-		glBindTexture(GL_TEXTURE_2D, depthAttachment);
+		glCreateTextures(GL_TEXTURE_2D, 1, &depthAttachmentId);
+		glBindTexture(GL_TEXTURE_2D, depthAttachmentId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, data.Width, data.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthAttachment, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthAttachmentId, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

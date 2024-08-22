@@ -1,5 +1,7 @@
 #include "Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.h"
 
+#include <stdexcept>
+
 namespace GraphicsEngine
 {
 	FrameBuffer::FrameBuffer(const FrameBufferData& data) noexcept
@@ -40,6 +42,12 @@ namespace GraphicsEngine
 	const FrameBufferData& FrameBuffer::GetData() const noexcept
 	{
 		return data;
+	}
+
+	std::shared_ptr<Texture>& FrameBuffer::GetColorAttachment() noexcept
+	{
+		std::shared_ptr<Texture> result = std::shared_ptr<Texture>(new Texture(0, 0));
+		return result;
 	}
 
 }

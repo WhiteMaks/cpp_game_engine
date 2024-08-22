@@ -8,8 +8,10 @@ namespace GraphicsEngine
 	{
 	private:
 		unsigned int buffer;
-		unsigned int colorAttachment;
-		unsigned int depthAttachment;
+		unsigned int colorAttachmentId;
+		unsigned int depthAttachmentId;
+
+		std::shared_ptr<Texture> colorAttachment;
 
 	public:
 		OpenGLFrameBuffer(const FrameBufferData& data) noexcept;
@@ -19,6 +21,8 @@ namespace GraphicsEngine
 		void Bind() noexcept override;
 		void Unbind() noexcept override;
 		void Destroy() noexcept override;
+
+		std::shared_ptr<Texture>& GetColorAttachment() noexcept override;
 
 	protected:
 		void Resize(const unsigned int width, const unsigned int height) noexcept override;

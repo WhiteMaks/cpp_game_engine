@@ -1,4 +1,5 @@
 #include "Layers/TestLayer.h"
+#include "Renderer/FixedFullScreenTextureRenderer.h"
 
 TestLayer::TestLayer() noexcept
 	: Layer("Test layer")
@@ -8,6 +9,7 @@ TestLayer::TestLayer() noexcept
 void TestLayer::Init() noexcept
 {
 	GraphicsEngine::Renderer2D::Init();
+	FixedFullScreenTextureRenderer::Init();
 
 	CreateFrameBuffer();
 	CreateCameraController();
@@ -46,6 +48,9 @@ void TestLayer::Render() noexcept
 	GraphicsEngine::Renderer2D::EndScene();
 	frameBuffer->Unbind();
 
+	GraphicsEngine::Renderer::Clear();
+	FixedFullScreenTextureRenderer::Draw(frameBuffer->GetColorAttachment());
+
 	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 }
 
@@ -54,6 +59,7 @@ void TestLayer::Destroy() noexcept
 	frameBuffer->Destroy();
 	cameraController->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();
+	FixedFullScreenTextureRenderer::Destroy();
 }
 
 void TestLayer::CreateFrameBuffer() noexcept

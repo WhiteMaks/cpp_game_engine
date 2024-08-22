@@ -16,7 +16,7 @@ namespace GraphicsEngine
 		Math::Vector3 position;
 		Math::Vector4 color;
 		Math::Vector2 textureCoordinate;
-		float textureIndex;
+		float textureIndex = 0;
 	};
 
 	struct Data

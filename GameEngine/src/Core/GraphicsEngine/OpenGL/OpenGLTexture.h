@@ -17,6 +17,7 @@ namespace GraphicsEngine
 	public:
 		OpenGLTexture(const unsigned int width, const unsigned int height) noexcept;
 		OpenGLTexture(const std::string& path) noexcept;
+		OpenGLTexture(const GLuint texture) noexcept;
 
 	public:
 		void Init() noexcept override;

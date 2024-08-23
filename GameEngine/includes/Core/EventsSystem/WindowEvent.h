@@ -1,11 +1,12 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "WindowEventType.h"
 
 namespace EventsSystem
 {
 
-	class WindowEvent
+	class GAME_ENGINE_API WindowEvent
 	{
 
 	private:

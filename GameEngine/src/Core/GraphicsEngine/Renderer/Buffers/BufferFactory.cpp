@@ -2,6 +2,7 @@
 
 #ifdef GAME_ENGINE_PLATFORM_WINDOWS
 #include "Core/GraphicsEngine/GraphicsEngine.h"
+#include "Core/GraphicsEngine/OpenGL/OpenGLFrameBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h"
@@ -19,6 +20,17 @@
 
 namespace GraphicsEngine
 {
+	std::shared_ptr<FrameBuffer> BufferFactory::CreateFrameBuffer(const FrameBufferData& data)
+	{
+#ifdef GAME_ENGINE_PLATFORM_WINDOWS
+		switch (GraphicsEngine::GetAPI())
+		{
+		case GraphicsAPI::OpenGL: return std::shared_ptr<FrameBuffer>(new OpenGLFrameBuffer(data));
+		}
+#elif GAME_ENGINE_PLATFORM_BROWSER
+#endif
+		return std::shared_ptr<FrameBuffer>(new FrameBuffer(data));
+	}
 
 	std::shared_ptr<VertexStaticBuffer> BufferFactory::CreateVertexStaticBuffer(float* vertices, unsigned int size)
 	{

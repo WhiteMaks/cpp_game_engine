@@ -17,8 +17,14 @@ namespace GraphicsEngine
 	{
 	}
 
+	OpenGLTexture::OpenGLTexture(const GLuint texture) noexcept
+		: Texture(0, 0), texture(texture), internalFormat(0), format(0)
+	{
+	}
+
 	void OpenGLTexture::Init() noexcept
 	{
+
 		GRAPHICS_ENGINE_INFO("Initialization openGL texture has started");
 		if (width == 0 && height == 0)
 		{

@@ -6,6 +6,8 @@ class TestLayer : public GameEngine::Layer
 {
 
 private:
+	std::shared_ptr<GraphicsEngine::FrameBuffer> frameBuffer;
+
 	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetTinyTown;
 	std::shared_ptr<GraphicsEngine::Sprite> spriteTest;
 
@@ -24,6 +26,7 @@ public:
 	void Destroy() noexcept override;
 
 private:
+	void CreateFrameBuffer() noexcept;
 	void CreateCameraController() noexcept;
 	void CreateTextures() noexcept;
 };

@@ -30,7 +30,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \xE2\x9C\x85\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project was built successfully"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \u2705\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project was built successfully"}'
 
       - name: Failure result
         if: ${{ failure() }}
@@ -39,7 +39,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project build error"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed \u274C\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project build error"}'
 
   build_for_browser:
     name: Build Binary for Browser
@@ -83,7 +83,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \xE2\x9C\x85\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project was built successfully. Web artifact available here: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \u2705\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project was built successfully. Web artifact available here: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}'
 
       - name: Failure result
         if: ${{ failure() }}
@@ -92,7 +92,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project build error"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed \u274C\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project build error"}'
 
   deploy_artifact_for_browser:
     name: Deploy Artifact for Browser
@@ -147,7 +147,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data "{\"text\":\"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Runned\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host available 15 min: $PUBLIC_URL\"}"
+            --data "{\"text\":\"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Runned \u23F3\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host available 15 min: $PUBLIC_URL\"}"
 
       - name: Keep Job Alive
         run: |
@@ -161,7 +161,7 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Stopped\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host now unavailable"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Stopped \u26D4\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host now unavailable"}'
 
       - name: Failure result
         if: ${{ failure() }}
@@ -170,4 +170,4 @@ jobs:
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
-            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Not runned\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host unavailable"}'
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Not runned \u26D4\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host unavailable"}'

@@ -1,4 +1,4 @@
-name: CPP Game Engine preparation
+﻿name: CPP Game Engine preparation
 
 on:
   pull_request:
@@ -22,6 +22,22 @@ jobs:
 
       - name: Build binary
         run: ./build_windows_debug.bat
+
+      - name: Success result
+        if: ${{ success() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Success ✅\nTriggered by: ${{github.event.pusher.email}}\nMessage: Windows Project was built successfully"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Failed ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Windows Project build error"}'
 
   build_for_browser:
     name: Build Binary for Browser
@@ -57,6 +73,22 @@ jobs:
         with:
           name: web-sandbox
           path: ./build/bin/
+      
+      - name: Success result
+        if: ${{ success() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Success ✅\nTriggered by: ${{github.event.pusher.email}}\nMessage: Web Project was built successfully. Web artifact available here: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Failed ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Web Project build error"}'
 
   deploy_artifact_for_browser:
     name: Deploy Artifact for Browser
@@ -104,7 +136,31 @@ jobs:
       - name: Display Public URL
         run: cat public_url.txt
 
+      - name: Send Public URL
+        run: |
+          PUBLIC_URL=$(cat public_url.txt)
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Runned\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host available 15 min: $PUBLIC_URL"}'
+
       - name: Keep Job Alive
         run: |
           echo "Keeping job alive. Access your server at the URL above."
           sleep 900
+
+      - name: Success result
+        if: ${{ success() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Stopped\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host now unavailable"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Not running ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host unavailable"}'

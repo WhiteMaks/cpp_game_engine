@@ -17,6 +17,7 @@ namespace GraphicsEngine
 	public:
 		WebGLTexture(const unsigned int width, const unsigned int height) noexcept;
 		WebGLTexture(const std::string& path) noexcept;
+		WebGLTexture(const GLuint texture) noexcept;
 
 	public:
 		void Init() noexcept override;

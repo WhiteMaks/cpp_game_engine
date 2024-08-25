@@ -51,7 +51,7 @@ namespace GraphicsEngine
 
 	void WebGLFrameBuffer::CreateBuffer() noexcept
 	{
-		glCreateFramebuffers(1, &buffer);
+		glGenFramebuffers(1, &buffer);
 	}
 
 	void WebGLFrameBuffer::InitColorAttachment() noexcept

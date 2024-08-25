@@ -31,7 +31,7 @@ namespace GraphicsEngine
 		case GraphicsAPI::WebGL: return std::shared_ptr<FrameBuffer>(new WebGLFrameBuffer(data));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
-		return std::shared_ptr<FrameBuffer>(new WebGLFrameBuffer(data))
+		return std::shared_ptr<FrameBuffer>(new WebGLFrameBuffer(data));
 #endif
 		return std::shared_ptr<FrameBuffer>(new FrameBuffer(data));
 	}

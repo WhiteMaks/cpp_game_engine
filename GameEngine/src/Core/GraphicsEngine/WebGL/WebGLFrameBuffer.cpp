@@ -67,7 +67,7 @@ namespace GraphicsEngine
 
 	void WebGLFrameBuffer::InitDepthAttachment() noexcept
 	{
-		glCreateTextures(GL_TEXTURE_2D, 1, &depthAttachmentId);
+		glGenTextures(1, &depthAttachmentId);
 		glBindTexture(GL_TEXTURE_2D, depthAttachmentId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, data.Width, data.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthAttachmentId, 0);

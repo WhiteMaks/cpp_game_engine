@@ -25,21 +25,21 @@ jobs:
 
       - name: Success result
         if: ${{ success() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Success ✅\nTriggered by: ${{github.event.pusher.email}}\nMessage: Windows Project was built successfully"}'
-          shell: bash
 
       - name: Failure result
         if: ${{ failure() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Failed ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Windows Project build error"}'
-          shell: bash
 
   build_for_browser:
     name: Build Binary for Browser
@@ -78,21 +78,21 @@ jobs:
       
       - name: Success result
         if: ${{ success() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Success ✅\nTriggered by: ${{github.event.pusher.email}}\nMessage: Web Project was built successfully. Web artifact available here: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}'
-          shell: bash
 
       - name: Failure result
         if: ${{ failure() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nBuild: Failed ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Web Project build error"}'
-          shell: bash
 
   deploy_artifact_for_browser:
     name: Deploy Artifact for Browser
@@ -141,13 +141,13 @@ jobs:
         run: cat public_url.txt
 
       - name: Send Public URL
+        shell: bash
         run: |
           PUBLIC_URL=$(cat public_url.txt)
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Runned\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host available 15 min: $PUBLIC_URL"}'
-          shell: bash
 
       - name: Keep Job Alive
         run: |
@@ -156,18 +156,18 @@ jobs:
 
       - name: Success result
         if: ${{ success() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Stopped\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host now unavailable"}'
-          shell: bash
 
       - name: Failure result
         if: ${{ failure() }}
+        shell: bash
         run: |
           curl \
             -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
             --header "Content-Type:application/json" \
             --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.ref_name}}\nServer: Not runned ❌\nTriggered by: ${{github.event.pusher.email}}\nMessage: Test host unavailable"}'
-          shell: bash

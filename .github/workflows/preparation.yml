@@ -1,4 +1,4 @@
-name: CPP Game Engine preparation
+﻿name: CPP Game Engine preparation
 
 on:
   pull_request:
@@ -22,6 +22,24 @@ jobs:
 
       - name: Build binary
         run: ./build_windows_debug.bat
+
+      - name: Success result
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \u2705\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project was built successfully"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed \u274C\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Windows Project build error"}'
 
   build_for_browser:
     name: Build Binary for Browser
@@ -57,6 +75,24 @@ jobs:
         with:
           name: web-sandbox
           path: ./build/bin/
+      
+      - name: Success result
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Success \u2705\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project was built successfully. Web artifact available here: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nBuild: Failed \u274C\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Web Project build error"}'
 
   deploy_artifact_for_browser:
     name: Deploy Artifact for Browser
@@ -104,7 +140,34 @@ jobs:
       - name: Display Public URL
         run: cat public_url.txt
 
+      - name: Send Public URL
+        shell: bash
+        run: |
+          PUBLIC_URL=$(cat public_url.txt)
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data "{\"text\":\"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Runned \u23F3\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host available 15 min: $PUBLIC_URL\"}"
+
       - name: Keep Job Alive
         run: |
           echo "Keeping job alive. Access your server at the URL above."
           sleep 900
+
+      - name: Success result
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Stopped \u26D4\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host now unavailable"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nServer: Not runned \u26D4\nTriggered by: ${{github.event.pull_request.user.login}}\nMessage: Test host unavailable"}'

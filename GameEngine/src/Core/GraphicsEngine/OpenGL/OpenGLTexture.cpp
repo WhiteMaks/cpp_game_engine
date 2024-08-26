@@ -24,7 +24,6 @@ namespace GraphicsEngine
 
 	void OpenGLTexture::Init() noexcept
 	{
-
 		GRAPHICS_ENGINE_INFO("Initialization openGL texture has started");
 		if (width == 0 && height == 0)
 		{

@@ -7,11 +7,13 @@
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h"
 #include "Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h"
+#include "Core/GraphicsEngine/WebGL/WebGLFrameBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h"
 #elif GAME_ENGINE_PLATFORM_BROWSER
+#include "Core/GraphicsEngine/WebGL/WebGLFrameBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h"
 #include "Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h"
@@ -26,8 +28,10 @@ namespace GraphicsEngine
 		switch (GraphicsEngine::GetAPI())
 		{
 		case GraphicsAPI::OpenGL: return std::shared_ptr<FrameBuffer>(new OpenGLFrameBuffer(data));
+		case GraphicsAPI::WebGL: return std::shared_ptr<FrameBuffer>(new WebGLFrameBuffer(data));
 		}
 #elif GAME_ENGINE_PLATFORM_BROWSER
+		return std::shared_ptr<FrameBuffer>(new WebGLFrameBuffer(data));
 #endif
 		return std::shared_ptr<FrameBuffer>(new FrameBuffer(data));
 	}

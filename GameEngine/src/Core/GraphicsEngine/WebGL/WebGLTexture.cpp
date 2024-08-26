@@ -17,6 +17,11 @@ namespace GraphicsEngine
 	{
 	}
 
+	WebGLTexture::WebGLTexture(const GLuint texture) noexcept
+		: Texture(0, 0), texture(texture), internalFormat(0), format(0)
+	{
+	}
+
 	void WebGLTexture::Init() noexcept
 	{
 		GRAPHICS_ENGINE_INFO("Initialization webGL texture has started");

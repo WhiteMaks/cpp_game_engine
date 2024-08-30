@@ -54,12 +54,18 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Tools/Layer.h
 	includes/Tools/Time.h
 	includes/Tools/LayerStack.h
+
 	includes/Tools/Math/Vector.h
 	includes/Tools/Math/Vector2.h
 	includes/Tools/Math/Vector3.h
 	includes/Tools/Math/Vector4.h
+	
 	includes/Tools/Memory/CacheStorage.h
 	includes/Tools/Memory/TimedCache.h
+
+	includes/Tools/ECS/Entity.h
+	includes/Tools/ECS/Component.h
+	includes/Tools/ECS/System.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -211,12 +217,18 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Tools/Layer.cpp
 	src/Tools/Time.cpp
 	src/Tools/LayerStack.cpp
+
 	src/Tools/Math/Vector.cpp
 	src/Tools/Math/Vector2.cpp
 	src/Tools/Math/Vector3.cpp
 	src/Tools/Math/Vector4.cpp
+
 	src/Tools/Memory/CacheStorage.cpp
 	src/Tools/Memory/TimedCache.cpp
+
+	src/Tools/ECS/Entity.cpp
+	src/Tools/ECS/Component.cpp
+	src/Tools/ECS/System.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

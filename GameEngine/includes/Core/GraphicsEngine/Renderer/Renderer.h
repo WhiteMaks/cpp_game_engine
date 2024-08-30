@@ -8,7 +8,7 @@
 #include "Core/GraphicsEngine/Assets/ShaderProgram.h"
 
 #include "OrthographicCamera.h"
-#include "Tools/Math/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace GraphicsEngine
 {

@@ -7,9 +7,9 @@
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
 #include "Core/GraphicsEngine/Assets/Texture.h"
 #include "Core/GraphicsEngine/Assets/Sprite.h"
-#include "Tools/Math/Vector4.h"
-#include "Tools/Math/Vector3.h"
-#include "Tools/Math/Vector2.h"
+#include "Math/Vector4.h"
+#include "Math/Vector3.h"
+#include "Math/Vector2.h"
 
 namespace GraphicsEngine
 {

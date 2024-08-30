@@ -4,7 +4,7 @@
 
 #include "Core/Core.h"
 #include "Texture.h"
-#include "Tools/Math/Vector2.h"
+#include "Math/Vector2.h"
 
 namespace GraphicsEngine
 {

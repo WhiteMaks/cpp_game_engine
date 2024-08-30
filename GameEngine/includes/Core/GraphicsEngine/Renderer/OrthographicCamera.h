@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "Core/Core.h"
-#include "Tools/Math/Vector3.h"
+#include "Math/Vector3.h"
 
 namespace GraphicsEngine
 {

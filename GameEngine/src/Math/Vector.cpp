@@ -1,4 +1,4 @@
-#include "Tools/Math/Vector.h"
+#include "Math/Vector.h"
 
 namespace Math
 {

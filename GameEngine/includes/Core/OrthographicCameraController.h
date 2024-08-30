@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
-#include "Core/EventsSystem/EventManager.h"
+#include "EventsSystem/EventManager.h"
 
 namespace GameEngine
 {

@@ -50,9 +50,16 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/EventsSystem/WindowEventType.h
 	includes/EventsSystem/EventManager.h
 
+	includes/ECS/Scene.h
 	includes/ECS/Entity.h
-	includes/ECS/Component.h
-	includes/ECS/System.h
+
+	includes/ECS/Components/Component.h
+	includes/ECS/Components/TransformComponent.h
+	includes/ECS/Components/ColorComponent.h
+	includes/ECS/Components/TextureComponent.h
+	includes/ECS/Components/SpriteComponent.h
+
+	includes/ECS/Systems/System.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h
@@ -213,9 +220,12 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/EventsSystem/WindowEvent.cpp
 	src/EventsSystem/EventManager.cpp
 
+	src/ECS/Scene.cpp
 	src/ECS/Entity.cpp
-	src/ECS/Component.cpp
-	src/ECS/System.cpp
+
+	src/ECS/Components/Component.cpp
+	
+	src/ECS/Systems/System.cpp
 
 	src/Math/Vector.cpp
 	src/Math/Vector2.cpp

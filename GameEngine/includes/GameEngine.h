@@ -9,6 +9,9 @@
 
 #include "EventsSystem/EventManager.h"
 
+#include "ECS/Scene.h"
+#include "ECS/Entity.h"
+
 #include "Math/Vector.h"
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
@@ -28,7 +31,7 @@ namespace GameEngine
 	class GAME_ENGINE_API GameEngine
 	{
 	private:
-		static Memory::TimedCache* timedCache;
+		static std::shared_ptr<Memory::TimedCache> timedCache;
 
 	private:
 		GraphicsEngine::GraphicsEngine* graphicsEngine;
@@ -41,10 +44,9 @@ namespace GameEngine
 		virtual ~GameEngine();
 
 	public:
-		static Memory::TimedCache* GetTimedCache();
+		static std::shared_ptr<Memory::TimedCache> GetTimedCache();
 
 	public:
-		void Loop();
 		void Start();
 
 	protected:
@@ -59,6 +61,7 @@ namespace GameEngine
 		void Render();
 		void Destroy();
 
+		void Loop();
 	};
 
 }

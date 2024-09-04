@@ -13,6 +13,8 @@ private:
 
 	std::shared_ptr<GameEngine::OrthographicCameraController> cameraController;
 
+	std::shared_ptr<ECS::Scene> scene;
+
 public:
 	TestLayer() noexcept;
 
@@ -29,4 +31,8 @@ private:
 	void CreateFrameBuffer() noexcept;
 	void CreateCameraController() noexcept;
 	void CreateTextures() noexcept;
+	void CreateScene() noexcept;
+
+	void RenderInFrameBuffer() noexcept;
+	void RenderOnScreen() noexcept;
 };

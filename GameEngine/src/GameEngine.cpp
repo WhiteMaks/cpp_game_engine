@@ -6,7 +6,9 @@
 
 namespace GameEngine
 {
-	Memory::TimedCache* GameEngine::timedCache = new Memory::TimedCache(10);
+	std::shared_ptr<Memory::TimedCache> GameEngine::timedCache = std::shared_ptr<Memory::TimedCache>(
+		new Memory::TimedCache(10)
+	);
 
 	GameEngine::GameEngine(const std::string& applicationTitle, const unsigned int applicationWidth, const unsigned int applicationHeight)
 	{
@@ -25,7 +27,7 @@ namespace GameEngine
 	{
 	}
 
-	Memory::TimedCache* GameEngine::GetTimedCache()
+	std::shared_ptr<Memory::TimedCache> GameEngine::GetTimedCache()
 	{
 		return timedCache;
 	}

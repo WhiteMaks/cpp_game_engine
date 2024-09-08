@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "Tools/Math/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace Math
 {

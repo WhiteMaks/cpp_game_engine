@@ -1,4 +1,4 @@
-#include "Core/EventsSystem/EventManager.h"
+#include "EventsSystem/EventManager.h"
 
 namespace EventsSystem
 {

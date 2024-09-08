@@ -4,9 +4,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Tools/Math/Vector2.h"
-#include "Tools/Math/Vector3.h"
-#include "Tools/Math/Vector4.h"
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Vector4.h"
 
 namespace GraphicsEngine
 {

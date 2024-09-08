@@ -4,8 +4,8 @@
 
 #include "Core/Core.h"
 #include "FrameBufferData.h"
-#include "Core/EventsSystem/WindowEvent.h"
 #include "Core/GraphicsEngine/Assets/Texture.h"
+#include "EventsSystem/WindowEvent.h"
 
 namespace GraphicsEngine
 {

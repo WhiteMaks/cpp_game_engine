@@ -3,7 +3,7 @@
 #include <string>
 
 #include "Core/Core.h"
-#include "Core/EventsSystem/EventManager.h"
+#include "EventsSystem/EventManager.h"
 
 namespace GraphicsEngine
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h"
-#include "Tools/Math/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace GraphicsEngine
 {

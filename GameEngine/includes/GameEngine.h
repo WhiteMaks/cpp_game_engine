@@ -48,6 +48,7 @@ namespace GameEngine
 
 	public:
 		void Start();
+		void Loop();
 
 	protected:
 		void PushLayer(Layer* layer);
@@ -61,7 +62,6 @@ namespace GameEngine
 		void Render();
 		void Destroy();
 
-		void Loop();
 	};
 
 }

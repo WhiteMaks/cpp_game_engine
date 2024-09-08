@@ -2,11 +2,12 @@
 
 #include "Component.h"
 #include "Math/Vector3.h"
+#include "Core/Core.h"
 
 namespace ECS
 {
 
-	struct TransformComponent : public Component
+	struct GAME_ENGINE_API TransformComponent : public Component
 	{
 		Math::Vector3 position;
 		Math::Vector3 rotation;

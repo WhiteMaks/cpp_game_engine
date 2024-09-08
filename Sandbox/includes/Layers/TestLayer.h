@@ -15,6 +15,8 @@ private:
 
 	std::shared_ptr<ECS::Scene> scene;
 
+	std::shared_ptr<ECS::TransformComponent> transform;
+
 public:
 	TestLayer() noexcept;
 
@@ -34,5 +36,5 @@ private:
 	void CreateScene() noexcept;
 
 	void RenderInFrameBuffer() noexcept;
-	void RenderOnScreen() noexcept;
+	void RenderInWindow() noexcept;
 };

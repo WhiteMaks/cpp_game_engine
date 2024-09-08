@@ -1,9 +1,11 @@
 #pragma once
 
 #include <vector>
+#include <set>
 #include <memory>
 
 #include "Entity.h"
+#include "Systems/System.h"
 #include "Core/Core.h"
 
 namespace ECS
@@ -13,6 +15,10 @@ namespace ECS
 	{
 	private:
 		std::vector<std::shared_ptr<Entity>> entities;
+		std::vector<std::shared_ptr<System>> systems;
+
+	public:
+		Scene() noexcept;
 
 	public:
 		void Init() noexcept;

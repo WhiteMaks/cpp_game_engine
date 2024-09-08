@@ -1,16 +1,20 @@
 #pragma once
 
+#include "Core/Core.h"
+
 namespace ECS
 {
 
-	struct Entity
+	class GAME_ENGINE_API Entity
 	{
-		unsigned int id;
+	private:
+		const unsigned int id;
 
-		Entity(unsigned int id) noexcept
-			: id(id)
-		{
-		}
+	public:
+		Entity(const unsigned int id) noexcept;
+
+	public:
+		const unsigned int GetId() noexcept;
 	};
 
 }

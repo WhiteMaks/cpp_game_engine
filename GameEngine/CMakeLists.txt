@@ -60,6 +60,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/SpriteComponent.h
 
 	includes/ECS/Systems/System.h
+	includes/ECS/Systems/ColorSystem.h
+	includes/ECS/Systems/TextureSystem.h
+	includes/ECS/Systems/SpriteSystem.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h
@@ -222,10 +225,11 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/ECS/Scene.cpp
 	src/ECS/Entity.cpp
-
-	src/ECS/Components/Component.cpp
 	
 	src/ECS/Systems/System.cpp
+	src/ECS/Systems/ColorSystem.cpp
+	src/ECS/Systems/TextureSystem.cpp
+	src/ECS/Systems/SpriteSystem.cpp
 
 	src/Math/Vector.cpp
 	src/Math/Vector2.cpp

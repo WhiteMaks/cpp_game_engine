@@ -1,4 +1,5 @@
 #include "Layers/TestLayer.h"
+
 #include "Renderer/FixedFullScreenTextureRenderer.h"
 
 TestLayer::TestLayer() noexcept
@@ -42,7 +43,7 @@ void TestLayer::Update() noexcept
 void TestLayer::Render() noexcept
 {
 	RenderInFrameBuffer();
-	RenderOnScreen();
+	RenderInWindow();
 
 	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 }
@@ -88,8 +89,16 @@ void TestLayer::CreateScene() noexcept
 	scene->Init();
 
 	std::shared_ptr<ECS::Entity> entity = scene->CreateEntity();
-	std::shared_ptr<ECS::Entity> entity2 = scene->CreateEntity();
-	std::shared_ptr<ECS::Entity> entity3 = scene->CreateEntity();
+
+	transform = std::shared_ptr<ECS::TransformComponent>(new ECS::TransformComponent());
+	transform->position = Math::Vector3(0.0f, 0.0f, 0.0f);
+	transform->rotation = Math::Vector3(0.0f, 0.0f, 0.0f);
+	transform->scale = Math::Vector3(1.0f, 1.0f, 1.0f);
+
+	std::shared_ptr<ECS::ColorComponent> color = std::shared_ptr<ECS::ColorComponent>(new ECS::ColorComponent());
+	color->color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	ECS::ColorSystem::Save(entity->GetId(), transform, color);
 }
 
 void TestLayer::RenderInFrameBuffer() noexcept
@@ -98,15 +107,14 @@ void TestLayer::RenderInFrameBuffer() noexcept
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 	GraphicsEngine::Renderer::Clear();
 
-	scene->Render();
-
 	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
-	GraphicsEngine::Renderer2D::DrawSprite(Math::Vector3(0.0f, 0.0f, 0.0f), Math::Vector3(1.0f, 1.0f, 1.0f), spriteTest);
+	scene->Render();
 	GraphicsEngine::Renderer2D::EndScene();
+
 	frameBuffer->Unbind();
 }
 
-void TestLayer::RenderOnScreen() noexcept
+void TestLayer::RenderInWindow() noexcept
 {
 	GraphicsEngine::Renderer::Clear();
 	FixedFullScreenTextureRenderer::Draw(frameBuffer->GetColorAttachment());

@@ -17,10 +17,6 @@
 #include "ECS/Components/TextureComponent.h"
 #include "ECS/Components/TransformComponent.h"
 
-#include "ECS/Systems/ColorSystem.h"
-#include "ECS/Systems/SpriteSystem.h"
-#include "ECS/Systems/TextureSystem.h"
-
 #include "Math/Vector.h"
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"

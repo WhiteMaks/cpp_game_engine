@@ -1,20 +1,29 @@
 #pragma once
 
+#include <string>
+
 #include "Core/Core.h"
 
 namespace ECS
 {
+	class Scene;
 
 	class GAME_ENGINE_API Entity
 	{
 	private:
-		const unsigned int id;
+		std::string name;
+
+	protected:
+		Scene* scene;
 
 	public:
-		Entity(const unsigned int id) noexcept;
+		Entity() noexcept;
+		Entity(Scene* scene, const std::string& name) noexcept;
+
+		virtual ~Entity() = default;
 
 	public:
-		const unsigned int GetId() noexcept;
+		const std::string& GetName() noexcept;
 	};
 
 }

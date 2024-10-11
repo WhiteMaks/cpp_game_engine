@@ -2,15 +2,20 @@
 
 namespace ECS
 {
-
-	Entity::Entity(const unsigned int id) noexcept
-		: id(id)
+	
+	Entity::Entity() noexcept
+		: Entity(nullptr, "")
 	{
 	}
 
-	const unsigned int Entity::GetId() noexcept
+	Entity::Entity(Scene* scene, const std::string& name) noexcept
+		: scene(scene), name(name)
 	{
-		return id;
+	}
+
+	const std::string& Entity::GetName() noexcept
+	{
+		return name;
 	}
 
 }

@@ -88,17 +88,8 @@ void TestLayer::CreateScene() noexcept
 	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene());
 	scene->Init();
 
-	std::shared_ptr<ECS::Entity> entity = scene->CreateEntity();
-
-	transform = std::shared_ptr<ECS::TransformComponent>(new ECS::TransformComponent());
-	transform->position = Math::Vector3(0.0f, 0.0f, 0.0f);
-	transform->rotation = Math::Vector3(0.0f, 0.0f, 0.0f);
-	transform->scale = Math::Vector3(1.0f, 1.0f, 1.0f);
-
-	std::shared_ptr<ECS::ColorComponent> color = std::shared_ptr<ECS::ColorComponent>(new ECS::ColorComponent());
-	color->color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	ECS::ColorSystem::Save(entity->GetId(), transform, color);
+	entity = scene->CreateEntity("test");
+	scene->DestroyEntity(entity);
 }
 
 void TestLayer::RenderInFrameBuffer() noexcept

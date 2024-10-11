@@ -52,17 +52,14 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/ECS/Scene.h
 	includes/ECS/Entity.h
+	includes/ECS/Registry.h
+	includes/ECS/RegistryFactory.h
 
 	includes/ECS/Components/Component.h
 	includes/ECS/Components/TransformComponent.h
 	includes/ECS/Components/ColorComponent.h
 	includes/ECS/Components/TextureComponent.h
 	includes/ECS/Components/SpriteComponent.h
-
-	includes/ECS/Systems/System.h
-	includes/ECS/Systems/ColorSystem.h
-	includes/ECS/Systems/TextureSystem.h
-	includes/ECS/Systems/SpriteSystem.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h
@@ -225,11 +222,13 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/ECS/Scene.cpp
 	src/ECS/Entity.cpp
-	
-	src/ECS/Systems/System.cpp
-	src/ECS/Systems/ColorSystem.cpp
-	src/ECS/Systems/TextureSystem.cpp
-	src/ECS/Systems/SpriteSystem.cpp
+	src/ECS/Registry.cpp
+	src/ECS/RegistryFactory.cpp
+
+	src/ECS/entt/EnttRegistry.h
+	src/ECS/entt/EnttRegistry.cpp
+	src/ECS/entt/EnttEntity.h
+	src/ECS/entt/EnttEntity.cpp
 
 	src/Math/Vector.cpp
 	src/Math/Vector2.cpp
@@ -276,6 +275,9 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 
 add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
+
+add_subdirectory(./vendor/entt ${CMAKE_CURRENT_BINARY_DIR}/entt)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE EnTT)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)

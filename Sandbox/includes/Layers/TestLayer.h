@@ -15,7 +15,7 @@ private:
 
 	std::shared_ptr<ECS::Scene> scene;
 
-	std::shared_ptr<ECS::Entity> entity;
+	ECS::Entity entity;
 
 public:
 	TestLayer() noexcept;

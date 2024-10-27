@@ -1,21 +1,24 @@
 #pragma once
 
-#include <memory>
 #include <string>
 #include <unordered_map>
+#include <entt/entt.hpp>
 
-#include "Registry.h"
 #include "Core/Core.h"
 
 namespace ECS
 {
 
+	class Entity;
+
 	class GAME_ENGINE_API Scene
 	{
 	private:
-		std::shared_ptr<Registry> registry;
+		entt::registry registry;
 
-		std::unordered_map<std::string, std::shared_ptr<Entity>> entities;
+		std::unordered_map<std::string, entt::entity> entities;
+
+		friend class Entity;
 
 	public:
 		Scene() noexcept;
@@ -26,9 +29,14 @@ namespace ECS
 		void Render() noexcept;
 		void Destroy() noexcept;
 
-		std::shared_ptr<Entity> CreateEntity(const std::string& name) noexcept;
+		void DestroyEntity(Entity entity) noexcept;
 
-		void DestroyEntity(const std::shared_ptr<Entity>& entity) noexcept;
+		Entity CreateEntity(const std::string& name) noexcept;
+
+	private:
+		void RenderColorQuads() noexcept;
+		void RenderTextureQuads() noexcept;
+		void RenderSpriteQuads() noexcept;
 	};
 
 }

@@ -52,8 +52,6 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/ECS/Scene.h
 	includes/ECS/Entity.h
-	includes/ECS/Registry.h
-	includes/ECS/RegistryFactory.h
 
 	includes/ECS/Components/Component.h
 	includes/ECS/Components/TransformComponent.h
@@ -222,13 +220,6 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	src/ECS/Scene.cpp
 	src/ECS/Entity.cpp
-	src/ECS/Registry.cpp
-	src/ECS/RegistryFactory.cpp
-
-	src/ECS/entt/EnttRegistry.h
-	src/ECS/entt/EnttRegistry.cpp
-	src/ECS/entt/EnttEntity.h
-	src/ECS/entt/EnttEntity.cpp
 
 	src/Math/Vector.cpp
 	src/Math/Vector2.cpp
@@ -277,7 +268,7 @@ add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
 
 add_subdirectory(./vendor/entt ${CMAKE_CURRENT_BINARY_DIR}/entt)
-target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE EnTT)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC EnTT)
 
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)

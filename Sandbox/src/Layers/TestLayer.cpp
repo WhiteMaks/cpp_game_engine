@@ -89,7 +89,9 @@ void TestLayer::CreateScene() noexcept
 	scene->Init();
 
 	entity = scene->CreateEntity("test");
-	scene->DestroyEntity(entity);
+	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
+	spriteComponent.sprite = spriteTest;
+	//scene->DestroyEntity(entity);
 }
 
 void TestLayer::RenderInFrameBuffer() noexcept

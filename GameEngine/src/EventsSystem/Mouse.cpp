@@ -1,4 +1,4 @@
-#include "Core/EventsSystem/Mouse.h"
+#include "EventsSystem/Mouse.h"
 
 namespace EventsSystem
 {

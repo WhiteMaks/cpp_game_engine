@@ -1,4 +1,4 @@
-#include "Core/EventsSystem/WindowEvent.h"
+#include "EventsSystem/WindowEvent.h"
 
 namespace EventsSystem
 {

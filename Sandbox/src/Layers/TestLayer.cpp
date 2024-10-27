@@ -1,4 +1,5 @@
 #include "Layers/TestLayer.h"
+
 #include "Renderer/FixedFullScreenTextureRenderer.h"
 
 TestLayer::TestLayer() noexcept
@@ -14,6 +15,7 @@ void TestLayer::Init() noexcept
 	CreateFrameBuffer();
 	CreateCameraController();
 	CreateTextures();
+	CreateScene();
 }
 
 void TestLayer::MouseEvent(EventsSystem::MouseEvent& event) noexcept
@@ -35,27 +37,20 @@ void TestLayer::WindowEvent(EventsSystem::WindowEvent& event) noexcept
 void TestLayer::Update() noexcept
 {
 	cameraController->Update();
+	scene->Update();
 }
 
 void TestLayer::Render() noexcept
 {
-	frameBuffer->Bind();
-	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
-	GraphicsEngine::Renderer::Clear();
-
-	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
-	GraphicsEngine::Renderer2D::DrawSprite(Math::Vector2(0.0f, 0.0f), Math::Vector2(1.0f, 1.0f), spriteTest);
-	GraphicsEngine::Renderer2D::EndScene();
-	frameBuffer->Unbind();
-
-	GraphicsEngine::Renderer::Clear();
-	FixedFullScreenTextureRenderer::Draw(frameBuffer->GetColorAttachment());
+	RenderInFrameBuffer();
+	RenderInWindow();
 
 	//APPLICATION_DEBUG("FPS: {0}", 1.0 / GameEngine::Time::GetDeltaTime());
 }
 
 void TestLayer::Destroy() noexcept
 {
+	scene->Destroy();
 	frameBuffer->Destroy();
 	cameraController->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();
@@ -86,4 +81,34 @@ void TestLayer::CreateTextures() noexcept
 	);
 
 	spriteTest = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
+}
+
+void TestLayer::CreateScene() noexcept
+{
+	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene());
+	scene->Init();
+
+	entity = scene->CreateEntity("test");
+	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
+	spriteComponent.sprite = spriteTest;
+	//scene->DestroyEntity(entity);
+}
+
+void TestLayer::RenderInFrameBuffer() noexcept
+{
+	frameBuffer->Bind();
+	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
+	GraphicsEngine::Renderer::Clear();
+
+	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
+	scene->Render();
+	GraphicsEngine::Renderer2D::EndScene();
+
+	frameBuffer->Unbind();
+}
+
+void TestLayer::RenderInWindow() noexcept
+{
+	GraphicsEngine::Renderer::Clear();
+	FixedFullScreenTextureRenderer::Draw(frameBuffer->GetColorAttachment());
 }

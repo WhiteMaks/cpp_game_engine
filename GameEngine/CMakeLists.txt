@@ -7,17 +7,6 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/Core/Core.h
 	includes/Core/OrthographicCameraController.h
-	
-	includes/Core/EventsSystem/Keyboard.h
-	includes/Core/EventsSystem/KeyboardEvent.h
-	includes/Core/EventsSystem/KeyboardEventType.h
-	includes/Core/EventsSystem/Mouse.h
-	includes/Core/EventsSystem/MouseEvent.h
-	includes/Core/EventsSystem/MouseEventType.h
-	includes/Core/EventsSystem/Window.h
-	includes/Core/EventsSystem/WindowEvent.h
-	includes/Core/EventsSystem/WindowEventType.h
-	includes/Core/EventsSystem/EventManager.h
 
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
@@ -50,16 +39,38 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Assets/ShaderProgram.h
 	includes/Core/GraphicsEngine/Assets/ShaderProgramFactory.h
 
+	includes/EventsSystem/Keyboard.h
+	includes/EventsSystem/KeyboardEvent.h
+	includes/EventsSystem/KeyboardEventType.h
+	includes/EventsSystem/Mouse.h
+	includes/EventsSystem/MouseEvent.h
+	includes/EventsSystem/MouseEventType.h
+	includes/EventsSystem/Window.h
+	includes/EventsSystem/WindowEvent.h
+	includes/EventsSystem/WindowEventType.h
+	includes/EventsSystem/EventManager.h
+
+	includes/ECS/Scene.h
+	includes/ECS/Entity.h
+
+	includes/ECS/Components/Component.h
+	includes/ECS/Components/TransformComponent.h
+	includes/ECS/Components/ColorComponent.h
+	includes/ECS/Components/TextureComponent.h
+	includes/ECS/Components/SpriteComponent.h
+
+	includes/Math/Vector.h
+	includes/Math/Vector2.h
+	includes/Math/Vector3.h
+	includes/Math/Vector4.h
+	
+	includes/Memory/CacheStorage.h
+	includes/Memory/TimedCache.h
+
 	includes/Tools/Log.h
 	includes/Tools/Layer.h
 	includes/Tools/Time.h
 	includes/Tools/LayerStack.h
-	includes/Tools/Math/Vector.h
-	includes/Tools/Math/Vector2.h
-	includes/Tools/Math/Vector3.h
-	includes/Tools/Math/Vector4.h
-	includes/Tools/Memory/CacheStorage.h
-	includes/Tools/Memory/TimedCache.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -168,14 +179,6 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/GameEngine.cpp
 
 	src/Core/OrthographicCameraController.cpp
-	
-	src/Core/EventsSystem/Keyboard.cpp
-	src/Core/EventsSystem/KeyboardEvent.cpp
-	src/Core/EventsSystem/Mouse.cpp
-	src/Core/EventsSystem/MouseEvent.cpp
-	src/Core/EventsSystem/Window.cpp
-	src/Core/EventsSystem/WindowEvent.cpp
-	src/Core/EventsSystem/EventManager.cpp
 
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
@@ -207,16 +210,29 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 
 	${GAME_ENGINE_PRIVATE_PLATFORM_SOURCES}
 
+	src/EventsSystem/Keyboard.cpp
+	src/EventsSystem/KeyboardEvent.cpp
+	src/EventsSystem/Mouse.cpp
+	src/EventsSystem/MouseEvent.cpp
+	src/EventsSystem/Window.cpp
+	src/EventsSystem/WindowEvent.cpp
+	src/EventsSystem/EventManager.cpp
+
+	src/ECS/Scene.cpp
+	src/ECS/Entity.cpp
+
+	src/Math/Vector.cpp
+	src/Math/Vector2.cpp
+	src/Math/Vector3.cpp
+	src/Math/Vector4.cpp
+
+	src/Memory/CacheStorage.cpp
+	src/Memory/TimedCache.cpp
+
 	src/Tools/Log.cpp
 	src/Tools/Layer.cpp
 	src/Tools/Time.cpp
 	src/Tools/LayerStack.cpp
-	src/Tools/Math/Vector.cpp
-	src/Tools/Math/Vector2.cpp
-	src/Tools/Math/Vector3.cpp
-	src/Tools/Math/Vector4.cpp
-	src/Tools/Memory/CacheStorage.cpp
-	src/Tools/Memory/TimedCache.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES
@@ -251,6 +267,9 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
 
+add_subdirectory(./vendor/entt ${CMAKE_CURRENT_BINARY_DIR}/entt)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC EnTT)
+
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 	add_subdirectory(./vendor/sdl ${CMAKE_CURRENT_BINARY_DIR}/sdl)
 	target_include_directories(${GAME_ENGINE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/sdl/include)
@@ -263,7 +282,7 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 
 	add_custom_command(TARGET ${GAME_ENGINE_PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy
-		$<TARGET_FILE_DIR:SDL2::SDL2>/SDL2d.dll
+		$<TARGET_FILE_DIR:SDL2::SDL2>/SDL2$<$<CONFIG:Debug>:d>.dll
 		$<TARGET_FILE_DIR:${GAME_ENGINE_PROJECT_NAME}>
 	)
 elseif($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")

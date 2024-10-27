@@ -1,4 +1,4 @@
-#include "Core/EventsSystem/Keyboard.h"
+#include "EventsSystem/Keyboard.h"
 
 namespace EventsSystem
 {

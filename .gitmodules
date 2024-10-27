@@ -13,3 +13,6 @@
 [submodule "GameEngine/vendor/stb/stb_submodule"]
 	path = GameEngine/vendor/stb/stb_submodule
 	url = https://github.com/nothings/stb.git
+[submodule "GameEngine/vendor/entt"]
+	path = GameEngine/vendor/entt
+	url = https://github.com/skypjack/entt.git

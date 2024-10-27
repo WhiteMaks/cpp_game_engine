@@ -72,62 +72,32 @@ namespace GraphicsEngine
 		ResetBatchData();
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& scale, const Math::Vector4& color) noexcept
 	{
 		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const Math::Vector4& color) noexcept
-	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, color, data.whiteTexture, data.quadTextureCoordinates);
-	}
-
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
-	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor,  texture, data.quadTextureCoordinates);
-	}
-
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector3& scale, const Math::Vector4& color) noexcept
 	{
 		DrawQuad(position, rotation, scale, color, data.whiteTexture, data.quadTextureCoordinates);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
 		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture, data.quadTextureCoordinates);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector3& scale, const std::shared_ptr<Texture>& texture) noexcept
 	{
 		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, texture, data.quadTextureCoordinates);
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color) noexcept
-	{
-		DrawQuad(position, rotation, scale, color, data.whiteTexture, data.quadTextureCoordinates);
-	}
-
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Texture>& texture) noexcept
-	{
-		DrawQuad(position, rotation, scale, data.whiteColor, texture, data.quadTextureCoordinates);
-	}
-
-	void Renderer2D::DrawSprite(const Math::Vector2& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
+	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector3& scale, const std::shared_ptr<Sprite>& sprite) noexcept
 	{
 		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
 	}
 
-	void Renderer2D::DrawSprite(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
-	{
-		DrawQuad(position, rotation, scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
-	}
-
-	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
-	{
-		DrawQuad(position, Math::Vector3(0.0f), scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
-	}
-
-	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const std::shared_ptr<Sprite>& sprite) noexcept
+	void Renderer2D::DrawSprite(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector3& scale, const std::shared_ptr<Sprite>& sprite) noexcept
 	{
 		DrawQuad(position, rotation, scale, data.whiteColor, sprite->GetTexture(), sprite->GetTextureCoordinates());
 	}
@@ -156,12 +126,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Destruction 2D renderer completed");
 	}
 
-	void Renderer2D::DrawQuad(const Math::Vector2& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept
-	{
-		DrawQuad(Math::Vector3(position.x, position.y, 0.0f), rotation, scale, color, texture, textureCoordinates);
-	}
-
-	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector2& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept
+	void Renderer2D::DrawQuad(const Math::Vector3& position, const Math::Vector3& rotation, const Math::Vector3& scale, const Math::Vector4& color, const std::shared_ptr<Texture>& texture, const Math::Vector2* textureCoordinates) noexcept
 	{
 		if (data.quadIndexCount >= data.batchIndicesSize)
 		{
@@ -191,7 +156,7 @@ namespace GraphicsEngine
 			* glm::rotate(data.identityMatrix, glm::radians(rotation.x), Math::Vector3(1.0f, 0.0f, 0.0f))
 			* glm::rotate(data.identityMatrix, glm::radians(rotation.y), Math::Vector3(0.0f, 1.0f, 0.0f))
 			* glm::rotate(data.identityMatrix, glm::radians(rotation.z), Math::Vector3(0.0f, 0.0f, 1.0f))
-			* glm::scale(data.identityMatrix, Math::Vector3(scale.x, scale.y, 1.0f));
+			* glm::scale(data.identityMatrix, scale);
 
 		glm::vec4 blPosition = modelMatrix * data.quadVertexPositions[0];
 		glm::vec4 brPosition = modelMatrix * data.quadVertexPositions[1];

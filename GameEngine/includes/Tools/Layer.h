@@ -3,9 +3,10 @@
 #include <string>
 
 #include "Core/Core.h"
-#include "Core/EventsSystem/MouseEvent.h"
-#include "Core/EventsSystem/KeyboardEvent.h"
-#include "Core/EventsSystem/WindowEvent.h"
+
+#include "EventsSystem/MouseEvent.h"
+#include "EventsSystem/KeyboardEvent.h"
+#include "EventsSystem/WindowEvent.h"
 
 namespace GameEngine
 {

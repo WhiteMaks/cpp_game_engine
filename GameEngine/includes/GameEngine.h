@@ -5,22 +5,30 @@
 #include "Core/Core.h"
 #include "Core/OrthographicCameraController.h"
 
-#include "Core/EventsSystem/EventManager.h"
-
 #include "Core/GraphicsEngine/GraphicsEngine.h"
+
+#include "EventsSystem/EventManager.h"
+
+#include "ECS/Scene.h"
+#include "ECS/Entity.h"
+
+#include "ECS/Components/ColorComponent.h"
+#include "ECS/Components/SpriteComponent.h"
+#include "ECS/Components/TextureComponent.h"
+#include "ECS/Components/TransformComponent.h"
+
+#include "Math/Vector.h"
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Vector4.h"
+
+#include "Memory/CacheStorage.h"
+#include "Memory/TimedCache.h"
 
 #include "Tools/Log.h"
 #include "Tools/Layer.h"
 #include "Tools/Time.h"
 #include "Tools/LayerStack.h"
-
-#include "Tools/Math/Vector.h"
-#include "Tools/Math/Vector2.h"
-#include "Tools/Math/Vector3.h"
-#include "Tools/Math/Vector4.h"
-
-#include "Tools/Memory/CacheStorage.h"
-#include "Tools/Memory/TimedCache.h"
 
 namespace GameEngine
 {
@@ -28,7 +36,7 @@ namespace GameEngine
 	class GAME_ENGINE_API GameEngine
 	{
 	private:
-		static Memory::TimedCache* timedCache;
+		static std::shared_ptr<Memory::TimedCache> timedCache;
 
 	private:
 		GraphicsEngine::GraphicsEngine* graphicsEngine;
@@ -41,11 +49,11 @@ namespace GameEngine
 		virtual ~GameEngine();
 
 	public:
-		static Memory::TimedCache* GetTimedCache();
+		static std::shared_ptr<Memory::TimedCache> GetTimedCache();
 
 	public:
-		void Loop();
 		void Start();
+		void Loop();
 
 	protected:
 		void PushLayer(Layer* layer);

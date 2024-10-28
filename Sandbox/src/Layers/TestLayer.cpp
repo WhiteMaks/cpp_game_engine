@@ -13,30 +13,28 @@ void TestLayer::Init() noexcept
 	FixedFullScreenTextureRenderer::Init();
 
 	CreateFrameBuffer();
-	CreateCameraController();
 	CreateTextures();
 	CreateScene();
 }
 
 void TestLayer::MouseEvent(EventsSystem::MouseEvent& event) noexcept
 {
-	cameraController->MouseEvent(event);
+	scene->MouseEvent(event);
 }
 
 void TestLayer::KeyboardEvent(EventsSystem::KeyboardEvent& event) noexcept
 {
-	cameraController->KeyboardEvent(event);
+	scene->KeyboardEvent(event);
 }
 
 void TestLayer::WindowEvent(EventsSystem::WindowEvent& event) noexcept
 {
 	frameBuffer->WindowEvent(event);
-	cameraController->WindowEvent(event);
+	scene->WindowEvent(event);
 }
 
 void TestLayer::Update() noexcept
 {
-	cameraController->Update();
 	scene->Update();
 }
 
@@ -52,7 +50,6 @@ void TestLayer::Destroy() noexcept
 {
 	scene->Destroy();
 	frameBuffer->Destroy();
-	cameraController->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();
 	FixedFullScreenTextureRenderer::Destroy();
 }
@@ -61,14 +58,6 @@ void TestLayer::CreateFrameBuffer() noexcept
 {
 	frameBuffer = GraphicsEngine::BufferFactory::CreateFrameBuffer(GraphicsEngine::FrameBufferData(1280, 720));
 	frameBuffer->Init();
-}
-
-void TestLayer::CreateCameraController() noexcept
-{
-	cameraController = std::shared_ptr<GameEngine::OrthographicCameraController>(
-		new GameEngine::OrthographicCameraController(0.0f)
-	);
-	cameraController->Init();
 }
 
 void TestLayer::CreateTextures() noexcept
@@ -88,10 +77,13 @@ void TestLayer::CreateScene() noexcept
 	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene());
 	scene->Init();
 
-	entity = scene->CreateEntity("test");
+	ECS::Entity cameraEntity = scene->CreateEntity("Camera");
+	ECS::CameraComponent& cameraComponent = cameraEntity.AddComponent<ECS::CameraComponent>();
+	cameraComponent.camera = GraphicsEngine::Camera(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+
+	ECS::Entity entity = scene->CreateEntity("test");
 	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
 	spriteComponent.sprite = spriteTest;
-	//scene->DestroyEntity(entity);
 }
 
 void TestLayer::RenderInFrameBuffer() noexcept
@@ -99,11 +91,7 @@ void TestLayer::RenderInFrameBuffer() noexcept
 	frameBuffer->Bind();
 	GraphicsEngine::Renderer::SetClearColor(Math::Vector4(0.2f, 0.2f, 0.2f, 1.0f));
 	GraphicsEngine::Renderer::Clear();
-
-	GraphicsEngine::Renderer2D::BeginScene(cameraController->GetCamera());
 	scene->Render();
-	GraphicsEngine::Renderer2D::EndScene();
-
 	frameBuffer->Unbind();
 }
 

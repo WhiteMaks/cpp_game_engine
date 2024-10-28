@@ -5,6 +5,10 @@
 #include <entt/entt.hpp>
 
 #include "Core/Core.h"
+#include "Core/GraphicsEngine/Renderer/Camera.h"
+#include "EventsSystem/KeyboardEvent.h"
+#include "EventsSystem/WindowEvent.h"
+#include "EventsSystem/MouseEvent.h"
 
 namespace ECS
 {
@@ -25,6 +29,9 @@ namespace ECS
 
 	public:
 		void Init() noexcept;
+		void MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept;
+		void KeyboardEvent(EventsSystem::KeyboardEvent& keyboardEvent) noexcept;
+		void WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept;
 		void Update() noexcept;
 		void Render() noexcept;
 		void Destroy() noexcept;
@@ -37,6 +44,10 @@ namespace ECS
 		void RenderColorQuads() noexcept;
 		void RenderTextureQuads() noexcept;
 		void RenderSpriteQuads() noexcept;
+
+		void UpdateCameraSystem() noexcept;
+
+		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};
 
 }

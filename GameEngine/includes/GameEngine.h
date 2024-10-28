@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "Core/Core.h"
-#include "Core/OrthographicCameraController.h"
 
 #include "Core/GraphicsEngine/GraphicsEngine.h"
 
@@ -16,6 +15,7 @@
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/TextureComponent.h"
 #include "ECS/Components/TransformComponent.h"
+#include "ECS/Components/CameraComponent.h"
 
 #include "Math/Vector.h"
 #include "Math/Vector2.h"

@@ -7,7 +7,6 @@
 #include "Buffers/VertexArrayBuffer.h"
 #include "Core/GraphicsEngine/Assets/ShaderProgram.h"
 
-#include "OrthographicCamera.h"
 #include "Math/Vector4.h"
 
 namespace GraphicsEngine

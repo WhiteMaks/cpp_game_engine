@@ -6,7 +6,6 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/GameEngine.h
 
 	includes/Core/Core.h
-	includes/Core/OrthographicCameraController.h
 
 	includes/Core/GraphicsEngine/Window.h
 	includes/Core/GraphicsEngine/WindowFactory.h
@@ -19,7 +18,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Renderer/Renderer2D.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPI.h
 	includes/Core/GraphicsEngine/Renderer/RendererAPIFactory.h
-	includes/Core/GraphicsEngine/Renderer/OrthographicCamera.h
+	includes/Core/GraphicsEngine/Renderer/Camera.h
 
 	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.h
 	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBufferData.h
@@ -58,6 +57,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/ColorComponent.h
 	includes/ECS/Components/TextureComponent.h
 	includes/ECS/Components/SpriteComponent.h
+	includes/ECS/Components/CameraComponent.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h
@@ -178,8 +178,6 @@ endif()
 set(GAME_ENGINE_PRIVATE_SOURCES
 	src/GameEngine.cpp
 
-	src/Core/OrthographicCameraController.cpp
-
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
@@ -190,7 +188,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Renderer/Renderer2D.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPI.cpp
 	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
-	src/Core/GraphicsEngine/Renderer/OrthographicCamera.cpp
+	src/Core/GraphicsEngine/Renderer/Camera.cpp
 
 	src/Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.cpp
 	src/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.cpp

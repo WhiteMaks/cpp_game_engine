@@ -4,7 +4,7 @@
 
 #include "Core/Core.h"
 
-#include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
+#include "Core/GraphicsEngine/Renderer/Camera.h"
 #include "Core/GraphicsEngine/Assets/Texture.h"
 #include "Core/GraphicsEngine/Assets/Sprite.h"
 #include "Math/Vector4.h"
@@ -18,7 +18,7 @@ namespace GraphicsEngine
 	{
 	public:
 		static void Init() noexcept;
-		static void BeginScene(OrthographicCamera& camera) noexcept;
+		static void BeginScene(Camera& camera) noexcept;
 		static void EndScene() noexcept;
 		static void Destroy() noexcept;
 

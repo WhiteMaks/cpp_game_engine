@@ -1,10 +1,13 @@
 #include "ECS/Scene.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Tools/Log.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/Components/ColorComponent.h"
 #include "ECS/Components/TextureComponent.h"
 #include "ECS/Components/SpriteComponent.h"
+#include "ECS/Components/CameraComponent.h"
 #include "ECS/Entity.h"
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 
@@ -20,16 +23,41 @@ namespace ECS
 		
 	}
 
+	void Scene::MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept
+	{
+		//отправка иветов во все скрипты
+	}
+
+	void Scene::KeyboardEvent(EventsSystem::KeyboardEvent& keyboardEvent) noexcept
+	{
+		//отправка иветов во все скрипты
+	}
+
+	void Scene::WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept
+	{
+		//отправка иветов во все скрипты
+	}
+
 	void Scene::Update() noexcept
 	{
-		
+		UpdateCameraSystem();
+		//обновление скриптов
 	}
 
 	void Scene::Render() noexcept
 	{
+		GraphicsEngine::Camera* primaryCamera = FindPrimaryCamera();
+		
+		if (!primaryCamera)
+		{
+			return;
+		}
+
+		GraphicsEngine::Renderer2D::BeginScene(*primaryCamera);
 		RenderColorQuads();
 		RenderTextureQuads();
 		RenderSpriteQuads();
+		GraphicsEngine::Renderer2D::EndScene();
 	}
 
 	void Scene::Destroy() noexcept
@@ -84,6 +112,41 @@ namespace ECS
 			auto [transformComponent, spriteComponent] = view.get<TransformComponent, SpriteComponent>(entity);
 			GraphicsEngine::Renderer2D::DrawSprite(transformComponent.position, transformComponent.rotation, transformComponent.scale, spriteComponent.sprite);
 		}
+	}
+
+	void Scene::UpdateCameraSystem() noexcept
+	{
+		auto view = registry.view<TransformComponent, CameraComponent>();
+		for (auto entity : view)
+		{
+			auto [transformComponent, cameraComponent] = view.get<TransformComponent, CameraComponent>(entity);
+
+			if (cameraComponent.primary)
+			{
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), transformComponent.position) *
+					glm::rotate(glm::mat4(1.0f), glm::radians(transformComponent.rotation.z), Math::Vector3(0, 0, 1));
+
+				cameraComponent.camera.SetViewMatrix(glm::inverse(transform));
+				cameraComponent.camera.Update();
+				break;
+			}
+		}
+	}
+
+	GraphicsEngine::Camera* Scene::FindPrimaryCamera() noexcept
+	{
+		auto view = registry.view<TransformComponent, CameraComponent>();
+		for (auto entity : view)
+		{
+			auto [transformComponent, cameraComponent] = view.get<TransformComponent, CameraComponent>(entity);
+
+			if (cameraComponent.primary)
+			{
+				return &cameraComponent.camera;
+			}
+		}
+
+		return nullptr;
 	}
 
 	void Scene::DestroyEntity(Entity entity) noexcept

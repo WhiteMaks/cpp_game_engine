@@ -51,6 +51,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 
 	includes/ECS/Scene.h
 	includes/ECS/Entity.h
+	includes/ECS/ScriptableEntity.h
 
 	includes/ECS/Components/Component.h
 	includes/ECS/Components/TransformComponent.h
@@ -58,6 +59,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/TextureComponent.h
 	includes/ECS/Components/SpriteComponent.h
 	includes/ECS/Components/CameraComponent.h
+	includes/ECS/Components/CppScriptComponent.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h

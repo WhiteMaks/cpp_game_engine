@@ -10,12 +10,14 @@
 
 #include "ECS/Scene.h"
 #include "ECS/Entity.h"
+#include "ECS/ScriptableEntity.h"
 
 #include "ECS/Components/ColorComponent.h"
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/TextureComponent.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/CppScriptComponent.h"
 
 #include "Math/Vector.h"
 #include "Math/Vector2.h"

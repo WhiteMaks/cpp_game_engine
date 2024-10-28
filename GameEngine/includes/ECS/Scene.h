@@ -46,6 +46,7 @@ namespace ECS
 		void RenderSpriteQuads() noexcept;
 
 		void UpdateCameraSystem() noexcept;
+		void UpdateScriptSystem() noexcept;
 
 		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};

@@ -8,6 +8,7 @@
 #include "ECS/Components/TextureComponent.h"
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/CppScriptComponent.h"
 #include "ECS/Entity.h"
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 
@@ -25,23 +26,74 @@ namespace ECS
 
 	void Scene::MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept
 	{
-		//отправка иветов во все скрипты
+		auto group = registry.group<CppScriptComponent>();
+		for (auto entity : group)
+		{
+			if (!mouseEvent.IsValid())
+			{
+				break;
+			}
+
+			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			if (!cppScriptComponent.instance)
+			{
+				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance->entity = Entity(entity, this, "");
+				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+			}
+
+			cppScriptComponent.MouseEventScriptFunction(cppScriptComponent.instance, mouseEvent);
+		}
 	}
 
 	void Scene::KeyboardEvent(EventsSystem::KeyboardEvent& keyboardEvent) noexcept
 	{
-		//отправка иветов во все скрипты
+		auto group = registry.group<CppScriptComponent>();
+		for (auto entity : group)
+		{
+			if (!keyboardEvent.IsValid())
+			{
+				break;
+			}
+
+			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			if (!cppScriptComponent.instance)
+			{
+				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance->entity = Entity(entity, this, "");
+				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+			}
+
+			cppScriptComponent.KeyboardEventScriptFunction(cppScriptComponent.instance, keyboardEvent);
+		}
 	}
 
 	void Scene::WindowEvent(EventsSystem::WindowEvent& windowEvent) noexcept
 	{
-		//отправка иветов во все скрипты
+		auto group = registry.group<CppScriptComponent>();
+		for (auto entity : group)
+		{
+			if (!windowEvent.IsValid())
+			{
+				break;
+			}
+
+			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			if (!cppScriptComponent.instance)
+			{
+				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance->entity = Entity(entity, this, "");
+				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+			}
+
+			cppScriptComponent.WindowEventScriptFunction(cppScriptComponent.instance, windowEvent);
+		}
 	}
 
 	void Scene::Update() noexcept
 	{
 		UpdateCameraSystem();
-		//обновление скриптов
+		UpdateScriptSystem();
 	}
 
 	void Scene::Render() noexcept
@@ -62,6 +114,18 @@ namespace ECS
 
 	void Scene::Destroy() noexcept
 	{
+		auto group = registry.group<CppScriptComponent>();
+		for (auto entity : group)
+		{
+			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			if (cppScriptComponent.instance)
+			{
+				cppScriptComponent.DestroyScriptFunction(cppScriptComponent.instance);
+			}
+
+			cppScriptComponent.DestroyFunction();
+		}
+
 		for (const auto& [key, value] : entities)
 		{
 			registry.destroy(value);
@@ -119,7 +183,8 @@ namespace ECS
 		auto view = registry.view<TransformComponent, CameraComponent>();
 		for (auto entity : view)
 		{
-			auto [transformComponent, cameraComponent] = view.get<TransformComponent, CameraComponent>(entity);
+			auto transformComponent = view.get<TransformComponent>(entity);
+			auto& cameraComponent = view.get<CameraComponent>(entity);
 
 			if (cameraComponent.primary)
 			{
@@ -130,6 +195,23 @@ namespace ECS
 				cameraComponent.camera.Update();
 				break;
 			}
+		}
+	}
+
+	void Scene::UpdateScriptSystem() noexcept
+	{
+		auto group = registry.group<CppScriptComponent>();
+		for (auto entity : group)
+		{
+			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			if (!cppScriptComponent.instance)
+			{
+				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance->entity = Entity(entity, this, "");
+				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+			}
+
+			cppScriptComponent.UpdateScriptFunction(cppScriptComponent.instance);
 		}
 	}
 

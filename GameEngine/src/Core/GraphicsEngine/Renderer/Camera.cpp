@@ -31,7 +31,7 @@ namespace GraphicsEngine
 
 	const glm::mat4& Camera::GetViewProjectionMatrix() const noexcept
 	{
-		return projectionMatrix;
+		return viewProjectionMatrix;
 	}
 
 	void Camera::SetProjectionMatrix(glm::mat4 projectionMatrix) noexcept

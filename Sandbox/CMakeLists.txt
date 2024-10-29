@@ -8,12 +8,16 @@ set(SANDBOX_SOURCES
 	src/Layers/TestLayer.cpp
 
 	src/Renderer/FixedFullScreenTextureRenderer.cpp
+
+    src/Scripts/CameraController.cpp
 )
 
 set(SANDBOX_INCLUDES
     includes/Layers/TestLayer.h
 
     includes/Renderer/FixedFullScreenTextureRenderer.h
+
+    includes/Scripts/CameraController.h
 )
 
 set(SANDBOX_TEXTURES

@@ -9,7 +9,6 @@ private:
 	std::shared_ptr<GraphicsEngine::FrameBuffer> frameBuffer;
 
 	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetTinyTown;
-	std::shared_ptr<GraphicsEngine::Sprite> spriteTest;
 
 	std::shared_ptr<ECS::Scene> scene;
 

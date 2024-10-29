@@ -37,12 +37,12 @@ namespace ECS
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
 			if (!cppScriptComponent.instance)
 			{
-				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance = cppScriptComponent.InitScript();
 				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+				cppScriptComponent.instance->Init();
 			}
 
-			cppScriptComponent.MouseEventScriptFunction(cppScriptComponent.instance, mouseEvent);
+			cppScriptComponent.instance->MouseEvent(mouseEvent);
 		}
 	}
 
@@ -59,12 +59,12 @@ namespace ECS
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
 			if (!cppScriptComponent.instance)
 			{
-				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance = cppScriptComponent.InitScript();
 				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+				cppScriptComponent.instance->Init();
 			}
 
-			cppScriptComponent.KeyboardEventScriptFunction(cppScriptComponent.instance, keyboardEvent);
+			cppScriptComponent.instance->KeyboardEvent(keyboardEvent);
 		}
 	}
 
@@ -81,12 +81,12 @@ namespace ECS
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
 			if (!cppScriptComponent.instance)
 			{
-				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance = cppScriptComponent.InitScript();
 				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+				cppScriptComponent.instance->Init();
 			}
 
-			cppScriptComponent.WindowEventScriptFunction(cppScriptComponent.instance, windowEvent);
+			cppScriptComponent.instance->WindowEvent(windowEvent);
 		}
 	}
 
@@ -117,13 +117,13 @@ namespace ECS
 		auto group = registry.group<CppScriptComponent>();
 		for (auto entity : group)
 		{
-			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
+			auto cppScriptComponent = group.get<CppScriptComponent>(entity);
 			if (cppScriptComponent.instance)
 			{
-				cppScriptComponent.DestroyScriptFunction(cppScriptComponent.instance);
+				cppScriptComponent.instance->Destroy();
 			}
 
-			cppScriptComponent.DestroyFunction();
+			cppScriptComponent.DestroyScript(&cppScriptComponent);
 		}
 
 		for (const auto& [key, value] : entities)
@@ -206,12 +206,12 @@ namespace ECS
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
 			if (!cppScriptComponent.instance)
 			{
-				cppScriptComponent.InitFunction();
+				cppScriptComponent.instance = cppScriptComponent.InitScript();
 				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.InitScriptFunction(cppScriptComponent.instance);
+				cppScriptComponent.instance->Init();
 			}
 
-			cppScriptComponent.UpdateScriptFunction(cppScriptComponent.instance);
+			cppScriptComponent.instance->Update();
 		}
 	}
 

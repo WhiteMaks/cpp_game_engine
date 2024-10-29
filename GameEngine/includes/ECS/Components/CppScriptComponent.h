@@ -15,58 +15,21 @@ namespace ECS
 	{
 		ScriptableEntity* instance = nullptr;
 
-		std::function<void()> InitFunction;
-		std::function<void()> DestroyFunction;
-
-		std::function<void(ScriptableEntity*)> InitScriptFunction;
-		std::function<void(ScriptableEntity*)> UpdateScriptFunction;
-		std::function<void(ScriptableEntity*)> DestroyScriptFunction;
-		std::function<void(ScriptableEntity*, EventsSystem::MouseEvent&)> MouseEventScriptFunction;
-		std::function<void(ScriptableEntity*, EventsSystem::KeyboardEvent&)> KeyboardEventScriptFunction;
-		std::function<void(ScriptableEntity*, EventsSystem::WindowEvent&)> WindowEventScriptFunction;
+		ScriptableEntity* (*InitScript)();
+		void (*DestroyScript)(CppScriptComponent*);
 
 		template<typename T>
 		void Bind() noexcept
 		{
-			InitFunction = [&] ()
+			InitScript = [] ()
 				{
-					instance = new T();
+					return static_cast<ScriptableEntity*>(new T());
 				};
 
-			DestroyFunction = [&] ()
+			DestroyScript = [] (CppScriptComponent* cppScriptComponent)
 				{
-					delete (T*) instance;
-					instance = nullptr;
-				};
-
-			InitScriptFunction = [] (ScriptableEntity* instance)
-				{
-					((T*) instance)->Init();
-				};
-
-			UpdateScriptFunction = [] (ScriptableEntity* instance)
-				{
-					((T*) instance)->Update();
-				};
-
-			DestroyScriptFunction = [] (ScriptableEntity* instance)
-				{
-					((T*) instance)->Destroy();
-				};
-
-			MouseEventScriptFunction = [] (ScriptableEntity* instance, EventsSystem::MouseEvent& mouseEvent)
-				{
-					((T*) instance)->MouseEvent(mouseEvent);
-				};
-
-			KeyboardEventScriptFunction = [] (ScriptableEntity* instance, EventsSystem::KeyboardEvent& keyboardEvent)
-				{
-					((T*) instance)->KeyboardEvent(keyboardEvent);
-				};
-
-			WindowEventScriptFunction = [] (ScriptableEntity* instance, EventsSystem::WindowEvent& windowEvent)
-				{
-					((T*) instance)->WindowEvent(windowEvent);
+					delete cppScriptComponent->instance;
+					cppScriptComponent->instance = nullptr;
 				};
 		}
 	};

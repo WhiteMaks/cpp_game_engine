@@ -62,13 +62,13 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_DEBUG("Initialization 2D renderer completed");
 	}
 
-	void Renderer2D::BeginScene(OrthographicCamera& camera) noexcept
+	void Renderer2D::BeginScene(Camera& camera) noexcept
 	{
 		data.shaderProgram->Bind();
 		data.vertexArrayBuffer->Bind();
 
 		data.shaderProgram->SetUniformMat4("u_ViewProjectionMatrix", camera.GetViewProjectionMatrix());
-		
+
 		ResetBatchData();
 	}
 

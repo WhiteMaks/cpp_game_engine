@@ -9,13 +9,8 @@ private:
 	std::shared_ptr<GraphicsEngine::FrameBuffer> frameBuffer;
 
 	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetTinyTown;
-	std::shared_ptr<GraphicsEngine::Sprite> spriteTest;
-
-	std::shared_ptr<GameEngine::OrthographicCameraController> cameraController;
 
 	std::shared_ptr<ECS::Scene> scene;
-
-	ECS::Entity entity;
 
 public:
 	TestLayer() noexcept;
@@ -31,7 +26,6 @@ public:
 
 private:
 	void CreateFrameBuffer() noexcept;
-	void CreateCameraController() noexcept;
 	void CreateTextures() noexcept;
 	void CreateScene() noexcept;
 

@@ -7,7 +7,6 @@
 #include "Core/GraphicsEngine/Renderer/Renderer.h"
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 #include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
-#include "Core/GraphicsEngine/Renderer/OrthographicCamera.h"
 
 #include "Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h"
 

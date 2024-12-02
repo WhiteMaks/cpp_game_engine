@@ -8,7 +8,6 @@ namespace ECS
 
 	struct GAME_ENGINE_API QuadComponent : public Component
 	{
-		std::string name = "quad";
 	};
 
 }

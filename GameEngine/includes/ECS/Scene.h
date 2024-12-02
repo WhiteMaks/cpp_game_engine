@@ -14,6 +14,7 @@ namespace ECS
 {
 
 	class Entity;
+	class CppScriptComponent;
 
 	class GAME_ENGINE_API Scene
 	{
@@ -47,6 +48,8 @@ namespace ECS
 
 		void UpdateCameraSystem() noexcept;
 		void UpdateScriptSystem() noexcept;
+
+		void InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept;
 
 		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};

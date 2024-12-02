@@ -81,6 +81,7 @@ void TestLayer::CreateScene() noexcept
 	cameraEntity.AddComponent<ECS::CppScriptComponent>().Bind<CameraController>();
 
 	ECS::Entity entity = scene->CreateEntity("test");
+	entity.AddComponent<ECS::QuadComponent>();
 	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
 	spriteComponent.sprite = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
 }

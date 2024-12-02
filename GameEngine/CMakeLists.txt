@@ -60,6 +60,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/SpriteComponent.h
 	includes/ECS/Components/CameraComponent.h
 	includes/ECS/Components/CppScriptComponent.h
+	includes/ECS/Components/QuadComponent.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h

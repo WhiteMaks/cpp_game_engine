@@ -9,6 +9,7 @@
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/CppScriptComponent.h"
+#include "ECS/Components/QuadComponent.h"
 #include "ECS/Entity.h"
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
 
@@ -35,12 +36,7 @@ namespace ECS
 			}
 
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
-			if (!cppScriptComponent.instance)
-			{
-				cppScriptComponent.instance = cppScriptComponent.InitScript();
-				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.instance->Init();
-			}
+			InitCppScriptComponentIfNeed(cppScriptComponent, entity);
 
 			cppScriptComponent.instance->MouseEvent(mouseEvent);
 		}
@@ -57,12 +53,7 @@ namespace ECS
 			}
 
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
-			if (!cppScriptComponent.instance)
-			{
-				cppScriptComponent.instance = cppScriptComponent.InitScript();
-				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.instance->Init();
-			}
+			InitCppScriptComponentIfNeed(cppScriptComponent, entity);
 
 			cppScriptComponent.instance->KeyboardEvent(keyboardEvent);
 		}
@@ -79,12 +70,7 @@ namespace ECS
 			}
 
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
-			if (!cppScriptComponent.instance)
-			{
-				cppScriptComponent.instance = cppScriptComponent.InitScript();
-				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.instance->Init();
-			}
+			InitCppScriptComponentIfNeed(cppScriptComponent, entity);
 
 			cppScriptComponent.instance->WindowEvent(windowEvent);
 		}
@@ -150,7 +136,7 @@ namespace ECS
 
 	void Scene::RenderColorQuads() noexcept
 	{
-		auto view = registry.view<TransformComponent, ColorComponent>();
+		auto view = registry.view<QuadComponent, TransformComponent, ColorComponent>();
 		for (auto entity : view)
 		{
 			auto [transformComponent, colorComponent] = view.get<TransformComponent, ColorComponent>(entity);
@@ -160,7 +146,7 @@ namespace ECS
 
 	void Scene::RenderTextureQuads() noexcept
 	{
-		auto view = registry.view<TransformComponent, TextureComponent>();
+		auto view = registry.view<QuadComponent, TransformComponent, TextureComponent>();
 		for (auto entity : view)
 		{
 			auto [transformComponent, textureComponent] = view.get<TransformComponent, TextureComponent>(entity);
@@ -170,7 +156,7 @@ namespace ECS
 
 	void Scene::RenderSpriteQuads() noexcept
 	{
-		auto view = registry.view<TransformComponent, SpriteComponent>();
+		auto view = registry.view<QuadComponent, TransformComponent, SpriteComponent>();
 		for (auto entity : view)
 		{
 			auto [transformComponent, spriteComponent] = view.get<TransformComponent, SpriteComponent>(entity);
@@ -204,14 +190,19 @@ namespace ECS
 		for (auto entity : group)
 		{
 			auto& cppScriptComponent = group.get<CppScriptComponent>(entity);
-			if (!cppScriptComponent.instance)
-			{
-				cppScriptComponent.instance = cppScriptComponent.InitScript();
-				cppScriptComponent.instance->entity = Entity(entity, this, "");
-				cppScriptComponent.instance->Init();
-			}
+			InitCppScriptComponentIfNeed(cppScriptComponent, entity);
 
 			cppScriptComponent.instance->Update();
+		}
+	}
+
+	void Scene::InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept
+	{
+		if (!cppScriptComponent.instance)
+		{
+			cppScriptComponent.instance = cppScriptComponent.InitScript();
+			cppScriptComponent.instance->entity = Entity(handle, this, "");
+			cppScriptComponent.instance->Init();
 		}
 	}
 

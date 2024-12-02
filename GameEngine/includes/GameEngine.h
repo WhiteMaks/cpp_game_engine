@@ -18,6 +18,7 @@
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/CppScriptComponent.h"
+#include "ECS/Components/QuadComponent.h"
 
 #include "Math/Vector.h"
 #include "Math/Vector2.h"

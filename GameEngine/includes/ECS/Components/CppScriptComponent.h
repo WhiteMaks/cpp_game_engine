@@ -15,8 +15,8 @@ namespace ECS
 	{
 		ScriptableEntity* instance = nullptr;
 
-		ScriptableEntity* (*InitScript)();
-		void (*DestroyScript)(CppScriptComponent*);
+		ScriptableEntity* (*InitScript)() = nullptr;
+		void (*DestroyScript)(CppScriptComponent*) = nullptr;
 
 		template<typename T>
 		void Bind() noexcept

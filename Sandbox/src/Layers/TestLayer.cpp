@@ -2,6 +2,7 @@
 
 #include "Renderer/FixedFullScreenTextureRenderer.h"
 #include "Scripts/CameraController.h"
+#include "Scripts/Rotation.h"
 
 TestLayer::TestLayer() noexcept
 	: Layer("Test layer")
@@ -82,6 +83,8 @@ void TestLayer::CreateScene() noexcept
 
 	ECS::Entity entity = scene->CreateEntity("test");
 	entity.AddComponent<ECS::QuadComponent>();
+	entity.AddComponent<ECS::CppScriptComponent>().Bind<Rotation>();
+
 	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
 	spriteComponent.sprite = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
 }

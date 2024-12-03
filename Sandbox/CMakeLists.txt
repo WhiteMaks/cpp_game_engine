@@ -10,6 +10,7 @@ set(SANDBOX_SOURCES
 	src/Renderer/FixedFullScreenTextureRenderer.cpp
 
     src/Scripts/CameraController.cpp
+    src/Scripts/Rotation.cpp
 )
 
 set(SANDBOX_INCLUDES
@@ -18,6 +19,7 @@ set(SANDBOX_INCLUDES
     includes/Renderer/FixedFullScreenTextureRenderer.h
 
     includes/Scripts/CameraController.h
+    includes/Scripts/Rotation.h
 )
 
 set(SANDBOX_TEXTURES

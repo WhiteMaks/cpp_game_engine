@@ -37,7 +37,7 @@ namespace ECS
 		void Render() noexcept;
 		void Destroy() noexcept;
 
-		void DestroyEntity(Entity entity) noexcept;
+		void RemoveEntity(Entity entity) noexcept;
 
 		Entity CreateEntity(const std::string& name) noexcept;
 

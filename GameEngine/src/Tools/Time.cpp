@@ -8,10 +8,12 @@ namespace GameEngine
 
 	double Time::time = 0.0f;
 	double Time::deltaTime = 0.0f;
+	double Time::startTime = 0.0f;
 
 	void Time::Init() noexcept
 	{
-		time = GetTime();
+		startTime = GetTime();
+		time = startTime;
 	}
 
 	void Time::Update() noexcept
@@ -36,6 +38,11 @@ namespace GameEngine
 	double Time::GetDeltaTime() noexcept
 	{
 		return deltaTime;
+	}
+
+	double Time::GetUptimeSeconds() noexcept
+	{
+		return GetSeconds() - (startTime / 1000000000.0);
 	}
 
 	double Time::GetTime() noexcept

@@ -201,7 +201,7 @@ namespace ECS
 		if (!cppScriptComponent.instance)
 		{
 			cppScriptComponent.instance = cppScriptComponent.InitScript();
-			cppScriptComponent.instance->entity = Entity(handle, this, "");
+			cppScriptComponent.instance->entity = Entity(handle, this, "Script Entity");
 			cppScriptComponent.instance->Init();
 		}
 	}
@@ -222,10 +222,25 @@ namespace ECS
 		return nullptr;
 	}
 
-	void Scene::DestroyEntity(Entity entity) noexcept
+	void Scene::RemoveEntity(Entity entity) noexcept
 	{
+		if (entity.HasComponent<CppScriptComponent>())
+		{
+			auto cppScriptComponent = entity.GetComponent<CppScriptComponent>();
+			if (cppScriptComponent.instance)
+			{
+				cppScriptComponent.instance->Destroy();
+			}
+
+			cppScriptComponent.DestroyScript(&cppScriptComponent);
+		}
+
 		entities.erase(entity.GetName());
-		registry.destroy(entity);
+		
+		if (registry.valid(entity))
+		{
+			registry.destroy(entity);
+		}
 	}
 
 }

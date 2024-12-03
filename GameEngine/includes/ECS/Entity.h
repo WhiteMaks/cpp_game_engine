@@ -30,6 +30,7 @@ namespace ECS
 		T& AddComponent(Args&&... args) noexcept
 		{
 			T& result = scene->registry.emplace<T>(handle, std::forward<Args>(args)...);
+			scene->OnComponentAdded<T>(*this, result);
 			return result;
 		}
 
@@ -48,6 +49,7 @@ namespace ECS
 		template<typename T>
 		void RemoveComponent()
 		{
+			scene->OnComponentRemoved<T>(*this, GetComponent<T>());
 			scene->registry.remove<T>(handle);
 		}
 

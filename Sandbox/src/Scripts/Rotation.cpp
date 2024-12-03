@@ -8,7 +8,7 @@ void Rotation::Init() noexcept
 
 void Rotation::Update() noexcept
 {
-	transformComponent->rotation.z += 0.005;
+	transformComponent->rotation.z += 25 * GameEngine::Time::GetDeltaTime();
 }
 
 void Rotation::Destroy() noexcept

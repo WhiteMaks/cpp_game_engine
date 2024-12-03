@@ -10,6 +10,13 @@
 #include "EventsSystem/WindowEvent.h"
 #include "EventsSystem/MouseEvent.h"
 
+#include "ECS/Components/TransformComponent.h"
+#include "ECS/Components/ColorComponent.h"
+#include "ECS/Components/TextureComponent.h"
+#include "ECS/Components/SpriteComponent.h"
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/QuadComponent.h"
+
 namespace ECS
 {
 
@@ -48,6 +55,40 @@ namespace ECS
 
 		void UpdateCameraSystem() noexcept;
 		void UpdateScriptSystem() noexcept;
+
+		template<typename T>
+		void OnComponentAdded(Entity entity, T& componet) noexcept;
+		template<>
+		void OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<ColorComponent>(Entity entity, ColorComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<TextureComponent>(Entity entity, TextureComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept;
+		template<>
+		void OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& componet) noexcept;
+		
+		template<typename T>
+		void OnComponentRemoved(Entity entity, T& componet) noexcept;
+		template<>
+		void OnComponentRemoved<QuadComponent>(Entity entity, QuadComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<TransformComponent>(Entity entity, TransformComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<ColorComponent>(Entity entity, ColorComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<TextureComponent>(Entity entity, TextureComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept;
+		template<>
+		void OnComponentRemoved<CameraComponent>(Entity entity, CameraComponent& componet) noexcept;
 
 		void InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept;
 

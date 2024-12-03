@@ -3,15 +3,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Tools/Log.h"
-#include "ECS/Components/TransformComponent.h"
-#include "ECS/Components/ColorComponent.h"
-#include "ECS/Components/TextureComponent.h"
-#include "ECS/Components/SpriteComponent.h"
-#include "ECS/Components/CameraComponent.h"
-#include "ECS/Components/CppScriptComponent.h"
-#include "ECS/Components/QuadComponent.h"
 #include "ECS/Entity.h"
 #include "Core/GraphicsEngine/Renderer/Renderer2D.h"
+
+#include "ECS/Components/CppScriptComponent.h"
 
 namespace ECS
 {
@@ -241,6 +236,88 @@ namespace ECS
 		{
 			registry.destroy(entity);
 		}
+	}
+
+	template<typename T>
+	void Scene::OnComponentAdded(Entity entity, T& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded(Entity entity, ColorComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded(Entity entity, TextureComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept
+	{
+	}
+
+	template<typename T>
+	void Scene::OnComponentRemoved(Entity entity, T& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, QuadComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, TransformComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, ColorComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, TextureComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, CppScriptComponent& componet) noexcept
+	{
+		componet.instance->Destroy();
+		componet.DestroyScript(&componet);
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, SpriteComponent& componet) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, CameraComponent& componet) noexcept
+	{
 	}
 
 }

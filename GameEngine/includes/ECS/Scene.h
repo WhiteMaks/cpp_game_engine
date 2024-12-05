@@ -17,6 +17,11 @@
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/QuadComponent.h"
 
+namespace YAML
+{
+	class Emitter;
+}
+
 namespace ECS
 {
 
@@ -27,8 +32,6 @@ namespace ECS
 	{
 	private:
 		entt::registry registry;
-
-		std::unordered_map<std::string, entt::entity> entities;
 
 		friend class Entity;
 
@@ -43,6 +46,9 @@ namespace ECS
 		void Update() noexcept;
 		void Render() noexcept;
 		void Destroy() noexcept;
+
+		void SaveInYaml(const std::string& filePath) noexcept;
+		void LoadFromYaml(const std::string& filePath) noexcept;
 
 		void RemoveEntity(Entity entity) noexcept;
 
@@ -91,6 +97,8 @@ namespace ECS
 		void OnComponentRemoved<CameraComponent>(Entity entity, CameraComponent& componet) noexcept;
 
 		void InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept;
+
+		void SaveEntityInYaml(YAML::Emitter& yamlData, Entity entity) noexcept;
 
 		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};

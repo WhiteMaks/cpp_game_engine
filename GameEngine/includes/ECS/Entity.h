@@ -12,13 +12,12 @@ namespace ECS
 	class GAME_ENGINE_API Entity
 	{
 	private:
-		std::string name;
 		entt::entity handle;
 		Scene* scene;
 
 	public:
 		Entity() noexcept;
-		Entity(entt::entity handle, Scene* scene, const std::string& name) noexcept;
+		Entity(entt::entity handle, Scene* scene) noexcept;
 
 		virtual ~Entity() = default;
 
@@ -53,7 +52,6 @@ namespace ECS
 			scene->registry.remove<T>(handle);
 		}
 
-		const std::string& GetName() noexcept;
 	};
 
 }

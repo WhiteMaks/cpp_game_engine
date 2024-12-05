@@ -268,6 +268,9 @@ target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE glad)
 add_subdirectory(./vendor/stb ${CMAKE_CURRENT_BINARY_DIR}/stb)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE stb)
 
+add_subdirectory(./vendor/yaml ${CMAKE_CURRENT_BINARY_DIR}/yaml)
+target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
+
 add_subdirectory(./vendor/entt ${CMAKE_CURRENT_BINARY_DIR}/entt)
 target_link_libraries(${GAME_ENGINE_PROJECT_NAME} PUBLIC EnTT)
 

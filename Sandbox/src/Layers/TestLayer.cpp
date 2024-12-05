@@ -50,6 +50,7 @@ void TestLayer::Render() noexcept
 
 void TestLayer::Destroy() noexcept
 {
+	scene->SaveInYaml("data/scenes/Test.cpge");
 	scene->Destroy();
 	frameBuffer->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();

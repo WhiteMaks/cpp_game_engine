@@ -1,6 +1,10 @@
 #include "ECS/Scene.h"
 
+#include <fstream>
+#include <filesystem>
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <yaml-cpp/yaml.h>
 
 #include "Tools/Log.h"
 #include "ECS/Entity.h"
@@ -107,24 +111,55 @@ namespace ECS
 			cppScriptComponent.DestroyScript(&cppScriptComponent);
 		}
 
-		for (const auto& [key, value] : entities)
+		for (auto entity : registry.view<entt::entity>())
 		{
-			registry.destroy(value);
+			registry.destroy(entity);
+		}
+	}
+
+	void Scene::SaveInYaml(const std::string& filePath) noexcept
+	{
+		YAML::Emitter yamlData;
+		
+		yamlData << YAML::BeginMap;
+		
+		yamlData << YAML::Key << "Scene";
+		yamlData << YAML::Value << "Test name scene";
+
+		yamlData << YAML::Key << "Entities";
+		yamlData << YAML::Value << YAML::BeginSeq;
+		for (auto entity : registry.view<entt::entity>())
+		{
+			SaveEntityInYaml(yamlData, Entity(entity, this));
+		}
+		yamlData << YAML::Value << YAML::EndSeq;
+
+		yamlData << YAML::EndMap;
+
+		std::filesystem::path path(filePath);
+		std::filesystem::path directory = path.parent_path();
+		if (!directory.empty() && !std::filesystem::exists(directory))
+		{
+			std::filesystem::create_directories(directory);
 		}
 
-		entities.clear();
+		std::ofstream yamlFile(filePath);
+		yamlFile << yamlData.c_str();
+		yamlFile.close();
+	}
+
+	void Scene::LoadFromYaml(const std::string& filePath) noexcept
+	{
 	}
 
 	Entity Scene::CreateEntity(const std::string& name) noexcept
 	{
-		Entity result(registry.create(), this, name);
+		Entity result(registry.create(), this);
 
 		TransformComponent& transform = result.AddComponent<TransformComponent>();
 		transform.position = Math::Vector3();
 		transform.rotation = Math::Vector3();
 		transform.scale = Math::Vector3(1.0f);
-
-		entities[name] = result;
 
 		return result;
 	}
@@ -196,7 +231,7 @@ namespace ECS
 		if (!cppScriptComponent.instance)
 		{
 			cppScriptComponent.instance = cppScriptComponent.InitScript();
-			cppScriptComponent.instance->entity = Entity(handle, this, "Script Entity");
+			cppScriptComponent.instance->entity = Entity(handle, this);
 			cppScriptComponent.instance->Init();
 		}
 	}
@@ -229,8 +264,6 @@ namespace ECS
 
 			cppScriptComponent.DestroyScript(&cppScriptComponent);
 		}
-
-		entities.erase(entity.GetName());
 		
 		if (registry.valid(entity))
 		{
@@ -318,6 +351,62 @@ namespace ECS
 	template<>
 	void Scene::OnComponentRemoved(Entity entity, CameraComponent& componet) noexcept
 	{
+	}
+
+	void Scene::SaveEntityInYaml(YAML::Emitter& yamlData, Entity entity) noexcept
+	{
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "ID";
+		yamlData << YAML::Value << "Test entity id";
+
+		if (entity.HasComponent<TransformComponent>())
+		{
+			auto& transformComponent = entity.GetComponent<TransformComponent>();
+
+			yamlData << YAML::Key << "TransformComponent";
+			yamlData << YAML::BeginMap;
+
+			yamlData << YAML::Key << "Position";
+			yamlData << YAML::BeginMap;
+
+			yamlData << YAML::Key << "X";
+			yamlData << YAML::Value << transformComponent.position.x;
+			yamlData << YAML::Key << "Y";
+			yamlData << YAML::Value << transformComponent.position.y;
+			yamlData << YAML::Key << "Z";
+			yamlData << YAML::Value << transformComponent.position.z;
+
+			yamlData << YAML::EndMap;
+
+			yamlData << YAML::Key << "Rotation";
+			yamlData << YAML::BeginMap;
+
+			yamlData << YAML::Key << "X";
+			yamlData << YAML::Value << transformComponent.rotation.x;
+			yamlData << YAML::Key << "Y";
+			yamlData << YAML::Value << transformComponent.rotation.y;
+			yamlData << YAML::Key << "Z";
+			yamlData << YAML::Value << transformComponent.rotation.z;
+
+			yamlData << YAML::EndMap;
+
+			yamlData << YAML::Key << "Scale";
+			yamlData << YAML::BeginMap;
+
+			yamlData << YAML::Key << "X";
+			yamlData << YAML::Value << transformComponent.scale.x;
+			yamlData << YAML::Key << "Y";
+			yamlData << YAML::Value << transformComponent.scale.y;
+			yamlData << YAML::Key << "Z";
+			yamlData << YAML::Value << transformComponent.scale.z;
+
+			yamlData << YAML::EndMap;
+
+			yamlData << YAML::EndMap;
+		}
+
+		yamlData << YAML::EndMap;
 	}
 
 }

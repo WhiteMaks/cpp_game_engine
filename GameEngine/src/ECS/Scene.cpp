@@ -123,10 +123,10 @@ namespace ECS
 		
 		yamlData << YAML::BeginMap;
 		
-		yamlData << YAML::Key << "Scene";
+		yamlData << YAML::Key << "name";
 		yamlData << YAML::Value << "Test name scene";
 
-		yamlData << YAML::Key << "Entities";
+		yamlData << YAML::Key << "entities";
 		yamlData << YAML::Value << YAML::BeginSeq;
 		for (auto entity : registry.view<entt::entity>())
 		{
@@ -272,84 +272,84 @@ namespace ECS
 	}
 
 	template<typename T>
-	void Scene::OnComponentAdded(Entity entity, T& componet) noexcept
+	void Scene::OnComponentAdded(Entity entity, T& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& componet) noexcept
+	void Scene::OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& componet) noexcept
+	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded(Entity entity, ColorComponent& componet) noexcept
+	void Scene::OnComponentAdded(Entity entity, ColorComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded(Entity entity, TextureComponent& componet) noexcept
+	void Scene::OnComponentAdded(Entity entity, TextureComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept
+	void Scene::OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& componet) noexcept
+	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept
+	void Scene::OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& component) noexcept
 	{
 	}
 
 	template<typename T>
-	void Scene::OnComponentRemoved(Entity entity, T& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, T& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, QuadComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, QuadComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, TransformComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, TransformComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, ColorComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, ColorComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, TextureComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, TextureComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, CppScriptComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, CppScriptComponent& component) noexcept
 	{
-		componet.instance->Destroy();
-		componet.DestroyScript(&componet);
+		component.instance->Destroy();
+		component.DestroyScript(&component);
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, SpriteComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, SpriteComponent& component) noexcept
 	{
 	}
 
 	template<>
-	void Scene::OnComponentRemoved(Entity entity, CameraComponent& componet) noexcept
+	void Scene::OnComponentRemoved(Entity entity, CameraComponent& component) noexcept
 	{
 	}
 
@@ -357,54 +357,64 @@ namespace ECS
 	{
 		yamlData << YAML::BeginMap;
 
-		yamlData << YAML::Key << "ID";
+		yamlData << YAML::Key << "id";
 		yamlData << YAML::Value << "Test entity id";
 
 		if (entity.HasComponent<TransformComponent>())
 		{
-			auto& transformComponent = entity.GetComponent<TransformComponent>();
-
-			yamlData << YAML::Key << "TransformComponent";
-			yamlData << YAML::BeginMap;
-
-			yamlData << YAML::Key << "Position";
-			yamlData << YAML::BeginMap;
-
-			yamlData << YAML::Key << "X";
-			yamlData << YAML::Value << transformComponent.position.x;
-			yamlData << YAML::Key << "Y";
-			yamlData << YAML::Value << transformComponent.position.y;
-			yamlData << YAML::Key << "Z";
-			yamlData << YAML::Value << transformComponent.position.z;
-
-			yamlData << YAML::EndMap;
-
-			yamlData << YAML::Key << "Rotation";
-			yamlData << YAML::BeginMap;
-
-			yamlData << YAML::Key << "X";
-			yamlData << YAML::Value << transformComponent.rotation.x;
-			yamlData << YAML::Key << "Y";
-			yamlData << YAML::Value << transformComponent.rotation.y;
-			yamlData << YAML::Key << "Z";
-			yamlData << YAML::Value << transformComponent.rotation.z;
-
-			yamlData << YAML::EndMap;
-
-			yamlData << YAML::Key << "Scale";
-			yamlData << YAML::BeginMap;
-
-			yamlData << YAML::Key << "X";
-			yamlData << YAML::Value << transformComponent.scale.x;
-			yamlData << YAML::Key << "Y";
-			yamlData << YAML::Value << transformComponent.scale.y;
-			yamlData << YAML::Key << "Z";
-			yamlData << YAML::Value << transformComponent.scale.z;
-
-			yamlData << YAML::EndMap;
-
-			yamlData << YAML::EndMap;
+			SaveComponentInYaml(yamlData, entity.GetComponent<TransformComponent>());
 		}
+
+		yamlData << YAML::EndMap;
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, QuadComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, TransformComponent& component) noexcept
+	{
+		yamlData << YAML::Key << "transform_component";
+		yamlData << YAML::BeginMap;
+
+		SaveVectorInYaml(yamlData, "position", component.position);
+		SaveVectorInYaml(yamlData, "rotation", component.rotation);
+		SaveVectorInYaml(yamlData, "scale", component.scale);
+
+		yamlData << YAML::EndMap;
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, ColorComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, TextureComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, CppScriptComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, SpriteComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, CameraComponent& component) noexcept
+	{
+	}
+
+	void Scene::SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector3 vector) noexcept
+	{
+		yamlData << YAML::Key << key;
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "x";
+		yamlData << YAML::Value << vector.x;
+		yamlData << YAML::Key << "y";
+		yamlData << YAML::Value << vector.y;
+		yamlData << YAML::Key << "z";
+		yamlData << YAML::Value << vector.z;
 
 		yamlData << YAML::EndMap;
 	}

@@ -63,42 +63,52 @@ namespace ECS
 		void UpdateScriptSystem() noexcept;
 
 		template<typename T>
-		void OnComponentAdded(Entity entity, T& componet) noexcept;
+		void OnComponentAdded(Entity entity, T& component) noexcept;
 		template<>
-		void OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& componet) noexcept;
+		void OnComponentAdded<QuadComponent>(Entity entity, QuadComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& componet) noexcept;
+		void OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<ColorComponent>(Entity entity, ColorComponent& componet) noexcept;
+		void OnComponentAdded<ColorComponent>(Entity entity, ColorComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<TextureComponent>(Entity entity, TextureComponent& componet) noexcept;
+		void OnComponentAdded<TextureComponent>(Entity entity, TextureComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept;
+		void OnComponentAdded<CppScriptComponent>(Entity entity, CppScriptComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept;
+		void OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& component) noexcept;
 		template<>
-		void OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& componet) noexcept;
+		void OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component) noexcept;
 		
 		template<typename T>
-		void OnComponentRemoved(Entity entity, T& componet) noexcept;
+		void OnComponentRemoved(Entity entity, T& component) noexcept;
 		template<>
-		void OnComponentRemoved<QuadComponent>(Entity entity, QuadComponent& componet) noexcept;
+		void OnComponentRemoved<QuadComponent>(Entity entity, QuadComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<TransformComponent>(Entity entity, TransformComponent& componet) noexcept;
+		void OnComponentRemoved<TransformComponent>(Entity entity, TransformComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<ColorComponent>(Entity entity, ColorComponent& componet) noexcept;
+		void OnComponentRemoved<ColorComponent>(Entity entity, ColorComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<TextureComponent>(Entity entity, TextureComponent& componet) noexcept;
+		void OnComponentRemoved<TextureComponent>(Entity entity, TextureComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<CppScriptComponent>(Entity entity, CppScriptComponent& componet) noexcept;
+		void OnComponentRemoved<CppScriptComponent>(Entity entity, CppScriptComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<SpriteComponent>(Entity entity, SpriteComponent& componet) noexcept;
+		void OnComponentRemoved<SpriteComponent>(Entity entity, SpriteComponent& component) noexcept;
 		template<>
-		void OnComponentRemoved<CameraComponent>(Entity entity, CameraComponent& componet) noexcept;
+		void OnComponentRemoved<CameraComponent>(Entity entity, CameraComponent& component) noexcept;
 
 		void InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept;
 
 		void SaveEntityInYaml(YAML::Emitter& yamlData, Entity entity) noexcept;
+
+		void SaveComponentInYaml(YAML::Emitter& yamlData, QuadComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, TransformComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, ColorComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, TextureComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, CppScriptComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, SpriteComponent& component) noexcept;
+		void SaveComponentInYaml(YAML::Emitter& yamlData, CameraComponent& component) noexcept;
+
+		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector3 vector) noexcept;
 
 		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};

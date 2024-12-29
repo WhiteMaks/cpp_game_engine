@@ -123,18 +123,16 @@ namespace ECS
 		YAML::Emitter yamlData;
 		
 		yamlData << YAML::BeginMap;
-		
-		yamlData << YAML::Key << "name";
-		yamlData << YAML::Value << name;
+			yamlData << YAML::Key << "name";
+			yamlData << YAML::Value << name;
 
-		yamlData << YAML::Key << "entities";
-		yamlData << YAML::Value << YAML::BeginSeq;
-		for (auto entity : registry.view<entt::entity>())
-		{
-			SaveEntityInYaml(yamlData, Entity(entity, this));
-		}
-		yamlData << YAML::Value << YAML::EndSeq;
-
+			yamlData << YAML::Key << "entities";
+			yamlData << YAML::Value << YAML::BeginSeq;
+				for (auto entity : registry.view<entt::entity>())
+				{
+					SaveEntityInYaml(yamlData, Entity(entity, this));
+				}
+			yamlData << YAML::Value << YAML::EndSeq;
 		yamlData << YAML::EndMap;
 
 		std::filesystem::path path(filePath + name + ".cpge");
@@ -357,45 +355,43 @@ namespace ECS
 	void Scene::SaveEntityInYaml(YAML::Emitter& yamlData, Entity entity) noexcept
 	{
 		yamlData << YAML::BeginMap;
+			yamlData << YAML::Key << "id";
+			yamlData << YAML::Value << "123abc";
 
-		yamlData << YAML::Key << "id";
-		yamlData << YAML::Value << "123abc";
+			if (entity.HasComponent<QuadComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<QuadComponent>());
+			}
 
-		if (entity.HasComponent<QuadComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<QuadComponent>());
-		}
+			if (entity.HasComponent<TransformComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<TransformComponent>());
+			}
 
-		if (entity.HasComponent<TransformComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<TransformComponent>());
-		}
+			if (entity.HasComponent<ColorComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<ColorComponent>());
+			}
 
-		if (entity.HasComponent<ColorComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<ColorComponent>());
-		}
+			if (entity.HasComponent<TextureComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<TextureComponent>());
+			}
 
-		if (entity.HasComponent<TextureComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<TextureComponent>());
-		}
+			if (entity.HasComponent<SpriteComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<SpriteComponent>());
+			}
 
-		if (entity.HasComponent<SpriteComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<SpriteComponent>());
-		}
+			if (entity.HasComponent<CameraComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<CameraComponent>());
+			}
 
-		if (entity.HasComponent<CameraComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<CameraComponent>());
-		}
-
-		if (entity.HasComponent<CppScriptComponent>())
-		{
-			SaveComponentInYaml(yamlData, entity.GetComponent<CppScriptComponent>());
-		}
-
+			if (entity.HasComponent<CppScriptComponent>())
+			{
+				SaveComponentInYaml(yamlData, entity.GetComponent<CppScriptComponent>());
+			}
 		yamlData << YAML::EndMap;
 	}
 
@@ -409,11 +405,9 @@ namespace ECS
 	{
 		yamlData << YAML::Key << "transform_component";
 		yamlData << YAML::BeginMap;
-
-		SaveVectorInYaml(yamlData, "position", component.position);
-		SaveVectorInYaml(yamlData, "rotation", component.rotation);
-		SaveVectorInYaml(yamlData, "scale", component.scale);
-
+			SaveVectorInYaml(yamlData, "position", component.position);
+			SaveVectorInYaml(yamlData, "rotation", component.rotation);
+			SaveVectorInYaml(yamlData, "scale", component.scale);
 		yamlData << YAML::EndMap;
 	}
 
@@ -421,9 +415,7 @@ namespace ECS
 	{
 		yamlData << YAML::Key << "color_component";
 		yamlData << YAML::BeginMap;
-
-		SaveVectorInYaml(yamlData, "color", component.color);
-
+			SaveVectorInYaml(yamlData, "color", component.color);
 		yamlData << YAML::EndMap;
 	}
 
@@ -447,25 +439,19 @@ namespace ECS
 	{
 		yamlData << YAML::Key << "sprite_component";
 		yamlData << YAML::BeginMap;
+			yamlData << YAML::Key << "texture";
+			yamlData << YAML::BeginMap;
+				yamlData << YAML::Key << "path";
+				yamlData << YAML::Value << component.sprite->GetTexture()->GetPath();
 
-		yamlData << YAML::Key << "texture";
-		yamlData << YAML::BeginMap;
-
-		yamlData << YAML::Key << "path";
-		yamlData << YAML::Value << component.sprite->GetTexture()->GetPath();
-
-		yamlData << YAML::Key << "coordinate";
-		yamlData << YAML::Value << YAML::BeginMap;
-
-		SaveVectorInYaml(yamlData, "left_bottom", component.sprite->GetTextureCoordinates()[0]);
-		SaveVectorInYaml(yamlData, "right_bottom", component.sprite->GetTextureCoordinates()[1]);
-		SaveVectorInYaml(yamlData, "right_top", component.sprite->GetTextureCoordinates()[2]);
-		SaveVectorInYaml(yamlData, "left_top", component.sprite->GetTextureCoordinates()[3]);
-
-		yamlData << YAML::Value << YAML::EndMap;
-
-		yamlData << YAML::EndMap;
-
+				yamlData << YAML::Key << "coordinate";
+				yamlData << YAML::Value << YAML::BeginMap;
+					SaveVectorInYaml(yamlData, "left_bottom", component.sprite->GetTextureCoordinates()[0]);
+					SaveVectorInYaml(yamlData, "right_bottom", component.sprite->GetTextureCoordinates()[1]);
+					SaveVectorInYaml(yamlData, "right_top", component.sprite->GetTextureCoordinates()[2]);
+					SaveVectorInYaml(yamlData, "left_top", component.sprite->GetTextureCoordinates()[3]);
+				yamlData << YAML::Value << YAML::EndMap;
+			yamlData << YAML::EndMap;
 		yamlData << YAML::EndMap;
 	}
 
@@ -473,10 +459,8 @@ namespace ECS
 	{
 		yamlData << YAML::Key << "camera_component";
 		yamlData << YAML::BeginMap;
-
-		yamlData << YAML::Key << "primary";
-		yamlData << YAML::Value << component.primary;
-
+			yamlData << YAML::Key << "primary";
+			yamlData << YAML::Value << component.primary;
 		yamlData << YAML::EndMap;
 	}
 
@@ -484,12 +468,11 @@ namespace ECS
 	{
 		yamlData << YAML::Key << key;
 		yamlData << YAML::BeginMap;
+			yamlData << YAML::Key << "x";
+			yamlData << YAML::Value << vector.x;
 
-		yamlData << YAML::Key << "x";
-		yamlData << YAML::Value << vector.x;
-		yamlData << YAML::Key << "y";
-		yamlData << YAML::Value << vector.y;
-
+			yamlData << YAML::Key << "y";
+			yamlData << YAML::Value << vector.y;
 		yamlData << YAML::EndMap;
 	}
 
@@ -497,14 +480,14 @@ namespace ECS
 	{
 		yamlData << YAML::Key << key;
 		yamlData << YAML::BeginMap;
+			yamlData << YAML::Key << "x";
+			yamlData << YAML::Value << vector.x;
 
-		yamlData << YAML::Key << "x";
-		yamlData << YAML::Value << vector.x;
-		yamlData << YAML::Key << "y";
-		yamlData << YAML::Value << vector.y;
-		yamlData << YAML::Key << "z";
-		yamlData << YAML::Value << vector.z;
+			yamlData << YAML::Key << "y";
+			yamlData << YAML::Value << vector.y;
 
+			yamlData << YAML::Key << "z";
+			yamlData << YAML::Value << vector.z;
 		yamlData << YAML::EndMap;
 	}
 
@@ -512,16 +495,17 @@ namespace ECS
 	{
 		yamlData << YAML::Key << key;
 		yamlData << YAML::BeginMap;
+			yamlData << YAML::Key << "x";
+			yamlData << YAML::Value << vector.x;
 
-		yamlData << YAML::Key << "x";
-		yamlData << YAML::Value << vector.x;
-		yamlData << YAML::Key << "y";
-		yamlData << YAML::Value << vector.y;
-		yamlData << YAML::Key << "z";
-		yamlData << YAML::Value << vector.z;
-		yamlData << YAML::Key << "w";
-		yamlData << YAML::Value << vector.w;
+			yamlData << YAML::Key << "y";
+			yamlData << YAML::Value << vector.y;
 
+			yamlData << YAML::Key << "z";
+			yamlData << YAML::Value << vector.z;
+
+			yamlData << YAML::Key << "w";
+			yamlData << YAML::Value << vector.w;
 		yamlData << YAML::EndMap;
 	}
 

@@ -454,29 +454,17 @@ namespace ECS
 		yamlData << YAML::Key << "path";
 		yamlData << YAML::Value << component.sprite->GetTexture()->GetPath();
 
-		yamlData << YAML::Key << "coordinates";
-		yamlData << YAML::Value << YAML::BeginSeq;
+		yamlData << YAML::Key << "coordinate";
+		yamlData << YAML::Value << YAML::BeginMap;
 
-		yamlData << YAML::BeginMap;
-		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[0]);
-		yamlData << YAML::EndMap;
+		SaveVectorInYaml(yamlData, "left_bottom", component.sprite->GetTextureCoordinates()[0]);
+		SaveVectorInYaml(yamlData, "right_bottom", component.sprite->GetTextureCoordinates()[1]);
+		SaveVectorInYaml(yamlData, "right_top", component.sprite->GetTextureCoordinates()[2]);
+		SaveVectorInYaml(yamlData, "left_top", component.sprite->GetTextureCoordinates()[3]);
 
-		yamlData << YAML::BeginMap;
-		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[1]);
-		yamlData << YAML::EndMap;
-		
-		yamlData << YAML::BeginMap;
-		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[2]);
-		yamlData << YAML::EndMap;
-
-		yamlData << YAML::BeginMap;
-		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[3]);
-		yamlData << YAML::EndMap;
-
-		yamlData << YAML::Value << YAML::EndSeq;
+		yamlData << YAML::Value << YAML::EndMap;
 
 		yamlData << YAML::EndMap;
-
 
 		yamlData << YAML::EndMap;
 	}

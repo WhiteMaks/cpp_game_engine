@@ -429,18 +429,80 @@ namespace ECS
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, TextureComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "texture_component";
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::EndMap;
 	}
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, CppScriptComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "cpp_script_component";
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::EndMap;
 	}
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, SpriteComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "sprite_component";
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "texture";
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "path";
+		yamlData << YAML::Value << component.sprite->GetTexture()->GetPath();
+
+		yamlData << YAML::Key << "coordinates";
+		yamlData << YAML::Value << YAML::BeginSeq;
+
+		yamlData << YAML::BeginMap;
+		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[0]);
+		yamlData << YAML::EndMap;
+
+		yamlData << YAML::BeginMap;
+		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[1]);
+		yamlData << YAML::EndMap;
+		
+		yamlData << YAML::BeginMap;
+		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[2]);
+		yamlData << YAML::EndMap;
+
+		yamlData << YAML::BeginMap;
+		SaveVectorInYaml(yamlData, "vector2", component.sprite->GetTextureCoordinates()[3]);
+		yamlData << YAML::EndMap;
+
+		yamlData << YAML::Value << YAML::EndSeq;
+
+		yamlData << YAML::EndMap;
+
+
+		yamlData << YAML::EndMap;
 	}
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, CameraComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "camera_component";
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "primary";
+		yamlData << YAML::Value << component.primary;
+
+		yamlData << YAML::EndMap;
+	}
+
+	void Scene::SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector2 vector) noexcept
+	{
+		yamlData << YAML::Key << key;
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "x";
+		yamlData << YAML::Value << vector.x;
+		yamlData << YAML::Key << "y";
+		yamlData << YAML::Value << vector.y;
+
+		yamlData << YAML::EndMap;
 	}
 
 	void Scene::SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector3 vector) noexcept

@@ -109,6 +109,7 @@ namespace ECS
 		void SaveComponentInYaml(YAML::Emitter& yamlData, SpriteComponent& component) noexcept;
 		void SaveComponentInYaml(YAML::Emitter& yamlData, CameraComponent& component) noexcept;
 
+		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector2 vector) noexcept;
 		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector3 vector) noexcept;
 		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector4 vector) noexcept;
 

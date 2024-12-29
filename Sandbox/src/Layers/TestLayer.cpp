@@ -50,7 +50,7 @@ void TestLayer::Render() noexcept
 
 void TestLayer::Destroy() noexcept
 {
-	scene->SaveInYaml("data/scenes/Test.cpge");
+	scene->SaveInYaml("data/scenes/");
 	scene->Destroy();
 	frameBuffer->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();
@@ -75,7 +75,7 @@ void TestLayer::CreateTextures() noexcept
 
 void TestLayer::CreateScene() noexcept
 {
-	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene());
+	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene("sandbox"));
 	scene->Init();
 
 	ECS::Entity cameraEntity = scene->CreateEntity("Camera");

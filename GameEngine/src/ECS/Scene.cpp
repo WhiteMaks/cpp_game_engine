@@ -14,7 +14,8 @@
 
 namespace ECS
 {
-	Scene::Scene() noexcept
+	Scene::Scene(const std::string& name) noexcept
+		: name(name)
 	{
 		
 	}
@@ -124,7 +125,7 @@ namespace ECS
 		yamlData << YAML::BeginMap;
 		
 		yamlData << YAML::Key << "name";
-		yamlData << YAML::Value << "Test name scene";
+		yamlData << YAML::Value << name;
 
 		yamlData << YAML::Key << "entities";
 		yamlData << YAML::Value << YAML::BeginSeq;
@@ -136,14 +137,14 @@ namespace ECS
 
 		yamlData << YAML::EndMap;
 
-		std::filesystem::path path(filePath);
+		std::filesystem::path path(filePath + name + ".cpge");
 		std::filesystem::path directory = path.parent_path();
 		if (!directory.empty() && !std::filesystem::exists(directory))
 		{
 			std::filesystem::create_directories(directory);
 		}
 
-		std::ofstream yamlFile(filePath);
+		std::ofstream yamlFile(filePath + name + ".cpge");
 		yamlFile << yamlData.c_str();
 		yamlFile.close();
 	}
@@ -358,11 +359,41 @@ namespace ECS
 		yamlData << YAML::BeginMap;
 
 		yamlData << YAML::Key << "id";
-		yamlData << YAML::Value << "Test entity id";
+		yamlData << YAML::Value << "123abc";
+
+		if (entity.HasComponent<QuadComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<QuadComponent>());
+		}
 
 		if (entity.HasComponent<TransformComponent>())
 		{
 			SaveComponentInYaml(yamlData, entity.GetComponent<TransformComponent>());
+		}
+
+		if (entity.HasComponent<ColorComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<ColorComponent>());
+		}
+
+		if (entity.HasComponent<TextureComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<TextureComponent>());
+		}
+
+		if (entity.HasComponent<SpriteComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<SpriteComponent>());
+		}
+
+		if (entity.HasComponent<CameraComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<CameraComponent>());
+		}
+
+		if (entity.HasComponent<CppScriptComponent>())
+		{
+			SaveComponentInYaml(yamlData, entity.GetComponent<CppScriptComponent>());
 		}
 
 		yamlData << YAML::EndMap;
@@ -370,6 +401,8 @@ namespace ECS
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, QuadComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "quad_component";
+		yamlData << YAML::Value << true;
 	}
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, TransformComponent& component) noexcept
@@ -386,6 +419,12 @@ namespace ECS
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, ColorComponent& component) noexcept
 	{
+		yamlData << YAML::Key << "color_component";
+		yamlData << YAML::BeginMap;
+
+		SaveVectorInYaml(yamlData, "color", component.color);
+
+		yamlData << YAML::EndMap;
 	}
 
 	void Scene::SaveComponentInYaml(YAML::Emitter& yamlData, TextureComponent& component) noexcept
@@ -415,6 +454,23 @@ namespace ECS
 		yamlData << YAML::Value << vector.y;
 		yamlData << YAML::Key << "z";
 		yamlData << YAML::Value << vector.z;
+
+		yamlData << YAML::EndMap;
+	}
+
+	void Scene::SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector4 vector) noexcept
+	{
+		yamlData << YAML::Key << key;
+		yamlData << YAML::BeginMap;
+
+		yamlData << YAML::Key << "x";
+		yamlData << YAML::Value << vector.x;
+		yamlData << YAML::Key << "y";
+		yamlData << YAML::Value << vector.y;
+		yamlData << YAML::Key << "z";
+		yamlData << YAML::Value << vector.z;
+		yamlData << YAML::Key << "w";
+		yamlData << YAML::Value << vector.w;
 
 		yamlData << YAML::EndMap;
 	}

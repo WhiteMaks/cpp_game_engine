@@ -31,12 +31,13 @@ namespace ECS
 	class GAME_ENGINE_API Scene
 	{
 	private:
+		std::string name;
 		entt::registry registry;
 
 		friend class Entity;
 
 	public:
-		Scene() noexcept;
+		Scene(const std::string& name) noexcept;
 
 	public:
 		void Init() noexcept;
@@ -109,6 +110,7 @@ namespace ECS
 		void SaveComponentInYaml(YAML::Emitter& yamlData, CameraComponent& component) noexcept;
 
 		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector3 vector) noexcept;
+		void SaveVectorInYaml(YAML::Emitter& yamlData, const std::string& key, Math::Vector4 vector) noexcept;
 
 		GraphicsEngine::Camera* FindPrimaryCamera() noexcept;
 	};

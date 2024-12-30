@@ -10,6 +10,7 @@ set(SANDBOX_SOURCES
 	src/Renderer/FixedFullScreenTextureRenderer.cpp
 
     src/Scripts/CameraController.cpp
+    src/Scripts/Rotation.cpp
 )
 
 set(SANDBOX_INCLUDES
@@ -18,6 +19,7 @@ set(SANDBOX_INCLUDES
     includes/Renderer/FixedFullScreenTextureRenderer.h
 
     includes/Scripts/CameraController.h
+    includes/Scripts/Rotation.h
 )
 
 set(SANDBOX_TEXTURES
@@ -90,5 +92,3 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")
     target_compile_definitions(GameEngine PUBLIC GAME_ENGINE_PLATFORM_BROWSER)
 endif()
-
-add_definitions(-D_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS)

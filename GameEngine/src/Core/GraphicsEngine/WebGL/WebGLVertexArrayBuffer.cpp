@@ -57,7 +57,7 @@ namespace GraphicsEngine
 		for (auto& element : layout.GetElements())
 		{
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetCount(), ConvertBufferElementTypeToWebGL(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*)element.Offset);
+			glVertexAttribPointer(index, element.GetCount(), ConvertBufferElementTypeToWebGL(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(static_cast<uintptr_t>(element.Offset)));
 			index++;
 		}
 
@@ -82,7 +82,7 @@ namespace GraphicsEngine
 		for (auto& element : layout.GetElements())
 		{
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetCount(), ConvertBufferElementTypeToWebGL(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*) element.Offset);
+			glVertexAttribPointer(index, element.GetCount(), ConvertBufferElementTypeToWebGL(element.Type), element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), reinterpret_cast<const void*>(static_cast<uintptr_t>(element.Offset)));
 			index++;
 		}
 

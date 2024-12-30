@@ -10,6 +10,7 @@ namespace GameEngine
 	private:
 		double static time;
 		double static deltaTime;
+		double static startTime;
 
 	public:
 		static void Init() noexcept;
@@ -18,6 +19,8 @@ namespace GameEngine
 		static double GetSeconds() noexcept;
 		static double GetMillieconds() noexcept;
 		static double GetDeltaTime() noexcept;
+
+		static double GetUptimeSeconds() noexcept;
 
 	private:
 		static double GetTime() noexcept;

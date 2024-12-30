@@ -12,13 +12,12 @@ namespace ECS
 	class GAME_ENGINE_API Entity
 	{
 	private:
-		std::string name;
 		entt::entity handle;
 		Scene* scene;
 
 	public:
 		Entity() noexcept;
-		Entity(entt::entity handle, Scene* scene, const std::string& name) noexcept;
+		Entity(entt::entity handle, Scene* scene) noexcept;
 
 		virtual ~Entity() = default;
 
@@ -30,6 +29,7 @@ namespace ECS
 		T& AddComponent(Args&&... args) noexcept
 		{
 			T& result = scene->registry.emplace<T>(handle, std::forward<Args>(args)...);
+			scene->OnComponentAdded<T>(*this, result);
 			return result;
 		}
 
@@ -48,10 +48,10 @@ namespace ECS
 		template<typename T>
 		void RemoveComponent()
 		{
+			scene->OnComponentRemoved<T>(*this, GetComponent<T>());
 			scene->registry.remove<T>(handle);
 		}
 
-		const std::string& GetName() noexcept;
 	};
 
 }

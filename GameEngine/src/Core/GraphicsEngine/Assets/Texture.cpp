@@ -50,6 +50,11 @@ namespace GraphicsEngine
 		return width;
 	}
 
+	const std::string& Texture::GetPath() const noexcept
+	{
+		return path;
+	}
+
 	bool Texture::operator==(const Texture& other) const
 	{
 		return false;

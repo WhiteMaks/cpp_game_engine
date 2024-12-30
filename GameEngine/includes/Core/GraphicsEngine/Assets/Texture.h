@@ -31,6 +31,8 @@ namespace GraphicsEngine
 		virtual unsigned int GetHeight() noexcept;
 		virtual unsigned int GetWidth() noexcept;
 
+		virtual const std::string& GetPath() const noexcept;
+
 	public:
 		virtual bool operator==(const Texture& other) const;
 	};

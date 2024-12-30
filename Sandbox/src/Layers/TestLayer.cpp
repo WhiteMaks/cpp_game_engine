@@ -2,6 +2,7 @@
 
 #include "Renderer/FixedFullScreenTextureRenderer.h"
 #include "Scripts/CameraController.h"
+#include "Scripts/Rotation.h"
 
 TestLayer::TestLayer() noexcept
 	: Layer("Test layer")
@@ -49,6 +50,7 @@ void TestLayer::Render() noexcept
 
 void TestLayer::Destroy() noexcept
 {
+	scene->SaveInYaml("data/scenes/");
 	scene->Destroy();
 	frameBuffer->Destroy();
 	GraphicsEngine::Renderer2D::Destroy();
@@ -73,7 +75,7 @@ void TestLayer::CreateTextures() noexcept
 
 void TestLayer::CreateScene() noexcept
 {
-	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene());
+	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene("sandbox"));
 	scene->Init();
 
 	ECS::Entity cameraEntity = scene->CreateEntity("Camera");
@@ -81,6 +83,9 @@ void TestLayer::CreateScene() noexcept
 	cameraEntity.AddComponent<ECS::CppScriptComponent>().Bind<CameraController>();
 
 	ECS::Entity entity = scene->CreateEntity("test");
+	entity.AddComponent<ECS::QuadComponent>();
+	entity.AddComponent<ECS::CppScriptComponent>().Bind<Rotation>();
+
 	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
 	spriteComponent.sprite = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
 }

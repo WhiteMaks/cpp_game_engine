@@ -12,6 +12,17 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/GraphicsAPI.h
 
+	includes/Core/GraphicsEngine/Library/GraphicsLibrary.h
+	includes/Core/GraphicsEngine/Library/GraphicsContext.h
+	includes/Core/GraphicsEngine/Library/Renderer.h
+	includes/Core/GraphicsEngine/Library/ShaderProgram.h
+	includes/Core/GraphicsEngine/Library/Texture.h
+	includes/Core/GraphicsEngine/Library/FrameBuffer.h
+	includes/Core/GraphicsEngine/Library/IndexStaticBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexArrayBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexDynamicBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexStaticBuffer.h
+
 	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
 	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
 	includes/Core/GraphicsEngine/Renderer/Renderer.h
@@ -184,6 +195,17 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Window.cpp
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
+
+	src/Core/GraphicsEngine/Library/GraphicsLibrary.cpp
+	src/Core/GraphicsEngine/Library/GraphicsContext.cpp
+	src/Core/GraphicsEngine/Library/Renderer.cpp
+	src/Core/GraphicsEngine/Library/ShaderProgram.cpp
+	src/Core/GraphicsEngine/Library/Texture.cpp
+	src/Core/GraphicsEngine/Library/FrameBuffer.cpp
+	src/Core/GraphicsEngine/Library/IndexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexArrayBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexDynamicBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexStaticBuffer.cpp
 
 	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
 	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp

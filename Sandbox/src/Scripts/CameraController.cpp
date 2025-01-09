@@ -1,5 +1,12 @@
 #include "Scripts/CameraController.h"
 
+CameraController::CameraController() noexcept
+	: ECS::ScriptableEntity()
+{
+	cameraComponent = nullptr;
+	transformComponent = nullptr;
+}
+
 void CameraController::Init() noexcept
 {
 	cameraComponent = &GetComponent<ECS::CameraComponent>();

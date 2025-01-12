@@ -17,4 +17,9 @@ namespace ECS
 		return handle;
 	}
 
+	Scene* Entity::GetScene() noexcept
+	{
+		return scene;
+	}
+
 }

@@ -4,16 +4,10 @@
 #include "Core/GraphicsEngine/WindowFactory.h"
 #include "Core/GraphicsEngine/GraphicsAPI.h"
 
-#include "Core/GraphicsEngine/Renderer/Renderer.h"
-#include "Core/GraphicsEngine/Renderer/Renderer2D.h"
-#include "Core/GraphicsEngine/Renderer/GraphicsContextFactory.h"
-
-#include "Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h"
-
-#include "Core/GraphicsEngine/Assets/ShaderProgramFactory.h"
-#include "Core/GraphicsEngine/Assets/TextureFactory.h"
-#include "Core/GraphicsEngine/Assets/Spritesheet.h"
-#include "Core/GraphicsEngine/Assets/Sprite.h"
+#include "Core/GraphicsEngine/Library/Renderer.h"
+#include "Core/GraphicsEngine/Library/Renderer2D.h"
+#include "Core/GraphicsEngine/Library/GraphicsContext.h"
+#include "Core/GraphicsEngine/Library/GraphicsLibrary.h"
 
 namespace GraphicsEngine
 {
@@ -22,16 +16,18 @@ namespace GraphicsEngine
 	{
 	private:
 		static GraphicsAPI api;
+		static std::shared_ptr<GraphicsLibrary> library;
 
 	private:
 		std::unique_ptr<Window> window;
-		std::unique_ptr<GraphicsContext> context;
+		std::shared_ptr<GraphicsContext> context;
 
 	public:
 		GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api);
 		
 	public:
 		static GraphicsAPI GetAPI() noexcept;
+		static std::shared_ptr<GraphicsLibrary> GetLibrary() noexcept;
 
 	public:
 		void Init() noexcept;

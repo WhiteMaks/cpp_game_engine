@@ -1,0 +1,51 @@
+name: CPP Game Engine create Tag and Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-tag-and-release:
+    if: startsWith(github.event.ref, 'refs/heads/release_')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Extract release version
+        run: echo "version=${GITHUB_REF#refs/heads/release_}" >> $GITHUB_ENV
+
+      - name: Create a tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v_${{ env.version }}" -m "Release v_${{ env.version }}"
+          git push origin "v_${{ env.version }}"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: "v_${{ env.version }}"
+          release_name: "Release v_${{ env.version }}"
+          body: "This is an automated release for v_${{ env.version }}."
+          draft: false
+          prerelease: false
+
+      - name: Success result
+        if: ${{ success() }}
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nRelease: Success \u2705\nMessage: Release ${{env.version}} ready to use"}'
+
+      - name: Failure result
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl \
+            -X POST https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=${{secrets.TELEGRAM_CHAT_ID}} \
+            --header "Content-Type:application/json" \
+            --data '{"text":"Project: cpp-game-engine\nBranch: ${{github.head_ref}}\nRelease: Failed \u274C\nMessage: Release ${{env.version}} not created"}'

@@ -1,9 +1,13 @@
 #include "Core/GraphicsEngine/GraphicsEngine.h"
 
+#include "Core/GraphicsEngine/Library/GraphicsLibraryFactory.h"
+#include "Core/GraphicsEngine/Library/Renderer.h"
+
 namespace GraphicsEngine
 {
 
 	GraphicsAPI GraphicsEngine::api = GraphicsAPI::OpenGL;
+	std::shared_ptr<GraphicsLibrary> GraphicsEngine::library = nullptr;
 
 	GraphicsEngine::GraphicsEngine(const std::string& windowTitle, const unsigned int windowWidth, const unsigned int windowHeight, GraphicsAPI api)
 	{
@@ -12,6 +16,8 @@ namespace GraphicsEngine
 		window = WindowFactory::Create(
 			WindowData(windowTitle, windowWidth, windowHeight)
 		);
+
+		library = GraphicsLibraryFactory::Create();
 	}
 
 	void GraphicsEngine::Init() noexcept
@@ -19,7 +25,7 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization graphics engine has started");
 		window->Init();
 
-		context = GraphicsContextFactory::Create();
+		context = library->CreateContext();
 		context->Init();
 
 		Renderer::Init();
@@ -29,6 +35,11 @@ namespace GraphicsEngine
 	GraphicsAPI GraphicsEngine::GetAPI() noexcept
 	{
 		return api;
+	}
+
+	std::shared_ptr<GraphicsLibrary> GraphicsEngine::GetLibrary() noexcept
+	{
+		return library;
 	}
 
 	void GraphicsEngine::BeginUpdate() noexcept

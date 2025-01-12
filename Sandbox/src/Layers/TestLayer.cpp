@@ -59,18 +59,16 @@ void TestLayer::Destroy() noexcept
 
 void TestLayer::CreateFrameBuffer() noexcept
 {
-	frameBuffer = GraphicsEngine::BufferFactory::CreateFrameBuffer(GraphicsEngine::FrameBufferData(1280, 720));
+	frameBuffer = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateFrameBuffer(GraphicsEngine::FrameBufferData(1280, 720));
 	frameBuffer->Init();
 }
 
 void TestLayer::CreateTextures() noexcept
 {
-	std::shared_ptr<GraphicsEngine::Texture> spritesheetTinyTownTexture = GraphicsEngine::TextureFactory::Create("assets/spritesheets/tiny_town_16x16_0x0.png");
+	std::shared_ptr<GraphicsEngine::Texture> spritesheetTinyTownTexture = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateTexture("assets/spritesheets/tiny_town_16x16_0x0.png");
 	spritesheetTinyTownTexture->Init();
 
-	spritesheetTinyTown = std::shared_ptr<GraphicsEngine::Spritesheet>(
-		new GraphicsEngine::Spritesheet(spritesheetTinyTownTexture, Math::Vector2(16.0f, 16.0f))
-	);
+	spritesheetTinyTown = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateSpritesheet(spritesheetTinyTownTexture, Math::Vector2(16.0f, 16.0f));
 }
 
 void TestLayer::CreateScene() noexcept

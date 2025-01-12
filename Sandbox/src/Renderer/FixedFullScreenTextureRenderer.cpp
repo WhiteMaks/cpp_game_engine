@@ -37,7 +37,7 @@ void FixedFullScreenTextureRenderer::Draw(const std::shared_ptr<GraphicsEngine::
 
 void FixedFullScreenTextureRenderer::InitBuffers() noexcept
 {
-	data.vertexArrayBuffer = GraphicsEngine::BufferFactory::CreateVertexArrayBuffer();
+	data.vertexArrayBuffer = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateVertexArrayBuffer();
 	data.vertexArrayBuffer->Init();
 
 	float vertices[4 * 5] = {
@@ -47,7 +47,7 @@ void FixedFullScreenTextureRenderer::InitBuffers() noexcept
 		-1.0f,  1.0f, 0.0f, 0.0f, 1.0f
 	};
 
-	data.vertexStaticBuffer = GraphicsEngine::BufferFactory::CreateVertexStaticBuffer(vertices, sizeof(vertices));
+	data.vertexStaticBuffer = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateVertexStaticBuffer(vertices, sizeof(vertices));
 
 	std::vector<GraphicsEngine::BufferElement> bufferElements = {
 		{GraphicsEngine::BufferElementType::FLOAT_3, "a_Position"},
@@ -66,7 +66,7 @@ void FixedFullScreenTextureRenderer::InitBuffers() noexcept
 		0, 1, 2, 2, 3, 0
 	};
 
-	std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = GraphicsEngine::BufferFactory::CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int));
+	std::shared_ptr<GraphicsEngine::IndexStaticBuffer> indexBuffer = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateIndexStaticBuffer(indices, sizeof(indices) / sizeof(unsigned int));
 	indexBuffer->Init();
 
 	data.vertexArrayBuffer->SetIndexBuffer(indexBuffer);
@@ -74,7 +74,7 @@ void FixedFullScreenTextureRenderer::InitBuffers() noexcept
 
 void FixedFullScreenTextureRenderer::InitAssets() noexcept
 {
-	data.shaderProgram = GraphicsEngine::ShaderProgramFactory::Create("assets/shaders/fixed_full_screen_texture_shader");
+	data.shaderProgram = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateShaderProgram("assets/shaders/fixed_full_screen_texture_shader");
 	data.shaderProgram->Init();
 	data.shaderProgram->Bind();
 	data.shaderProgram->SetUniformInt("u_Texture", 0);

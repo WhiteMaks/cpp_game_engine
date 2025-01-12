@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Core/Core.h"
-#include "Core/GraphicsEngine/Assets/Texture.h"
+#include "Core/GraphicsEngine/Library/Texture.h"
 
 namespace ECS
 {

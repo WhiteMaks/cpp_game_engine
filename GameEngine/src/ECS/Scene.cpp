@@ -8,7 +8,7 @@
 
 #include "Tools/Log.h"
 #include "ECS/Entity.h"
-#include "Core/GraphicsEngine/Renderer/Renderer2D.h"
+#include "Core/GraphicsEngine/Library/Renderer2D.h"
 
 #include "ECS/Components/CppScriptComponent.h"
 

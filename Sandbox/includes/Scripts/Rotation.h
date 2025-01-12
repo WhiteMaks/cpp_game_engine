@@ -6,6 +6,9 @@ private:
 	ECS::TransformComponent* transformComponent;
 
 public:
+	Rotation() noexcept;
+
+public:
 	void Init() noexcept override;
 	void Update() noexcept override;
 	void Destroy() noexcept override;

@@ -11,6 +11,9 @@ private:
 	ECS::TransformComponent* transformComponent;
 
 public:
+	CameraController() noexcept;
+
+public:
 	void Init() noexcept override;
 	void Update() noexcept override;
 	void Destroy() noexcept override;

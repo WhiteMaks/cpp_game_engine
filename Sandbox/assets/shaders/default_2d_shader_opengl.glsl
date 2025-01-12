@@ -39,16 +39,16 @@ vec4 getTexture() {
 					
 	//amd, intel, nvidia support
 	switch (index) {
-		case 0: return texture(u_Textures[0], v_TextureCoordinate);
-		case 1: return texture(u_Textures[1], v_TextureCoordinate);
-		case 2: return texture(u_Textures[2], v_TextureCoordinate);
-		case 3: return texture(u_Textures[3], v_TextureCoordinate);
-		case 4: return texture(u_Textures[4], v_TextureCoordinate);
-		case 5: return texture(u_Textures[5], v_TextureCoordinate);
-		case 6: return texture(u_Textures[6], v_TextureCoordinate);
-		case 7: return texture(u_Textures[7], v_TextureCoordinate);
-		case 8: return texture(u_Textures[8], v_TextureCoordinate);
-		case 9: return texture(u_Textures[9], v_TextureCoordinate);
+		case 0:  return texture(u_Textures[0],  v_TextureCoordinate);
+		case 1:  return texture(u_Textures[1],  v_TextureCoordinate);
+		case 2:  return texture(u_Textures[2],  v_TextureCoordinate);
+		case 3:  return texture(u_Textures[3],  v_TextureCoordinate);
+		case 4:  return texture(u_Textures[4],  v_TextureCoordinate);
+		case 5:  return texture(u_Textures[5],  v_TextureCoordinate);
+		case 6:  return texture(u_Textures[6],  v_TextureCoordinate);
+		case 7:  return texture(u_Textures[7],  v_TextureCoordinate);
+		case 8:  return texture(u_Textures[8],  v_TextureCoordinate);
+		case 9:  return texture(u_Textures[9],  v_TextureCoordinate);
 		case 10: return texture(u_Textures[10], v_TextureCoordinate);
 		case 11: return texture(u_Textures[11], v_TextureCoordinate);
 		case 12: return texture(u_Textures[12], v_TextureCoordinate);

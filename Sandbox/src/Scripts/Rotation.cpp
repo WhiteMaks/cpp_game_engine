@@ -1,5 +1,11 @@
 #include "Scripts/Rotation.h"
 
+Rotation::Rotation() noexcept
+	: ECS::ScriptableEntity()
+{
+	transformComponent = nullptr;
+}
+
 void Rotation::Init() noexcept
 {
 	transformComponent = &GetComponent<ECS::TransformComponent>();

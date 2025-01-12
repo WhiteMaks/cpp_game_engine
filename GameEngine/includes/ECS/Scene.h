@@ -16,6 +16,7 @@
 #include "ECS/Components/SpriteComponent.h"
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/QuadComponent.h"
+#include "ECS/Components/StateMachine2DAnimationComponent.h"
 
 namespace YAML
 {
@@ -62,6 +63,7 @@ namespace ECS
 
 		void UpdateCameraSystem() noexcept;
 		void UpdateScriptSystem() noexcept;
+		void UpdateStateMachine2DAnimationSystem() noexcept;
 
 		template<typename T>
 		void OnComponentAdded(Entity entity, T& component) noexcept;

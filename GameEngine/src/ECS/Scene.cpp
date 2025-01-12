@@ -80,6 +80,7 @@ namespace ECS
 	{
 		UpdateCameraSystem();
 		UpdateScriptSystem();
+		UpdateStateMachine2DAnimationSystem();
 	}
 
 	void Scene::Render() noexcept
@@ -222,6 +223,19 @@ namespace ECS
 			InitCppScriptComponentIfNeed(cppScriptComponent, entity);
 
 			cppScriptComponent.instance->Update();
+		}
+	}
+
+	void Scene::UpdateStateMachine2DAnimationSystem() noexcept
+	{
+		auto view = registry.view<SpriteComponent, StateMachine2DAnimationComponent>();
+		for (auto entity : view)
+		{
+			auto& spriteComponent = view.get<SpriteComponent>(entity);
+			auto& stateMachineComponent = view.get<StateMachine2DAnimationComponent>(entity);
+
+			stateMachineComponent.currentState->Update();
+			spriteComponent.sprite = stateMachineComponent.currentState->GetCurrentFrame().sprite;
 		}
 	}
 

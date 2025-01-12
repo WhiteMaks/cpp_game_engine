@@ -2,7 +2,7 @@
 
 #include "Component.h"
 #include "Core/Core.h"
-#include "Core/GraphicsEngine/Renderer/Camera.h"
+#include "Core/GraphicsEngine/Library/Camera.h"
 
 namespace ECS
 {

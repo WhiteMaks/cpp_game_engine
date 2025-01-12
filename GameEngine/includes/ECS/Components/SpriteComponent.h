@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Core/Core.h"
-#include "Core/GraphicsEngine/Assets/Sprite.h"
+#include "Core/GraphicsEngine/Library/Sprite.h"
 
 namespace ECS
 {

@@ -12,42 +12,26 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/GraphicsEngine.h
 	includes/Core/GraphicsEngine/GraphicsAPI.h
 
-	#includes/Core/GraphicsEngine/Library/GraphicsLibrary.h
-	#includes/Core/GraphicsEngine/Library/GraphicsContext.h
-	#includes/Core/GraphicsEngine/Library/Renderer.h
-	#includes/Core/GraphicsEngine/Library/ShaderProgram.h
-	#includes/Core/GraphicsEngine/Library/Texture.h
-	#includes/Core/GraphicsEngine/Library/FrameBuffer.h
-	#includes/Core/GraphicsEngine/Library/IndexStaticBuffer.h
-	#includes/Core/GraphicsEngine/Library/VertexArrayBuffer.h
-	#includes/Core/GraphicsEngine/Library/VertexDynamicBuffer.h
-	#includes/Core/GraphicsEngine/Library/VertexStaticBuffer.h
-
-	includes/Core/GraphicsEngine/Renderer/GraphicsContext.h
-	includes/Core/GraphicsEngine/Renderer/GraphicsContextFactory.h
-	includes/Core/GraphicsEngine/Renderer/Renderer.h
-	includes/Core/GraphicsEngine/Renderer/Renderer2D.h
-	includes/Core/GraphicsEngine/Renderer/RendererAPI.h
-	includes/Core/GraphicsEngine/Renderer/RendererAPIFactory.h
-	includes/Core/GraphicsEngine/Renderer/Camera.h
-
-	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/FrameBufferData.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/VertexDynamicBuffer.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/BufferLayout.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElement.h
-	includes/Core/GraphicsEngine/Renderer/Buffers/BufferElementType.h
-
-	includes/Core/GraphicsEngine/Assets/Sprite.h
-	includes/Core/GraphicsEngine/Assets/Spritesheet.h
-	includes/Core/GraphicsEngine/Assets/Texture.h
-	includes/Core/GraphicsEngine/Assets/TextureFactory.h
-	includes/Core/GraphicsEngine/Assets/ShaderProgram.h
-	includes/Core/GraphicsEngine/Assets/ShaderProgramFactory.h
+	includes/Core/GraphicsEngine/Library/GraphicsLibrary.h
+	includes/Core/GraphicsEngine/Library/GraphicsLibraryFactory.h
+	includes/Core/GraphicsEngine/Library/GraphicsContext.h
+	includes/Core/GraphicsEngine/Library/RendererAPI.h
+	includes/Core/GraphicsEngine/Library/ShaderProgram.h
+	includes/Core/GraphicsEngine/Library/Texture.h
+	includes/Core/GraphicsEngine/Library/FrameBuffer.h
+	includes/Core/GraphicsEngine/Library/IndexStaticBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexArrayBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexDynamicBuffer.h
+	includes/Core/GraphicsEngine/Library/VertexStaticBuffer.h
+	includes/Core/GraphicsEngine/Library/BufferLayout.h
+	includes/Core/GraphicsEngine/Library/BufferElementType.h
+	includes/Core/GraphicsEngine/Library/BufferElement.h
+	includes/Core/GraphicsEngine/Library/Sprite.h
+	includes/Core/GraphicsEngine/Library/Spritesheet.h
+	includes/Core/GraphicsEngine/Library/FrameBufferData.h
+	includes/Core/GraphicsEngine/Library/Renderer.h
+	includes/Core/GraphicsEngine/Library/Renderer2D.h
+	includes/Core/GraphicsEngine/Library/Camera.h
 
 	includes/EventsSystem/Keyboard.h
 	includes/EventsSystem/KeyboardEvent.h
@@ -95,25 +79,27 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.h
 		src/Core/Platform/Glfw/GlfwWindow.h
 
-		src/Core/GraphicsEngine/WebGL/WebGLContext.h
-		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
-		src/Core/GraphicsEngine/WebGL/WebGLFrameBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
-		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLGraphicsLibrary.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLContext.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLShaderProgram.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLFrameBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLIndexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexDynamicBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLRenderer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLTexture.h
 		
-		src/Core/GraphicsEngine/OpenGL/OpenGLContext.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLFrameBuffer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.h
-		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLGraphicsLibrary.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLContext.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLShaderProgram.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLFrameBuffer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLIndexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexDynamicBuffer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLRenderer.h
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLTexture.h
 		
 		#src/Core/GraphicsEngine/DirectX/DirectX11Context.h
 		#src/Core/GraphicsEngine/DirectX/DirectX12Context.h
@@ -123,15 +109,16 @@ endif()
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES
 		src/Core/Platform/Browser/BrowserWindow.h
-		src/Core/GraphicsEngine/WebGL/WebGLContext.h
-		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.h
-		src/Core/GraphicsEngine/WebGL/WebGLFrameBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.h
-		src/Core/GraphicsEngine/WebGL/WebGLRenderer.h
-		src/Core/GraphicsEngine/WebGL/WebGLTexture.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLGraphicsLibrary.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLContext.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLShaderProgram.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLFrameBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLIndexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexStaticBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexDynamicBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexArrayBuffer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLRenderer.h
+		src/Core/GraphicsEngine/Library/WebGL/WebGLTexture.h
 	)
 endif()
 
@@ -149,25 +136,27 @@ if($ENV{GAME_ENGINE_PLATFORM} MATCHES "WINDOWS")
 		src/Core/Platform/Windows/WindowsWindow.cpp
 		src/Core/Platform/Glfw/GlfwWindow.cpp
 
-		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLFrameBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLGraphicsLibrary.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLContext.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLShaderProgram.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLRenderer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLTexture.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLFrameBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLIndexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexDynamicBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexArrayBuffer.cpp
 
-		src/Core/GraphicsEngine/OpenGL/OpenGLContext.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLShaderProgram.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLRenderer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLTexture.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLFrameBuffer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLIndexStaticBuffer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexStaticBuffer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexDynamicBuffer.cpp
-		src/Core/GraphicsEngine/OpenGL/OpenGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLGraphicsLibrary.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLContext.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLShaderProgram.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLRenderer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLTexture.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLFrameBuffer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLIndexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexDynamicBuffer.cpp
+		src/Core/GraphicsEngine/Library/OpenGL/OpenGLVertexArrayBuffer.cpp
 		
 		#src/Core/GraphicsEngine/DirectX/DirectX11Context.cpp
 		#src/Core/GraphicsEngine/DirectX/DirectX12Context.cpp	
@@ -177,15 +166,16 @@ endif()
 if($ENV{GAME_ENGINE_PLATFORM} MATCHES "BROWSER")
 	set(GAME_ENGINE_PRIVATE_PLATFORM_SOURCES
 		src/Core/Platform/Browser/BrowserWindow.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLContext.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLShaderProgram.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLFrameBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLIndexStaticBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexStaticBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexDynamicBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLVertexArrayBuffer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLRenderer.cpp
-		src/Core/GraphicsEngine/WebGL/WebGLTexture.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLGraphicsLibrary.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLContext.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLShaderProgram.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLFrameBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLIndexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexStaticBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexDynamicBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLVertexArrayBuffer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLRenderer.cpp
+		src/Core/GraphicsEngine/Library/WebGL/WebGLTexture.cpp
 	)
 endif()
 
@@ -196,40 +186,24 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/WindowFactory.cpp
 	src/Core/GraphicsEngine/GraphicsEngine.cpp
 
-	#src/Core/GraphicsEngine/Library/GraphicsLibrary.cpp
-	#src/Core/GraphicsEngine/Library/GraphicsContext.cpp
-	#src/Core/GraphicsEngine/Library/Renderer.cpp
-	#src/Core/GraphicsEngine/Library/ShaderProgram.cpp
-	#src/Core/GraphicsEngine/Library/Texture.cpp
-	#src/Core/GraphicsEngine/Library/FrameBuffer.cpp
-	#src/Core/GraphicsEngine/Library/IndexStaticBuffer.cpp
-	#src/Core/GraphicsEngine/Library/VertexArrayBuffer.cpp
-	#src/Core/GraphicsEngine/Library/VertexDynamicBuffer.cpp
-	#src/Core/GraphicsEngine/Library/VertexStaticBuffer.cpp
-
-	src/Core/GraphicsEngine/Renderer/GraphicsContext.cpp
-	src/Core/GraphicsEngine/Renderer/GraphicsContextFactory.cpp
-	src/Core/GraphicsEngine/Renderer/Renderer.cpp
-	src/Core/GraphicsEngine/Renderer/Renderer2D.cpp
-	src/Core/GraphicsEngine/Renderer/RendererAPI.cpp
-	src/Core/GraphicsEngine/Renderer/RendererAPIFactory.cpp
-	src/Core/GraphicsEngine/Renderer/Camera.cpp
-
-	src/Core/GraphicsEngine/Renderer/Buffers/FrameBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/VertexStaticBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/VertexDynamicBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/IndexStaticBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/VertexArrayBuffer.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/BufferFactory.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/BufferLayout.cpp
-	src/Core/GraphicsEngine/Renderer/Buffers/BufferElement.cpp
-
-	src/Core/GraphicsEngine/Assets/Sprite.cpp
-	src/Core/GraphicsEngine/Assets/Spritesheet.cpp
-	src/Core/GraphicsEngine/Assets/Texture.cpp
-	src/Core/GraphicsEngine/Assets/TextureFactory.cpp
-	src/Core/GraphicsEngine/Assets/ShaderProgram.cpp
-	src/Core/GraphicsEngine/Assets/ShaderProgramFactory.cpp
+	src/Core/GraphicsEngine/Library/GraphicsLibrary.cpp
+	src/Core/GraphicsEngine/Library/GraphicsLibraryFactory.cpp
+	src/Core/GraphicsEngine/Library/GraphicsContext.cpp
+	src/Core/GraphicsEngine/Library/RendererAPI.cpp
+	src/Core/GraphicsEngine/Library/ShaderProgram.cpp
+	src/Core/GraphicsEngine/Library/Texture.cpp
+	src/Core/GraphicsEngine/Library/FrameBuffer.cpp
+	src/Core/GraphicsEngine/Library/IndexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexArrayBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexDynamicBuffer.cpp
+	src/Core/GraphicsEngine/Library/VertexStaticBuffer.cpp
+	src/Core/GraphicsEngine/Library/BufferLayout.cpp
+	src/Core/GraphicsEngine/Library/BufferElement.cpp
+	src/Core/GraphicsEngine/Library/Sprite.cpp
+	src/Core/GraphicsEngine/Library/Spritesheet.cpp
+	src/Core/GraphicsEngine/Library/Renderer.cpp
+	src/Core/GraphicsEngine/Library/Renderer2D.cpp
+	src/Core/GraphicsEngine/Library/Camera.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFORM_SOURCES}
 

@@ -5,7 +5,7 @@
 #include <entt/entt.hpp>
 
 #include "Core/Core.h"
-#include "Core/GraphicsEngine/Renderer/Camera.h"
+#include "Core/GraphicsEngine/Library/Camera.h"
 #include "EventsSystem/KeyboardEvent.h"
 #include "EventsSystem/WindowEvent.h"
 #include "EventsSystem/MouseEvent.h"

@@ -28,6 +28,9 @@ set(SANDBOX_TEXTURES
 
 set(SANDBOX_SPRITESHEETS
     assets/spritesheets/tiny_town_16x16_0x0.png
+    assets/spritesheets/character_spritesheet.png
+    assets/spritesheets/decoration_and_block_spritesheet.png
+    assets/spritesheets/item_spritesheet.png
 )
 
 set(SANDBOX_SHADERS

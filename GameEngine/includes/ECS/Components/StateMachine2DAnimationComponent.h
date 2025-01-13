@@ -9,13 +9,32 @@
 #include "Component.h"
 #include "Core/GraphicsEngine/Library/Sprite.h"
 #include "Tools/Time.h"
+#include "Tools/Log.h"
 
 namespace ECS
 {
-	struct GAME_ENGINE_API Frame2DAnimation
+	class GAME_ENGINE_API Frame2DAnimation
 	{
+	private:
 		std::shared_ptr<GraphicsEngine::Sprite> sprite;
-		int time;
+		double time;
+
+	public:
+		Frame2DAnimation(std::shared_ptr<GraphicsEngine::Sprite> sprite, double time) noexcept
+			: sprite(sprite), time(time)
+		{
+		}
+
+	public:
+		double GetTime() noexcept
+		{
+			return time;
+		}
+
+		std::shared_ptr<GraphicsEngine::Sprite> GetSprite() noexcept
+		{
+			return sprite;
+		}
 	};
 
 	class GAME_ENGINE_API State2DAnimation
@@ -25,7 +44,7 @@ namespace ECS
 		std::vector<Frame2DAnimation> frames;
 
 		unsigned int currentFrameIndex;
-		int timeTracker;
+		double timeTracker;
 
 	public:
 		State2DAnimation(const std::string& name) noexcept
@@ -34,7 +53,7 @@ namespace ECS
 		}
 
 	public:
-		void AddFrame(const Frame2DAnimation& frame) noexcept
+		void AddFrame(Frame2DAnimation& frame) noexcept
 		{
 			frames.push_back(frame);
 		}
@@ -52,7 +71,7 @@ namespace ECS
 					currentFrameIndex = 0;
 				}
 
-				timeTracker = frames[currentFrameIndex].time;
+				timeTracker = frames[currentFrameIndex].GetTime();
 			}
 		}
 
@@ -69,7 +88,7 @@ namespace ECS
 
 	struct GAME_ENGINE_API StateMachine2DAnimationComponent : public Component
 	{
-		std::vector<State2DAnimation> states;
+		std::vector<State2DAnimation*> states;
 		State2DAnimation* currentState;
 
 		void Play(std::string& stateName) noexcept
@@ -79,14 +98,19 @@ namespace ECS
 				return;
 			}
 
-			for (State2DAnimation state : states)
+			for (State2DAnimation* state : states)
 			{
-				if (state.GetName() == stateName)
+				if (state->GetName() == stateName)
 				{
-					currentState = &state;
+					currentState = state;
 					break;
 				}
 			}
+		}
+
+		void AddState(State2DAnimation* state) noexcept
+		{
+			states.push_back(state);
 		}
 
 	};

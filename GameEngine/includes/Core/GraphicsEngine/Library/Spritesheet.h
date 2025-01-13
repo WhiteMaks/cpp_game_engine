@@ -22,6 +22,8 @@ namespace GraphicsEngine
 
 	public:
 		std::shared_ptr<Sprite> GetSprite(const Math::Vector2& coordinate);
+		std::shared_ptr<Sprite> GetSprite(const Math::Vector2& coordinate, const float offset);
 		std::shared_ptr<Sprite> GetSprite(const Math::Vector2& coordinate, const Math::Vector2& count);
+		std::shared_ptr<Sprite> GetSprite(const Math::Vector2& coordinate, const Math::Vector2& count, const float offset);
 	};
 }

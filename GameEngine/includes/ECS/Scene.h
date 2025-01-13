@@ -81,6 +81,8 @@ namespace ECS
 		void OnComponentAdded<SpriteComponent>(Entity entity, SpriteComponent& component) noexcept;
 		template<>
 		void OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component) noexcept;
+		template<>
+		void OnComponentAdded<StateMachine2DAnimationComponent>(Entity entity, StateMachine2DAnimationComponent& component) noexcept;
 		
 		template<typename T>
 		void OnComponentRemoved(Entity entity, T& component) noexcept;
@@ -98,6 +100,8 @@ namespace ECS
 		void OnComponentRemoved<SpriteComponent>(Entity entity, SpriteComponent& component) noexcept;
 		template<>
 		void OnComponentRemoved<CameraComponent>(Entity entity, CameraComponent& component) noexcept;
+		template<>
+		void OnComponentRemoved<StateMachine2DAnimationComponent>(Entity entity, StateMachine2DAnimationComponent& component) noexcept;
 
 		void InitCppScriptComponentIfNeed(CppScriptComponent& cppScriptComponent, entt::entity handle) noexcept;
 

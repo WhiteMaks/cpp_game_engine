@@ -235,7 +235,7 @@ namespace ECS
 			auto& stateMachineComponent = view.get<StateMachine2DAnimationComponent>(entity);
 
 			stateMachineComponent.currentState->Update();
-			spriteComponent.sprite = stateMachineComponent.currentState->GetCurrentFrame().sprite;
+			spriteComponent.sprite = stateMachineComponent.currentState->GetCurrentFrame().GetSprite();
 		}
 	}
 
@@ -324,6 +324,11 @@ namespace ECS
 	{
 	}
 
+	template<>
+	void Scene::OnComponentAdded<StateMachine2DAnimationComponent>(Entity entity, StateMachine2DAnimationComponent& component) noexcept
+	{
+	}
+
 	template<typename T>
 	void Scene::OnComponentRemoved(Entity entity, T& component) noexcept
 	{
@@ -363,6 +368,11 @@ namespace ECS
 
 	template<>
 	void Scene::OnComponentRemoved(Entity entity, CameraComponent& component) noexcept
+	{
+	}
+
+	template<>
+	void Scene::OnComponentRemoved(Entity entity, StateMachine2DAnimationComponent& component) noexcept
 	{
 	}
 

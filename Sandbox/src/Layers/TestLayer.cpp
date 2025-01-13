@@ -65,10 +65,10 @@ void TestLayer::CreateFrameBuffer() noexcept
 
 void TestLayer::CreateTextures() noexcept
 {
-	std::shared_ptr<GraphicsEngine::Texture> spritesheetTinyTownTexture = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateTexture("assets/spritesheets/tiny_town_16x16_0x0.png");
-	spritesheetTinyTownTexture->Init();
+	std::shared_ptr<GraphicsEngine::Texture> spritesheetCharacterTexture = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateTexture("assets/spritesheets/character_spritesheet.png");
+	spritesheetCharacterTexture->Init();
 
-	spritesheetTinyTown = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateSpritesheet(spritesheetTinyTownTexture, Math::Vector2(16.0f, 16.0f));
+	spritesheetCharacter = GraphicsEngine::GraphicsEngine::GetLibrary()->CreateSpritesheet(spritesheetCharacterTexture, Math::Vector2(16.0f, 16.0f));
 }
 
 void TestLayer::CreateScene() noexcept
@@ -76,16 +76,44 @@ void TestLayer::CreateScene() noexcept
 	scene = std::shared_ptr<ECS::Scene>(new ECS::Scene("sandbox"));
 	scene->Init();
 
-	ECS::Entity cameraEntity = scene->CreateEntity("Camera");
-	ECS::CameraComponent& cameraComponent = cameraEntity.AddComponent<ECS::CameraComponent>();
-	cameraEntity.AddComponent<ECS::CppScriptComponent>().Bind<CameraController>();
-
-	ECS::Entity entity = scene->CreateEntity("test");
+	ECS::Entity entity = scene->CreateEntity("Mario");
+	entity.AddComponent<ECS::CameraComponent>();
 	entity.AddComponent<ECS::QuadComponent>();
-	entity.AddComponent<ECS::CppScriptComponent>().Bind<Rotation>();
+	entity.AddComponent<ECS::SpriteComponent>();
+	entity.AddComponent<ECS::StateMachine2DAnimationComponent>();
+	entity.AddComponent<ECS::CppScriptComponent>().Bind<CameraController>();
 
-	ECS::SpriteComponent& spriteComponent = entity.AddComponent<ECS::SpriteComponent>();
-	spriteComponent.sprite = spritesheetTinyTown->GetSprite(Math::Vector2(9.0f, 6.0f));
+	const float characterSpriteOffset = 0.001f;
+	ECS::StateMachine2DAnimationComponent& stateMachineComponent = entity.GetComponent<ECS::StateMachine2DAnimationComponent>();
+	
+	ECS::State2DAnimation* idleState = new ECS::State2DAnimation("Idle");
+	ECS::Frame2DAnimation idleFrame = ECS::Frame2DAnimation(
+		spritesheetCharacter->GetSprite(Math::Vector2(0.0f, 1.0f), characterSpriteOffset),
+		2.0
+	);
+	idleState->AddFrame(idleFrame);
+	stateMachineComponent.AddState(idleState);
+
+	const double runFrameTime = 0.150;
+	ECS::State2DAnimation* runState = new ECS::State2DAnimation("Run");
+	ECS::Frame2DAnimation runFrame1 = ECS::Frame2DAnimation(
+		spritesheetCharacter->GetSprite(Math::Vector2(1.0f, 1.0f), characterSpriteOffset),
+		runFrameTime
+	);
+	ECS::Frame2DAnimation runFrame2 = ECS::Frame2DAnimation(
+		spritesheetCharacter->GetSprite(Math::Vector2(2.0f, 1.0f), characterSpriteOffset),
+		runFrameTime
+	);
+	ECS::Frame2DAnimation runFrame3 = ECS::Frame2DAnimation(
+		spritesheetCharacter->GetSprite(Math::Vector2(3.0f, 1.0f), characterSpriteOffset),
+		runFrameTime
+	);
+	runState->AddFrame(runFrame1);
+	runState->AddFrame(runFrame2);
+	runState->AddFrame(runFrame3);
+	stateMachineComponent.AddState(runState);
+
+	stateMachineComponent.Play(runState->GetName());
 }
 
 void TestLayer::RenderInFrameBuffer() noexcept

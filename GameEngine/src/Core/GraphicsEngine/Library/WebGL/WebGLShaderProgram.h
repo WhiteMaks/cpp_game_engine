@@ -5,6 +5,7 @@
 #include "Core/GraphicsEngine/Library/ShaderProgram.h"
 #include "Tools/Log.h"
 #include "ExitCodes.h"
+#include "Memory/CacheStorage.h"
 
 namespace GraphicsEngine
 {
@@ -12,6 +13,8 @@ namespace GraphicsEngine
 	class WebGLShaderProgram : public ShaderProgram
 	{
 	private:
+		Memory::CacheStorage<GLuint> uniformLocationCache;
+
 		GLuint shaderProgram;
 		GLuint vertexShader;
 		GLuint fragmentShader;
@@ -41,6 +44,8 @@ namespace GraphicsEngine
 
 		std::string ReadVertexShaderCode(const std::string& filepath);
 		std::string ReadFragmentShaderCode(const std::string& filepath);
+
+		GLuint GetUniformLocation(const std::string& uniformName) noexcept;
 	};
 
 }

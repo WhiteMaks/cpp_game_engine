@@ -49,6 +49,7 @@ namespace Memory
 				continue;
 			}
 
+			MEMORY_TRACE("The cache item [{0}] is stored in storage", it->second.name);
 			++it;
 		}
 	}

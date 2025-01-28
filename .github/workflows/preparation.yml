@@ -163,15 +163,20 @@ jobs:
         run: touch ~/.ssh/known_hosts
 
       - name: Update SSH known hosts file
-        run: ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H ngrok.com >> ~/.ssh/known_hosts
+
+      - name: Install ngrok
+        run: |
+          curl -s https://ngrok.com/download | tar xz
+          sudo mv ngrok /usr/local/bin
 
       - name: Start Public tunnel
         run: |
           echo "Public tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > public_url.log 2>&1 &
+          nohup ngrok http 8000 > public_url.log 2>&1 &
           sleep 30
           cat public_url.log
-          grep -o 'https://[a-z0-9]*\.serveo\.net' public_url.log > public_url.txt || echo "URL not found"
+          grep -o 'https://[a-z0-9]*\.ngrok\.io' ngrok.log > public_url.txt || echo "URL not found"
 
       - name: Display Public URL
         run: cat public_url.txt

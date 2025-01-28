@@ -181,7 +181,7 @@ jobs:
           nohup ngrok http 8000 > public_url.log 2>&1 &
           sleep 30
           cat public_url.log
-          grep -o 'https://[a-z0-9]*\.ngrok\.io' ngrok.log > public_url.txt || echo "URL not found"
+          grep -o 'https://[a-z0-9]*\.ngrok\.io' public_url.log > public_url.txt || echo "URL not found"
 
       - name: Display Public URL
         run: cat public_url.txt

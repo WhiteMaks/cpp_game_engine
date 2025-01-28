@@ -200,7 +200,6 @@ namespace GraphicsEngine
 		Memory::CacheItem<GLuint>* cacheItem = uniformLocationCache.Get(uniformName);
 		if (cacheItem)
 		{
-			GRAPHICS_ENGINE_TRACE("Uniform location [{0}] will be retrieved from the cache", uniformName.c_str());
 			return cacheItem->value;
 		}
 

@@ -1,10 +1,13 @@
 #include "OpenGLShaderProgram.h"
 
+#include "GameEngine.h"
+
 namespace GraphicsEngine
 {
 	OpenGLShaderProgram::OpenGLShaderProgram(const std::string& filepath) noexcept
 		: OpenGLShaderProgram(ReadVertexShaderCode(filepath + "_opengl.glsl"), ReadFragmentShaderCode(filepath + "_opengl.glsl"))
 	{
+
 	}
 
 	OpenGLShaderProgram::OpenGLShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode) noexcept
@@ -17,6 +20,8 @@ namespace GraphicsEngine
 		GRAPHICS_ENGINE_INFO("Initialization openGL shader program has started");
 		InitShaders();
 		InitShaderProgram();
+
+		GameEngine::GameEngine::GetTimedCache()->StartCleanupStorage(&uniformLocationCache);
 		GRAPHICS_ENGINE_INFO("Initialization openGL shader program completed");
 	}
 
@@ -48,49 +53,49 @@ namespace GraphicsEngine
 
 	void OpenGLShaderProgram::SetUniformInt(const std::string& uniformName, int value) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform1i(location, value);
 	}
 
 	void OpenGLShaderProgram::SetUniformInts(const std::string& uniformName, int* values, unsigned int count) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShaderProgram::SetUniformFloat(const std::string& uniformName, float value) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform1f(location, value);
 	}
 
 	void OpenGLShaderProgram::SetUniformFloat2(const std::string& uniformName, Math::Vector2 vector) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform2f(location, vector.x, vector.y);
 	}
 
 	void OpenGLShaderProgram::SetUniformFloat3(const std::string& uniformName, Math::Vector3 vector) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform3f(location, vector.x, vector.y, vector.z);
 	}
 
 	void OpenGLShaderProgram::SetUniformFloat4(const std::string& uniformName, Math::Vector4 vector) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
 	}
 
 	void OpenGLShaderProgram::SetUniformMat3(const std::string& uniformName, glm::mat3 matrix) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	void OpenGLShaderProgram::SetUniformMat4(const std::string& uniformName, glm::mat4 matrix) noexcept
 	{
-		GLint location = glGetUniformLocation(shaderProgram, uniformName.c_str());
+		GLint location = GetUniformLocation(uniformName);
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
@@ -189,6 +194,23 @@ namespace GraphicsEngine
 	std::string OpenGLShaderProgram::ReadFragmentShaderCode(const std::string& filepath)
 	{
 		return ReadShaderCode(filepath, "fragment_shader");
+	}
+
+	GLuint OpenGLShaderProgram::GetUniformLocation(const std::string& uniformName) noexcept
+	{
+		Memory::CacheItem<GLuint>* cacheItem = uniformLocationCache.Get(uniformName);
+		if (cacheItem)
+		{
+			return cacheItem->value;
+		}
+
+		Memory::CacheItem<GLuint> newCacheItem;
+		newCacheItem.name = uniformName;
+		newCacheItem.value = glGetUniformLocation(shaderProgram, uniformName.c_str());
+
+		uniformLocationCache.Add(uniformName, newCacheItem);
+		
+		return newCacheItem.value;
 	}
 
 }

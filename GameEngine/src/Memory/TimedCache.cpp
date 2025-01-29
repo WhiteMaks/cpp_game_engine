@@ -41,7 +41,7 @@ namespace Memory
 		MEMORY_INFO("Destruction timed cache completed");
 	}
 
-	void TimedCache::StartCleanupStorage(CacheStorage& storage) noexcept
+	void TimedCache::StartCleanupStorage(ICacheStorage* storage) noexcept
 	{
 		std::lock_guard<std::mutex> lock(mtx);
 		storages.push_back(std::ref(storage));
@@ -58,24 +58,9 @@ namespace Memory
 
 			MEMORY_TRACE("Timed cache working...");
 
-			for (CacheStorage& storage : storages)
+			for (ICacheStorage* storage : storages)
 			{
-				std::lock_guard<std::mutex> storageLock(storage.GetMutex());
-
-				auto now = std::chrono::steady_clock::now();
-				std::unordered_map<std::string, CacheItem>& cache = storage.GetCache();
-
-				for (auto it = cache.begin(); it != cache.end();)
-				{
-					if (now - it->second.lastAccessTime > std::chrono::seconds(lifeTimeSeconds))
-					{
-						MEMORY_TRACE("Deleting cache item [{0}] from storage...", it->second.name);
-						it = cache.erase(it);
-						continue;
-					}
-
-					++it;
-				}
+				storage->CleanupExpiredItems(lifeTimeSeconds);
 			}
 		}
 		MEMORY_DEBUG("Timed cache monitor thread has stopped");

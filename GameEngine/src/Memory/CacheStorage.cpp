@@ -1,18 +1,23 @@
 #include "Memory/CacheStorage.h"
 
+#include "Tools/Log.h"
+
 namespace Memory
 {
-
-	void CacheStorage::Add(const std::string& key, CacheItem value) noexcept
+	template<class T>
+	void CacheStorage<T>::Add(const std::string& key, CacheItem<T> value) noexcept
 	{
 		std::lock_guard<std::mutex> lock(mtx);
 
 		value.lastAccessTime = std::chrono::steady_clock::now();
 		
 		cache[key] = value;
+
+		MEMORY_TRACE("Added cache item [{0}] to storage", key);
 	}
 
-	CacheItem* CacheStorage::Get(const std::string& key) noexcept
+	template<class T>
+	CacheItem<T>* CacheStorage<T>::Get(const std::string& key) noexcept
 	{
 		std::lock_guard<std::mutex> lock(mtx);
 
@@ -26,14 +31,27 @@ namespace Memory
 		return &it->second;
 	}
 
-	std::unordered_map<std::string, CacheItem>& CacheStorage::GetCache() noexcept
-	{
-		return cache;
-	}
+	template class Memory::CacheStorage<unsigned int>;
 
-	std::mutex& CacheStorage::GetMutex() noexcept
+	template<class T>
+	void CacheStorage<T>::CleanupExpiredItems(int lifeTimeSeconds) noexcept
 	{
-		return mtx;
+		std::lock_guard<std::mutex> storageLock(mtx);
+
+		auto now = std::chrono::steady_clock::now();
+
+		for (auto it = cache.begin(); it != cache.end();)
+		{
+			if (now - it->second.lastAccessTime > std::chrono::seconds(lifeTimeSeconds))
+			{
+				MEMORY_TRACE("Deleting cache item [{0}] from storage...", it->second.name);
+				it = cache.erase(it);
+				continue;
+			}
+
+			MEMORY_TRACE("The cache item [{0}] is stored in storage", it->second.name);
+			++it;
+		}
 	}
 
 }

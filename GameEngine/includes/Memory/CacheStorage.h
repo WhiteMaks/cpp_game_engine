@@ -10,27 +10,33 @@
 
 namespace Memory
 {
+	class GAME_ENGINE_API ICacheStorage
+	{
+	public:
+		virtual void CleanupExpiredItems(int lifeTimeSeconds) noexcept = 0;
+	}; 
 
+	template<class T>
 	struct GAME_ENGINE_API CacheItem
 	{
 		std::string name;
 		std::chrono::steady_clock::time_point lastAccessTime;
+		T value;
 	};
 
-	class GAME_ENGINE_API CacheStorage
+	template<class T>
+	class GAME_ENGINE_API CacheStorage : public ICacheStorage
 	{
 	private:
-		std::unordered_map<std::string, CacheItem> cache;
+		std::unordered_map<std::string, CacheItem<T>> cache;
 
 		std::mutex mtx;
 
 	public:
-		void Add(const std::string& key, CacheItem value) noexcept;
+		void Add(const std::string& key, CacheItem<T> value) noexcept;
 
-		CacheItem* Get(const std::string& key) noexcept;
+		CacheItem<T>* Get(const std::string& key) noexcept;
 
-		std::unordered_map<std::string, CacheItem>& GetCache() noexcept;
-
-		std::mutex& GetMutex() noexcept;
+		void CleanupExpiredItems(int lifeTimeSeconds) noexcept override;
 	};
 }

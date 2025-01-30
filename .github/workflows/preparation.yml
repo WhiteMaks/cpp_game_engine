@@ -2,7 +2,7 @@
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "release_**" ]
 
 jobs:
   build_debug_for_windows:
@@ -155,23 +155,35 @@ jobs:
         run: |
           echo "Checking if the server is running..."
           netstat -tuln | grep ':8000' || echo "Server is not running on port 8000"
-      
-      - name: Create SSH folder
-        run: mkdir -p ~/.ssh
 
-      - name: Create SSH known hosts file
-        run: touch ~/.ssh/known_hosts
+      - name: Install ngrok using official method
+        run: |
+          curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+            | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+            && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
+            | sudo tee /etc/apt/sources.list.d/ngrok.list \
+            && sudo apt update \
+            && sudo apt install -y ngrok
 
-      - name: Update SSH known hosts file
-        run: ssh-keyscan -H serveo.net >> ~/.ssh/known_hosts
+      - name: Install ngrok
+        run: |
+          curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \
+            | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \
+            && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" \
+            | sudo tee /etc/apt/sources.list.d/ngrok.list \
+            && sudo apt update \
+            && sudo apt install -y ngrok
 
       - name: Start Public tunnel
         run: |
           echo "Public tunnel starting..."
-          nohup ssh -o StrictHostKeyChecking=no -R 80:localhost:8000 serveo.net > public_url.log 2>&1 &
+          ngrok config add-authtoken ${{secrets.NGROK_TOKEN}}
+          #nohup ngrok http 8000 > public_url.log 2>&1 &
+          nohup ngrok http 8000 > public_url.log 2>&1 &
           sleep 30
-          cat public_url.log
-          grep -o 'https://[a-z0-9]*\.serveo\.net' public_url.log > public_url.txt || echo "URL not found"
+          sudo apt install -y jq
+          PUBLIC_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+          echo $PUBLIC_URL > public_url.txt
 
       - name: Display Public URL
         run: cat public_url.txt

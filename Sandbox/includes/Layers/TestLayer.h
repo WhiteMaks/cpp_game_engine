@@ -8,7 +8,7 @@ class TestLayer : public GameEngine::Layer
 private:
 	std::shared_ptr<GraphicsEngine::FrameBuffer> frameBuffer;
 
-	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetTinyTown;
+	std::shared_ptr<GraphicsEngine::Spritesheet> spritesheetCharacter;
 
 	std::shared_ptr<ECS::Scene> scene;
 

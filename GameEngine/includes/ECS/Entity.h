@@ -25,6 +25,9 @@ namespace ECS
 		operator entt::entity() const;
 
 	public:
+		Scene* GetScene() noexcept;
+
+	public:
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args) noexcept
 		{

@@ -15,7 +15,7 @@ namespace Memory
 	class GAME_ENGINE_API TimedCache
 	{
 	private:
-		std::vector<std::reference_wrapper<CacheStorage>> storages;
+		std::vector<ICacheStorage*> storages;
 
 		std::mutex mtx;
 		std::condition_variable cv;
@@ -33,7 +33,7 @@ namespace Memory
 		void Init() noexcept;
 		void Destroy() noexcept;
 
-		void StartCleanupStorage(CacheStorage& storage) noexcept;
+		void StartCleanupStorage(ICacheStorage* storage) noexcept;
 
 	private:
 		void Monitor() noexcept;

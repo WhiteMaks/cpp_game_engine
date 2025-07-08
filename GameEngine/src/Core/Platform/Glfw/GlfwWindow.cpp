@@ -55,12 +55,12 @@ namespace Platform
 				{
 				case GLFW_PRESS:
 				{
-					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(key);
+					EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyPressed(key);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(key);
+					EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyReleased(key);
 					break;
 				}
 				}

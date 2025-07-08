@@ -133,12 +133,12 @@ namespace Platform
 		}
 		case WM_KEYDOWN:
 		{
-			EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(wParam);
+			EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyPressed(wParam);
 			return 0;
 		}
 		case WM_KEYUP:
 		{
-			EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(wParam);
+			EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyReleased(wParam);
 			return 0;
 		}
 

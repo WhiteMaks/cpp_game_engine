@@ -15,32 +15,18 @@ void CameraController::Init() noexcept
 
 void CameraController::Update() noexcept
 {
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyD))
-	{
-		transformComponent->position.x += cameraSpeed * GameEngine::Time::GetDeltaTime();
-	}
+	float horizontalAxis = GameEngine::InputManager::GetHorizontalAxis();
+	float verticalAxis = GameEngine::InputManager::GetVerticalAxis();
 
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyA))
-	{
-		transformComponent->position.x -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
-	}
+	transformComponent->position.x += horizontalAxis * cameraSpeed * GameEngine::Time::GetDeltaTime();
+	transformComponent->position.y += verticalAxis * cameraSpeed * GameEngine::Time::GetDeltaTime();
 
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyW))
-	{
-		transformComponent->position.y += (cameraSpeed * GameEngine::Time::GetDeltaTime());
-	}
-
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyS))
-	{
-		transformComponent->position.y -= (cameraSpeed * GameEngine::Time::GetDeltaTime());
-	}
-
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyE))
+	if (GameEngine::InputManager::GetKeyboard()->KeyIsPressed(EventsSystem::EventManager::keyE))
 	{
 		transformComponent->rotation.z = (transformComponent->rotation.z - (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
 	}
 
-	if (EventsSystem::EventManager::GetInstance()->GetKetboard()->KeyIsPressed(EventsSystem::EventManager::keyQ))
+	if (GameEngine::InputManager::GetKeyboard()->KeyIsPressed(EventsSystem::EventManager::keyQ))
 	{
 		transformComponent->rotation.z = (transformComponent->rotation.z + (cameraSpeed * GameEngine::Time::GetDeltaTime() * 30));
 	}

@@ -92,11 +92,11 @@ namespace Platform
 				break;
 
 			case SDL_KEYDOWN:
-				EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyPressed(event.key.keysym.sym);
+				EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyPressed(event.key.keysym.sym);
 				break;
 
 			case SDL_KEYUP:
-				EventsSystem::EventManager::GetInstance()->GetKetboard()->OnKeyReleased(event.key.keysym.sym);
+				EventsSystem::EventManager::GetInstance()->GetKeyboard()->OnKeyReleased(event.key.keysym.sym);
 				break;
 
 			case SDL_WINDOWEVENT:

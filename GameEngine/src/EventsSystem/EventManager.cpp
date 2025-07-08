@@ -89,7 +89,7 @@ namespace EventsSystem
 		return mouse;
 	}
 
-	Keyboard* EventManager::GetKetboard() const noexcept
+	Keyboard* EventManager::GetKeyboard() const noexcept
 	{
 		return keyboard;
 	}

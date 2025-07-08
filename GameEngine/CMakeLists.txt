@@ -70,6 +70,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Tools/Layer.h
 	includes/Tools/Time.h
 	includes/Tools/LayerStack.h
+	includes/Tools/InputManager.h
 )
 
 set(GAME_ENGINE_PRIVATE_PLATFORM_INCLUDES "")
@@ -231,6 +232,7 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Tools/Layer.cpp
 	src/Tools/Time.cpp
 	src/Tools/LayerStack.cpp
+	src/Tools/InputManager.cpp
 )
 
 set(GAME_ENGINE_ALL_SOURCES

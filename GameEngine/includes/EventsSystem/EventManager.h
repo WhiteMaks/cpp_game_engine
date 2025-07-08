@@ -65,7 +65,7 @@ namespace EventsSystem
 		void Destroy() noexcept;
 
 		Mouse* GetMouse() const noexcept;
-		Keyboard* GetKetboard() const noexcept;
+		Keyboard* GetKeyboard() const noexcept;
 		Window* GetWindow() const noexcept;
 
 	};

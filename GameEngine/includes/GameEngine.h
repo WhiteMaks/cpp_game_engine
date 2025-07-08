@@ -32,6 +32,7 @@
 #include "Tools/Layer.h"
 #include "Tools/Time.h"
 #include "Tools/LayerStack.h"
+#include "Tools/InputManager.h"
 
 namespace GameEngine
 {

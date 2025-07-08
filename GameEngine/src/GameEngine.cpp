@@ -56,7 +56,7 @@ namespace GameEngine
 	void GameEngine::Init()
 	{
 		GAME_ENGINE_INFO("Initialization game engine has started");
-		timedCache->Init();
+		timedCache->Init();  
 		eventManager->Init();
 		graphicsEngine->Init();
 		layerStack->Init();
@@ -118,7 +118,7 @@ namespace GameEngine
 			}
 		}
 
-		EventsSystem::Keyboard* keyboard = eventManager->GetKetboard();
+		EventsSystem::Keyboard* keyboard = eventManager->GetKeyboard();
 		if (!keyboard->KeyBufferIsEmpty())
 		{
 			EventsSystem::KeyboardEvent keyboardEvent = keyboard->ReadKey().value();
@@ -163,25 +163,23 @@ namespace GameEngine
 
 	void GameEngine::Update()
 	{
-		graphicsEngine->BeginUpdate();
+		InputManager::Update();
 
+		graphicsEngine->BeginUpdate();
 		for (Layer* layer : *layerStack)
 		{
 			layer->Update();
 		}
-
 		graphicsEngine->EndUpdate();
 	}
 
 	void GameEngine::Render()
 	{
 		graphicsEngine->BeginRender();
-
 		for (Layer* layer : *layerStack)
 		{
 			layer->Render();
 		}
-
 		graphicsEngine->EndRender();
 	}
 

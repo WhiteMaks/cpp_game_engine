@@ -57,6 +57,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/CppScriptComponent.h
 	includes/ECS/Components/QuadComponent.h
 	includes/ECS/Components/StateMachine2DAnimationComponent.h
+	includes/ECS/Components/Mesh3DComponent.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h

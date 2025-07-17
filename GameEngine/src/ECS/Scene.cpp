@@ -9,6 +9,7 @@
 #include "Tools/Log.h"
 #include "ECS/Entity.h"
 #include "Core/GraphicsEngine/Library/Renderer2D.h"
+#include "Core/GraphicsEngine/Library/Renderer3D.h"
 
 #include "ECS/Components/CppScriptComponent.h"
 
@@ -22,7 +23,8 @@ namespace ECS
 
 	void Scene::Init() noexcept
 	{
-		
+		GraphicsEngine::Renderer2D::Init();
+		GraphicsEngine::Renderer3D::Init();
 	}
 
 	void Scene::MouseEvent(EventsSystem::MouseEvent& mouseEvent) noexcept
@@ -92,6 +94,9 @@ namespace ECS
 			return;
 		}
 
+		GraphicsEngine::Renderer3D::BeginScene(*primaryCamera);
+		GraphicsEngine::Renderer3D::EndScene();
+
 		GraphicsEngine::Renderer2D::BeginScene(*primaryCamera);
 		RenderColorQuads();
 		RenderTextureQuads();
@@ -117,6 +122,9 @@ namespace ECS
 		{
 			registry.destroy(entity);
 		}
+
+		GraphicsEngine::Renderer2D::Destroy();
+		GraphicsEngine::Renderer3D::Destroy();
 	}
 
 	void Scene::SaveInYaml(const std::string& filePath) noexcept

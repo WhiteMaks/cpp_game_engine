@@ -6,6 +6,7 @@
 
 #include "Core/GraphicsEngine/Library/Renderer.h"
 #include "Core/GraphicsEngine/Library/Renderer2D.h"
+#include "Core/GraphicsEngine/Library/Renderer3D.h"
 #include "Core/GraphicsEngine/Library/GraphicsContext.h"
 #include "Core/GraphicsEngine/Library/GraphicsLibrary.h"
 

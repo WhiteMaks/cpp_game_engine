@@ -11,15 +11,19 @@ static Data data;
 
 void FixedFullScreenTextureRenderer::Init() noexcept
 {
+	APPLICATION_DEBUG("Initialization Fixed Full Screen Texture renderer has started");
 	InitBuffers();
 	InitAssets();
+	APPLICATION_DEBUG("Initialization Fixed Full Screen Texture renderer completed");
 }
 
 void FixedFullScreenTextureRenderer::Destroy() noexcept
 {
+	APPLICATION_DEBUG("Destruction Fixed Full Screen renderer has started");
 	data.vertexStaticBuffer->Destroy();
 	data.vertexArrayBuffer->Destroy();
 	data.shaderProgram->Destroy();
+	APPLICATION_DEBUG("Destruction Fixed Full Screen renderer completed");
 }
 
 void FixedFullScreenTextureRenderer::Draw(const std::shared_ptr<GraphicsEngine::Texture>& texture) noexcept

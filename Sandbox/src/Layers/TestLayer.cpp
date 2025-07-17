@@ -11,7 +11,7 @@ TestLayer::TestLayer() noexcept
 
 void TestLayer::Init() noexcept
 {
-	GraphicsEngine::Renderer2D::Init();
+	
 	FixedFullScreenTextureRenderer::Init();
 
 	CreateFrameBuffer();
@@ -53,7 +53,7 @@ void TestLayer::Destroy() noexcept
 	scene->SaveInYaml("data/scenes/");
 	scene->Destroy();
 	frameBuffer->Destroy();
-	GraphicsEngine::Renderer2D::Destroy();
+
 	FixedFullScreenTextureRenderer::Destroy();
 }
 

@@ -6,7 +6,7 @@
 namespace ECS
 {
 
-	struct GAME_ENGINE_API Mesh3DComponent : public Component
+	struct GAME_ENGINE_API MeshComponent : public Component
 	{
 	};
 

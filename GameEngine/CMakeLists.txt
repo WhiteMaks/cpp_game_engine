@@ -31,7 +31,9 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/Core/GraphicsEngine/Library/FrameBufferData.h
 	includes/Core/GraphicsEngine/Library/Renderer.h
 	includes/Core/GraphicsEngine/Library/Renderer2D.h
+	includes/Core/GraphicsEngine/Library/Renderer3D.h
 	includes/Core/GraphicsEngine/Library/Camera.h
+	includes/Core/GraphicsEngine/Library/Mesh.h
 
 	includes/EventsSystem/Keyboard.h
 	includes/EventsSystem/KeyboardEvent.h
@@ -57,7 +59,7 @@ set(GAME_ENGINE_PUBLIC_INCLUDES
 	includes/ECS/Components/CppScriptComponent.h
 	includes/ECS/Components/QuadComponent.h
 	includes/ECS/Components/StateMachine2DAnimationComponent.h
-	includes/ECS/Components/Mesh3DComponent.h
+	includes/ECS/Components/MeshComponent.h
 
 	includes/Math/Vector.h
 	includes/Math/Vector2.h
@@ -206,7 +208,9 @@ set(GAME_ENGINE_PRIVATE_SOURCES
 	src/Core/GraphicsEngine/Library/Spritesheet.cpp
 	src/Core/GraphicsEngine/Library/Renderer.cpp
 	src/Core/GraphicsEngine/Library/Renderer2D.cpp
+	src/Core/GraphicsEngine/Library/Renderer3D.cpp
 	src/Core/GraphicsEngine/Library/Camera.cpp
+	src/Core/GraphicsEngine/Library/Mesh.cpp
 
 	${GAME_ENGINE_PRIVATE_PLATFORM_SOURCES}
 
